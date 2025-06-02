@@ -1,0 +1,41 @@
+<div {{ $attributes->class(["flex flex-wrap mx-[-15px] mt-[-30px] xl:mt-0 lg:mt-0"]) }}>
+    <div class="md:w-4/12 xl:w-6/12 lg:w-6/12 w-full flex-[0_0_auto] px-[15px] max-w-full xl:mt-0 lg:mt-0 mt-[30px]">
+        <div class="widget">
+            <div class="mb-4">
+                <x-app-logo-full />
+            </div>
+            <p class="!mb-4">© 2025 Profitchain. <br class="hidden xl:block lg:block">All rights reserved.</p>
+        </div>
+        <!-- /.widget -->
+    </div>
+
+    <!-- /column -->
+    <div class="md:w-4/12 xl:w-3/12 lg:w-3/12 w-full flex-[0_0_auto] px-[15px] max-w-full xl:mt-0 lg:mt-0 mt-[30px]">
+        <div class="widget">
+            <h4 class="mb-3 text-[1rem] leading-[1.45] text-brand-800">Get in Touch</h4>
+
+            <a class="text-[#60697b] hover:text-[#60697b]" href="mailto:support@profitchain.com">help@profitchain.com</a><br> +2348079532641
+        </div>
+        <!-- /.widget -->
+    </div>
+
+    <!-- /column -->
+    <div class="md:w-4/12 xl:w-3/12 lg:w-3/12 w-full flex-[0_0_auto] px-[15px] max-w-full xl:mt-0 lg:mt-0 mt-[30px]">
+        <div class="widget">
+            <h4 class="mb-3 text-[1rem] leading-[1.45] text-brand-800">Learn More</h4>
+            <ul class="pl-0 list-none !mb-0">
+                <li><a class="text-gray-500 hover:text-brand-500" href="{{ route('faq') }}" wire:navigate>Frequently Asked Questions</a></li>
+                <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('community') }}" wire:navigate>Community Links</a></li>
+                <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('terms-and-conditions') }}" wire:navigate>Terms of Use</a></li>
+                <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('privacy-policy') }}" wire:navigate>Privacy Policy</a></li>
+                <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('become-dealer') }}" wire:navigate>Apply to become a Profitchain dealer</a></li>
+                <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('payouts') }}" wire:navigate>Payout</a></li>
+                <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('rewards') }}" wire:navigate>Member's Reward</a></li>
+                <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('profitchain-partner') }}" wire:navigate>Become a Profitchain Partner</a></li>
+                <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('responsible-trading') }}" wire:navigate>Responsible Trading</a></li>
+            </ul>
+        </div>
+        <!-- /.widget -->
+    </div>
+    <!-- /column -->
+</div>

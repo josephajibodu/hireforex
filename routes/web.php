@@ -1,0 +1,95 @@
+<?php
+
+use App\Enums\SystemPermissions;
+use App\Http\Controllers\ArbitrageTradeController;
+use App\Http\Controllers\BuyUSDController;
+use App\Http\Controllers\BuyUSDTController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DealerDashboardController;
+use App\Http\Controllers\DisputeController;
+use App\Http\Controllers\SellAdvertController;
+use App\Http\Controllers\TransferController;
+use App\Http\Controllers\WithdrawalController;
+use App\Models\SellAdvert;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
+use Livewire\Volt\Volt;
+
+Route::get('/', function () {
+    return view('pages.welcome');
+})->name('home');
+
+Route::get('/test-email', function () {
+    $user = User::query()->where('email', 'josephajibodu@gmail.com')->first();
+    if (! $user) {
+        $user = User::query()->first();
+    }
+
+    $user->sendEmailVerificationNotification();
+
+    return "Email sent out";
+});
+
+Route::get('/download/{file}', function ($file) {
+    dd($file);
+    return Storage::download($file);
+})->name('download.file');
+
+Route::view('/frequently-asked-questions', 'pages.faq')->name('faq');
+Route::view('/community', 'pages.community')->name('community');
+Route::view('/contact-us', 'pages.contact-us')->name('contact-us');
+Route::view('/terms-and-conditions', 'pages.terms')->name('terms-and-conditions');
+Route::view('/privacy-policy', 'pages.privacy')->name('privacy-policy');
+Route::view('/become-dealer', 'pages.become-dealer')->name('become-dealer');
+Route::view('/payouts', 'pages.payouts')->name('payouts');
+Route::view('/members-reward', 'pages.rewards')->name('rewards');
+Route::view('/profitchain-partner', 'pages.partner')->name('profitchain-partner');
+Route::view('/responsible-trading', 'pages.responsible-trading')->name('responsible-trading');
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
+
+    Route::get('buy/history', [BuyUSDController::class, 'index'])->name('buy.history');
+    Route::get('buy/usd', [BuyUSDController::class, 'create'])->name('buy.usd');
+    Route::get('buy/{order:reference}', [BuyUSDController::class, 'show'])->name('buy.show');
+
+    Route::get('arbitrage-market', [ArbitrageTradeController::class, 'index'])->name('trade-arbitrage.index');
+    Route::get('arbitrage-market/active', [ArbitrageTradeController::class, 'active_trades'])->name('trade-arbitrage.active_trades');
+    Route::get('arbitrage-market/all', [ArbitrageTradeController::class, 'all_trades'])->name('trade-arbitrage.all_trades');
+//    Route::get('buy/{order:reference}', [ArbitrageTradeController::class, 'show'])->name('buy.show');
+
+    Route::get('withdraw-funds', [WithdrawalController::class, 'create'])->name('withdrawal.create');
+    Route::get('withdrawal-history', [WithdrawalController::class, 'index'])->name('withdrawal.index');
+
+    Route::get('transfer-funds', [TransferController::class, 'create'])->name('transfer.create');
+    Route::get('transfer-history', [TransferController::class, 'index'])->name('transfer.index');
+
+    Route::get('buy-usdt', [BuyUSDTController::class, 'create'])->name('buy-usdt.create');
+    Route::get('buy-usdt-history', [BuyUSDTController::class, 'index'])->name('buy-usdt.index');
+
+    Route::get('dispute', DisputeController::class)->name('dispute');
+
+    Route::prefix('dealer')->can('create', SellAdvert::class)->group(function () {
+        Route::get('', DealerDashboardController::class)->name('dealer-dashboard');
+
+        Route::get('sell/history', [SellAdvertController::class, 'index'])->name('sell.history');
+        Route::get('sell/create-sell-order', [SellAdvertController::class, 'create'])->name('sell.create-sell-order');
+        Route::get('sell/{order:reference}', [SellAdvertController::class, 'show'])->name('sell.show');
+    });
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::redirect('settings', 'settings/profile');
+
+    Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
+    Volt::route('settings/password', 'settings.password')->name('settings.password');
+    Volt::route('settings/bank-details', 'settings.bank-details')->name('settings.bank-details');
+    Volt::route('settings/refer-a-friend', 'settings.referrals')->name('settings.referrals');
+    Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
+});
+
+require __DIR__.'/auth.php';
