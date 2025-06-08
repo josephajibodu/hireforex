@@ -1,20 +1,20 @@
 <x-layouts.app>
-    @section('title', 'Personal Dashboard')
+    @section('title', 'Dashboard')
 
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
-        <flux:heading size="xl" level="1">Hello, {{ ucfirst(auth()->user()->username) }}</flux:heading>
+        <flux:heading size="xl" level="1">Welcome, {{ ucfirst(auth()->user()->first_name) }}</flux:heading>
 
-        <flux:subheading size="lg" class="mb-6">Glad to have you here today!</flux:subheading>
+        <flux:subheading size="lg" class="mb-6">Your Cardbeta Dashboard</flux:subheading>
 
         <flux:separator variant="subtle" />
 
-        <div class="grid auto-rows-min gap-4 md:grid-cols-4">
-            <!-- USD Balance Card -->
+        <div class="grid auto-rows-min gap-4 md:grid-cols-2">
+            <!-- USDT Balance Card -->
             <div class="border overflow-hidden bg-white dark:bg-neutral-800 p-4 rounded-lg flex">
                 <div class="flex-1">
-                    <h6 class="text-lg font-medium text-gray-800 dark:text-white">Main Balance</h6>
-                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mt-2">{{ to_money($user->main_balance, 1, "$") }}</h2>
-                    <p class="text-xs text-gray-400">Total available balance</p>
+                    <h6 class="text-lg font-medium text-gray-800 dark:text-white">USDT Balance</h6>
+                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mt-2">{{ to_money($user->wallet->balance, 2, "USDT") }}</h2>
+                    <p class="text-xs text-gray-400">Available balance for purchases</p>
                 </div>
                 <div>
                     <div class="text-brand-600 bg-brand-100 size-10 flex items-center justify-center rounded">
@@ -23,75 +23,44 @@
                 </div>
             </div>
 
-            <!-- Bonus Balance Card -->
+            <!-- Current Orders Card -->
             <div class="border overflow-hidden bg-white dark:bg-neutral-800 p-4 rounded-lg flex">
                 <div class="flex-1">
-                    <h6 class="text-lg font-medium text-gray-800 dark:text-white">Bonus Balance</h6>
-                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mt-2">{{ to_money($user->bonus_balance, 1, "$") }}</h2>
-                    <p class="text-xs text-gray-400">Total available bonus</p>
+                    <h6 class="text-lg font-medium text-gray-800 dark:text-white">Current Orders</h6>
+                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mt-2">{{ $user->orders()->where('status', 'pending')->count() }}</h2>
+                    <p class="text-xs text-gray-400">Pending gift card orders</p>
                 </div>
                 <div>
                     <div class="text-brand-600 bg-brand-100 size-10 flex items-center justify-center rounded">
-                        <flux:icon name="hand-coins" />
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reserve Balance Card -->
-            <div class="border overflow-hidden bg-white dark:bg-neutral-800 p-4 rounded-lg flex">
-                <div class="flex-1">
-                    <h6 class="text-lg font-medium text-gray-800 dark:text-white">Reserve Balance</h6>
-                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mt-2">{{ to_money($user->reserve_balance, 1, "$") }}</h2>
-                    <p class="text-xs text-gray-400">Pending USD Funds</p>
-                </div>
-                <div>
-                    <div class="text-brand-600 bg-brand-100 size-10 flex items-center justify-center rounded">
-                        <flux:icon name="database-backup" />
-                    </div>
-                </div>
-            </div>
-
-            <!-- Withdrawal Balance Card -->
-            <div class="border overflow-hidden bg-white dark:bg-neutral-800 p-4 rounded-lg flex">
-                <div class="flex-1">
-                    <h6 class="text-lg font-medium text-gray-800 dark:text-white">Withdrawal Balance</h6>
-                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mt-2">{{ to_money($user->withdrawal_balance, 1, '$') }}</h2>
-                    <p class="text-xs text-gray-400">Available for withdrawal</p>
-                </div>
-                <div>
-                    <div class="text-brand-600 bg-brand-100 size-10 flex items-center justify-center rounded">
-                        <flux:icon name="piggy-bank" />
+                        <flux:icon name="shopping-cart" />
                     </div>
                 </div>
             </div>
         </div>
 
-        <livewire:kyc-form />
-
-        <livewire:trade-embargo />
-
-        @include('pages.partials.quicklinks')
-
-        @include('pages.partials.additionallinks')
-
-        <div class="mt-12 space-y-4">
-            <flux:heading class="text-xl! md:text-2xl!">Join Fellow Profitchain Members</flux:heading>
-            <div class="flex flex-col sm:flex-row  gap-4">
-                <flux:button variant="primary" href="https://profitchain.com/community" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto">
-                    Join WhatsApp Group
+        <!-- Quick Actions -->
+        <div class="mt-8">
+            <flux:heading class="text-xl! md:text-2xl! mb-4">Quick Actions</flux:heading>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <flux:button variant="primary" href="{{ url('/buy-cards') }}" wire:navigate class="w-full">
+                    Buy Gift Cards
                 </flux:button>
-                <flux:button href="https://profitchain.com/community" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto">
-                    Join WhatsApp Group
+                <flux:button variant="filled" href="{{ url('/topup') }}" wire:navigate class="w-full">
+                    Top Up Balance
+                </flux:button>
+                <flux:button variant="outline" href="{{ url('/order-history') }}" wire:navigate class="w-full">
+                    Order History
                 </flux:button>
             </div>
         </div>
 
+        <!-- Recent Orders -->
         <div class="relative flex-1 overflow-hidden rounded-xl md:border border-neutral-200 mt-8">
             <div class="md:px-4 pt-4 flex justify-between">
-                <flux:heading class="text-xl! md:text-2xl!">Active Trades</flux:heading>
+                <flux:heading class="text-xl! md:text-2xl!">Recent Orders</flux:heading>
 
                 <flux:button
-                    href="{{ route('trade-arbitrage.active_trades') }}"
+                    href="{{ url('/order-history') }}"
                     wire:navigate="true"
                     size="sm"
                 >
@@ -99,12 +68,24 @@
                 </flux:button>
             </div>
 
-            <livewire:trade.list-trades />
+            {{-- <livewire:order.list-orders /> --}}
         </div>
 
-        @include('pages.partials.dealership-partnership-links')
+        <!-- Latest Gift Cards -->
+        <div class="relative flex-1 overflow-hidden rounded-xl md:border border-neutral-200 mt-8">
+            <div class="md:px-4 pt-4 flex justify-between">
+                <flux:heading class="text-xl! md:text-2xl!">Available Gift Cards</flux:heading>
 
-        <livewire:dashboard.bank-details />
+                <flux:button
+                    href="{{ url('/buy-cards') }}"
+                    wire:navigate="true"
+                    size="sm"
+                >
+                    View All
+                </flux:button>
+            </div>
+
+            {{-- <livewire:gift-card.list-gift-cards /> --}}
+        </div>
     </div>
-
 </x-layouts.app>
