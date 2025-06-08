@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('currency_pairs', function (Blueprint $table) {
+        Schema::create('gift_cards', function (Blueprint $table) {
             $table->id();
-
             $table->string('name');
-            $table->integer('margin');
-            $table->unsignedInteger('trade_duration');
-            $table->unsignedBigInteger('daily_capacity');
-            $table->unsignedBigInteger('current_capacity');
-            $table->string('status')->comment('open/close');
-
+            $table->decimal('amount', 10, 2);
+            $table->decimal('resell_value', 10, 2);
+            $table->integer('delivery_duration')->comment('in hours');
+            $table->integer('available_units')->default(0);
+            $table->boolean('is_available')->default(true);
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('currency_pairs');
+        Schema::dropIfExists('gift_cards');
     }
 };

@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('referrals', function (Blueprint $table) {
+        Schema::create('gift_card_units', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('referred_user_id')->constrained('users');
-            $table->unsignedBigInteger('bonus');
-            $table->string('status')->comment('pending, completed');
-
+            $table->foreignId('gift_card_id')->constrained()->onDelete('cascade');
+            $table->string('code');
+            $table->foreignId('order_id')->nullable()->constrained()->onDelete('set null');
+            $table->boolean('is_used')->default(false);
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('referrals');
+        Schema::dropIfExists('gift_card_units');
     }
 };

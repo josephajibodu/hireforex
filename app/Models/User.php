@@ -59,9 +59,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable implements FilamentUser, HasName
 {
-    /** @use HasFactory<UserFactory> */
-    use HasFactory;
-    use Notifiable;
+    use HasFactory, Notifiable;
     use HasRoles;
     use HasReferrals;
     use HasKycVerification;
@@ -82,16 +80,9 @@ class User extends Authenticatable implements FilamentUser, HasName
         'first_name',
         'last_name',
         'username',
-        'phone_number',
-        'whatsapp_number',
         'email',
+        'phone_number',
         'password',
-        'account_status',
-        'ban_reason',
-        'bank_name',
-        'bank_account_number',
-        'bank_account_name',
-        'referral_code'
     ];
 
     /**
@@ -109,14 +100,10 @@ class User extends Authenticatable implements FilamentUser, HasName
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'account_status' => AccountStatus::class,
-        ];
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
 
     public function getFullNameAttribute(): string
     {
@@ -167,5 +154,20 @@ class User extends Authenticatable implements FilamentUser, HasName
     public function getFilamentName(): string
     {
         return "$this->full_name";
+    }
+
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function topUps()
+    {
+        return $this->hasMany(TopUp::class);
     }
 }

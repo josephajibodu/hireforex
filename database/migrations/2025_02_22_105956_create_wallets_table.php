@@ -15,11 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->unsignedBigInteger('main_balance')->default(0);
-            $table->unsignedBigInteger('reserve_balance')->default(0);
-            $table->unsignedBigInteger('trading_balance')->default(0);
-            $table->unsignedBigInteger('bonus_balance')->default(0);
-            $table->unsignedBigInteger('withdrawal_balance')->default(0);
+            $table->unsignedBigInteger('balance')->default(0);
 
             $table->timestamps();
         });
@@ -32,15 +28,10 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->string('source')->comment('Where the funds are coming from: main, reserve, trading, external');
-            $table->string('destination')->comment('Where the funds are going: main, reserve, trading, external');
-
             $table->string('type')->comment('credit, debit');
             $table->string('reason')->comment('deposit, purchase, transfer, withdrawal, etc.');
             $table->bigInteger('amount');
             $table->string('status')->default('pending')->comment('pending, committed');
-
-            $table->timestamp('expires_at')->nullable()->comment('For reserved transactions that unlock after a period');
 
             $table->timestamps();
         });

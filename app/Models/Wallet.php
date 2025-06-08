@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @property int $id
@@ -22,7 +23,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Wallet extends Model
 {
-    protected $guarded = ['id'];
+    use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'balance'
+    ];
+
+    protected $casts = [
+        'balance' => 'decimal:2'
+    ];
 
     /**
      * Relationships

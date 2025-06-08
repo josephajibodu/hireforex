@@ -7,11 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
-use App\Actions\CheckReferrer;
 use App\Models\Wallet;
-use App\Enums\WalletType;
-use App\Actions\ProcessRegistrationBonus;
-use Illuminate\Support\Str;
 
 new #[Layout('components.layouts.auth')] class extends Component {
     public string $username = '';
@@ -19,53 +15,35 @@ new #[Layout('components.layouts.auth')] class extends Component {
     public string $last_name = '';
     public string $email = '';
     public string $phone_number = '';
-    public string $whatsapp_number = '';
-    public string $referral_code = '';
     public string $password = '';
     public string $password_confirmation = '';
-
-    public function mount()
-    {
-        $this->referral_code = request()->query('code') ?? '';
-    }
 
     /**
      * Handle an incoming registration request.
      */
-    public function register(CheckReferrer $checkReferrer): void
+    public function register(): void
     {
         $validated = $this->validate([
             'username' => ['required', 'string', 'max:255', 'unique:' . User::class],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-            'phone_number' => ['required', 'string', 'max:11', 'regex:/^(0[789][01]\d{8})$/'],
-            'whatsapp_number' => ['nullable', 'string', 'max:11', 'regex:/^(0[789][01]\d{8})$/'],
-            'referral_code' => ['nullable', 'string', 'max:50'],
+            'phone_number' => ['required', 'string', 'max:20'],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
-        ], [
-            'phone_number.regex' => 'The phone number must be a valid Nigerian number, starting with 0 and followed by 10 digits.',
-            'whatsapp_number.regex' => 'The WhatsApp number must be a valid Nigerian number, starting with 0 and followed by 10 digits.',
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
-        do {
-            $code = Str::upper(Str::random(8));
-        } while (User::query()->where('referral_code', $code)->exists());
 
         /** @var User $user */
-        $user = User::query()->create([
-            ...$validated,
-            'referral_code' => Str::upper($code)
-        ]);
+        $user = User::query()->create($validated);
 
         event(new Registered($user));
 
+        // Create wallet for the user
         Wallet::query()->create([
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'balance' => 0
         ]);
-
-        $checkReferrer->execute($user, $validated['referral_code']);
 
         Auth::login($user);
 
@@ -89,7 +67,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 name="username"
                 required
                 autocomplete="username"
-                placeholder="Unique username"
+                placeholder="Choose a unique username"
         />
 
         <div class="grid grid-cols-2 gap-6">
@@ -131,40 +109,16 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 placeholder="email@example.com"
         />
 
-        <div class="grid grid-cols-2 gap-6">
-            <!-- Phone Number -->
-            <flux:input
-                    wire:model="phone_number"
-                    id="phone_number"
-                    label="{{ __('Phone Number') }}"
-                    type="text"
-                    name="phone_number"
-                    required
-                    autocomplete="tel"
-                    placeholder="Phone number"
-            />
-
-            <!-- WhatsApp Number -->
-            <flux:input
-                    wire:model="whatsapp_number"
-                    id="whatsapp_number"
-                    label="{{ __('WhatsApp Number') }}"
-                    type="text"
-                    name="whatsapp_number"
-                    autocomplete="tel"
-                    placeholder="WhatsApp number"
-            />
-        </div>
-
-        <!-- Referral Code -->
+        <!-- Phone Number -->
         <flux:input
-                wire:model="referral_code"
-                id="referral_code"
-                label="{{ __('Referral Code') }}"
+                wire:model="phone_number"
+                id="phone_number"
+                label="{{ __('Phone Number') }}"
                 type="text"
-                autocomplete="off"
-                name="referral_code"
-                placeholder="Enter referral code (optional)"
+                name="phone_number"
+                required
+                autocomplete="tel"
+                placeholder="Your phone number"
         />
 
         <!-- Password -->
@@ -176,7 +130,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 name="password"
                 required
                 autocomplete="new-password"
-                placeholder="Password"
+                placeholder="Create a password"
         />
 
         <!-- Confirm Password -->
@@ -188,7 +142,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 name="password_confirmation"
                 required
                 autocomplete="new-password"
-                placeholder="Confirm password"
+                placeholder="Confirm your password"
         />
 
         <div class="flex items-center justify-end">

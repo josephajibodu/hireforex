@@ -14,21 +14,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('phone_number');
-            $table->string('whatsapp_number');
+            $table->string('username')->unique();
             $table->string('email')->unique();
+            $table->string('phone_number');
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('bank_name')->nullable();
-            $table->string('bank_account_name')->nullable();
-            $table->string('bank_account_number')->nullable();
-            $table->string('kyc_status')->nullable();
-            $table->string('account_status')->default(AccountStatus::Active);
-            $table->string('referral_code')->index();
-            $table->unsignedBigInteger('referral_link_view_count')->default(0);
-            $table->text('ban_reason')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
