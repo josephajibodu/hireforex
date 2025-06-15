@@ -23,7 +23,7 @@ new class extends Component {
 
         <x-table.rows x-data>
             @php
-                $trades = Trade::query()->scopes('active')->with(['user'])->latest()->take(4)->get();
+                $trades = [];
             @endphp
 
             @forelse($trades as $trade)

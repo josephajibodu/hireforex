@@ -16,7 +16,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class CreateBuyOrder
+class CreateGiftCardOrder
 {
     public function __construct(public GeneralSetting $generalSetting)
     {}

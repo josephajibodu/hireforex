@@ -38,21 +38,8 @@
             </div>
         </div>
 
-        <!-- Quick Actions -->
-        <div class="mt-8">
-            <flux:heading class="text-xl! md:text-2xl! mb-4">Quick Actions</flux:heading>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <flux:button variant="primary" href="{{ url('/buy-cards') }}" wire:navigate class="w-full">
-                    Buy Gift Cards
-                </flux:button>
-                <flux:button variant="filled" href="{{ url('/topup') }}" wire:navigate class="w-full">
-                    Top Up Balance
-                </flux:button>
-                <flux:button variant="outline" href="{{ url('/order-history') }}" wire:navigate class="w-full">
-                    Order History
-                </flux:button>
-            </div>
-        </div>
+
+        @include('pages.partials.quicklinks')
 
         <!-- Recent Orders -->
         <div class="relative flex-1 overflow-hidden rounded-xl md:border border-neutral-200 mt-8">
@@ -68,24 +55,10 @@
                 </flux:button>
             </div>
 
-            {{-- <livewire:order.list-orders /> --}}
+             <livewire:orders.list-orders />
         </div>
 
         <!-- Latest Gift Cards -->
-        <div class="relative flex-1 overflow-hidden rounded-xl md:border border-neutral-200 mt-8">
-            <div class="md:px-4 pt-4 flex justify-between">
-                <flux:heading class="text-xl! md:text-2xl!">Available Gift Cards</flux:heading>
-
-                <flux:button
-                    href="{{ url('/buy-cards') }}"
-                    wire:navigate="true"
-                    size="sm"
-                >
-                    View All
-                </flux:button>
-            </div>
-
-            {{-- <livewire:gift-card.list-gift-cards /> --}}
-        </div>
+        <livewire:giftcards.available-giftcards />
     </div>
 </x-layouts.app>

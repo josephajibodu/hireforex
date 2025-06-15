@@ -109,15 +109,15 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 placeholder="email@example.com"
         />
 
-        <!-- Phone Number -->
-        <flux:input
-                wire:model="phone_number"
-                id="phone_number"
-                label="{{ __('Phone Number') }}"
-                type="text"
-                name="phone_number"
-                required
-                autocomplete="tel"
+            <!-- Phone Number -->
+            <flux:input
+                    wire:model="phone_number"
+                    id="phone_number"
+                    label="{{ __('Phone Number') }}"
+                    type="text"
+                    name="phone_number"
+                    required
+                    autocomplete="tel"
                 placeholder="Your phone number"
         />
 

@@ -25,7 +25,7 @@ new class extends Component {
 
         <x-table.rows x-data>
             @php
-                $orders = Order::query()->with(['buyer', 'sellAdvert.user'])->latest()->take(15)->get();
+                $orders = [];
             @endphp
             @forelse($orders as $order)
                 <x-table.row class="cursor-pointer">

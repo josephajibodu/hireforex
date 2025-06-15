@@ -1,7 +1,7 @@
 <?php
 
 use App\Enums\SystemPermissions;
-use App\Http\Controllers\ArbitrageTradeController;
+use App\Http\Controllers\MarketPlaceController;
 use App\Http\Controllers\BuyUSDController;
 use App\Http\Controllers\BuyUSDTController;
 use App\Http\Controllers\DashboardController;
@@ -53,14 +53,9 @@ Route::view('/responsible-trading', 'pages.responsible-trading')->name('responsi
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
-    Route::get('buy/history', [BuyUSDController::class, 'index'])->name('buy.history');
-    Route::get('buy/usd', [BuyUSDController::class, 'create'])->name('buy.usd');
-    Route::get('buy/{order:reference}', [BuyUSDController::class, 'show'])->name('buy.show');
-
-    Route::get('arbitrage-market', [ArbitrageTradeController::class, 'index'])->name('trade-arbitrage.index');
-    Route::get('arbitrage-market/active', [ArbitrageTradeController::class, 'active_trades'])->name('trade-arbitrage.active_trades');
-    Route::get('arbitrage-market/all', [ArbitrageTradeController::class, 'all_trades'])->name('trade-arbitrage.all_trades');
-//    Route::get('buy/{order:reference}', [ArbitrageTradeController::class, 'show'])->name('buy.show');
+    Route::get('marketplace', [MarketPlaceController::class, 'index'])->name('marketplace.index');
+    Route::get('marketplace/active', [MarketPlaceController::class, 'active_orders'])->name('marketplace.active_trades');
+    Route::get('marketplace/all', [MarketPlaceController::class, 'all_orders'])->name('marketplace.all_trades');
 
     Route::get('withdraw-funds', [WithdrawalController::class, 'create'])->name('withdrawal.create');
     Route::get('withdrawal-history', [WithdrawalController::class, 'index'])->name('withdrawal.index');
@@ -72,14 +67,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('buy-usdt-history', [BuyUSDTController::class, 'index'])->name('buy-usdt.index');
 
     Route::get('dispute', DisputeController::class)->name('dispute');
-
-    Route::prefix('dealer')->can('create', SellAdvert::class)->group(function () {
-        Route::get('', DealerDashboardController::class)->name('dealer-dashboard');
-
-        Route::get('sell/history', [SellAdvertController::class, 'index'])->name('sell.history');
-        Route::get('sell/create-sell-order', [SellAdvertController::class, 'create'])->name('sell.create-sell-order');
-        Route::get('sell/{order:reference}', [SellAdvertController::class, 'show'])->name('sell.show');
-    });
 });
 
 Route::middleware(['auth'])->group(function () {

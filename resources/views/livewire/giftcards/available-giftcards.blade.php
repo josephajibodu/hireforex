@@ -1,0 +1,164 @@
+<?php
+
+use Livewire\Volt\Component;
+use App\Models\GiftCard;
+use Livewire\WithPagination;
+use Flux\Flux;
+use Illuminate\Support\Facades\Auth;
+use App\Actions\CreateGiftCardOrder;
+use Livewire\Attributes\Validate;
+
+new class extends Component {
+    use WithPagination;
+
+    public GiftCard $selected_gift_card;
+
+    #[Validate('required|numeric|min:1')]
+    public int $quantity = 1;
+
+    public float $total_amount = 0;
+
+    public function updatedQuantity()
+    {
+        if ($this->selected_gift_card) {
+            $this->total_amount = floatval($this->quantity ?? 0) * $this->selected_gift_card->denomination;
+        }
+    }
+
+    public function purchaseGiftCard(int $giftCardId)
+    {
+        $this->selected_gift_card = GiftCard::query()->findOrFail($giftCardId);
+
+        if (!$this->selected_gift_card->is_available || $this->selected_gift_card->stock < 1) {
+            $this->dispatch(
+                "flash-info",
+                message: "The selected gift card is currently not available, please check back when the minimum available is 1 or more"
+            );
+            return;
+        }
+
+        Flux::modal('confirm')->show();
+    }
+
+    public function create(CreateGiftCardOrder $createGiftCardOrder)
+    {
+        $this->validate();
+
+        Flux::modal('confirm')->close();
+
+        if (!$this->quantity || !$this->selected_gift_card) {
+            $this->dispatch(
+                "flash-info",
+                message: "Please select a valid gift card and enter a valid quantity"
+            );
+            return;
+        }
+
+        try {
+            $user = Auth::user();
+
+            // Check if user has sufficient balance
+            if ($user->balance < $this->total_amount) {
+                $this->dispatch(
+                    "flash-error",
+                    message: "You currently don't have enough funds in your Cardbeta wallet. Please top up your balance to proceed with purchasing gift cards."
+                );
+                return;
+            }
+
+            // Check if requested quantity is available
+            if ($this->selected_gift_card->stock < $this->quantity) {
+                $this->dispatch(
+                    "flash-error",
+                    message: "Only {$this->selected_gift_card->stock} units of this gift card are available."
+                );
+                return;
+            }
+
+            $order = $createGiftCardOrder->execute($user, $this->selected_gift_card, $this->quantity);
+
+            $this->dispatch(
+                "flash-success",
+                message: "Your gift card order has been successfully created! Your card codes will be available once the scheduled delivery time has elapsed. Please check your Current Order section to view your card codes when they become available."
+            );
+
+            $this->reset(['quantity', 'total_amount', 'selected_gift_card']);
+        } catch (Exception $ex) {
+            report($ex);
+
+            $this->dispatch("flash-error", message: $ex->getMessage() ?? 'Failed to create gift card order');
+            $this->reset(['quantity', 'total_amount', 'selected_gift_card']);
+        }
+    }
+}; ?>
+
+<div>
+    <flux:modal name="confirm" class="w-full md:max-w-screen-sm" variant="flyout">
+        <div class="space-y-6">
+            @if(!$selected_gift_card)
+                <div>
+                    <flux:heading size="lg">Gift Card Purchase</flux:heading>
+                    <flux:subheading></flux:subheading>
+                </div>
+            @else
+                <div>
+                    <flux:heading size="lg">{{ $selected_gift_card->name }}</flux:heading>
+                    <flux:subheading>Purchase gift cards at ${{ number_format($selected_gift_card->denomination, 2) }} each.</flux:subheading>
+                </div>
+
+                <flux:input
+                    wire:model.live.debounce.1000="quantity"
+                    type="number"
+                    min="1"
+                    max="{{ $selected_gift_card->stock }}"
+                    label="Quantity"
+                    placeholder="Number of gift cards to purchase"
+                />
+
+                <div class="border p-4 rounded-lg">
+                    <flux:subheading>Total Amount</flux:subheading>
+                    <flux:heading size="xl">${{ number_format($total_amount, 2) }}</flux:heading>
+                </div>
+
+                <div class="flex">
+                    <flux:spacer />
+                    <flux:button variant="primary" wire:loading.attr="disabled" wire:click="create">Proceed to Purchase</flux:button>
+                </div>
+            @endif
+        </div>
+    </flux:modal>
+
+    <!-- Available Gift Cards -->
+    <div class="mt-8">
+        <div class="flex flex-col gap-2 mb-2">
+            <flux:heading class="text-xl! md:text-2xl!">Available Gift Cards</flux:heading>
+            <div class="flex gap-2 justify-between">
+                <flux:button icon-trailing="shopping-cart" href="{{ url('orders.index') }}">
+                    My Orders
+                </flux:button>
+                <flux:button icon-trailing="history" href="{{ url('orders.history') }}">
+                    Order History
+                </flux:button>
+            </div>
+        </div>
+        @php
+            $giftCards = GiftCard::query()
+                ->where('is_available', true)
+                ->paginate(10);
+        @endphp
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            @forelse($giftCards as $giftCard)
+                <x-main.giftcard :giftCard="$giftCard" />
+            @empty
+                <div class="flex flex-col justify-center items-center col-span-full py-12">
+                    <flux:icon name="gift" class="size-12 text-gray-300 mb-4" />
+                    <flux:subheading size="lg">There are currently no gift cards available</flux:subheading>
+                </div>
+            @endforelse
+        </div>
+    </div>
+
+    <div class="my-4">
+        {{ $giftCards->links() }}
+    </div>
+</div>

@@ -8,6 +8,6 @@
             </flux:subheading>
         </div>
 
-        <livewire:order.order-details :order="$order"  />
+{{--        <livewire:order.order-details :order="$order"  />--}}
     </div>
 </x-layouts.app>

@@ -15,10 +15,7 @@
                 <flux:navlist.group heading="Platform" class="grid mb-8">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
 
-                    <flux:navlist.item icon="chart-candlestick" :href="route('trade-arbitrage.index')" :current="request()->routeIs('trade-arbitrage.index')" wire:navigate>{{ __('Arbitrage Market') }}</flux:navlist.item>
-
-                    <flux:navlist.item icon="shopping-cart" :href="route('buy.usd')" :current="request()->routeIs('buy.usd')" wire:navigate>{{ __('Buy USD') }}</flux:navlist.item>
-                    <flux:navlist.item icon="bars-4" :href="route('buy.history')" :current="request()->routeIs('buy.history')" wire:navigate>{{ __('Buy Order History') }}</flux:navlist.item>
+                    <flux:navlist.item icon="chart-candlestick" :href="route('marketplace.index')" :current="request()->routeIs('marketplace.index')" wire:navigate>{{ __('Marketplace') }}</flux:navlist.item>
 
                     <flux:navlist.item icon="wallet" :href="route('withdrawal.create')" :current="request()->routeIs('withdrawal.create')" wire:navigate>{{ __('Withdraw (Naira)') }}</flux:navlist.item>
 

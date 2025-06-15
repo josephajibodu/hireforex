@@ -6,35 +6,10 @@
     @php
     $quickLinks = [
         [
-            'route' => route('trade-arbitrage.index'),
+            'route' => route('marketplace.index'),
             'icon' => 'chart-candlestick',
-            'label' => 'Arbitrage Market'
+            'label' => 'Marketplace'
         ],
-        [
-            'route' => route('buy.usd'),
-            'icon' => 'shopping-cart',
-            'label' => 'Buy USD'
-        ],
-        [
-            'route' => route('withdrawal.create'),
-            'icon' => 'wallet',
-            'label' => 'Withdraw Naira'
-        ],
-        [
-            'route' => route('buy.history'),
-            'icon' => 'bars-4',
-            'label' => 'Order History'
-        ],
-        [
-            'route' => route('settings.referrals'),
-            'icon' => 'users',
-            'label' => 'Refer A Friend'
-        ],
-        [
-            'route' => route('payouts'),
-            'icon' => 'circle-arrow-out-up-right',
-            'label' => 'Payouts'
-        ]
     ];
     @endphp
 
