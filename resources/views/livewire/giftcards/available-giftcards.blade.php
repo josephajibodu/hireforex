@@ -20,16 +20,16 @@ new class extends Component {
 
     public function updatedQuantity()
     {
-        if ($this->selected_gift_card) {
-            $this->total_amount = floatval($this->quantity ?? 0) * $this->selected_gift_card->denomination;
-        }
+        $this->total_amount = floatval($this->quantity ?? 0) * $this->selected_gift_card->amount;
     }
 
     public function purchaseGiftCard(int $giftCardId)
     {
         $this->selected_gift_card = GiftCard::query()->findOrFail($giftCardId);
 
-        if (!$this->selected_gift_card->is_available || $this->selected_gift_card->stock < 1) {
+        $this->total_amount = $this->selected_gift_card->amount;
+
+        if ($this->selected_gift_card->available->count() === 0) {
             $this->dispatch(
                 "flash-info",
                 message: "The selected gift card is currently not available, please check back when the minimum available is 1 or more"
@@ -57,8 +57,7 @@ new class extends Component {
         try {
             $user = Auth::user();
 
-            // Check if user has sufficient balance
-            if ($user->balance < $this->total_amount) {
+            if (! $user->hasSufficientBalance($this->total_amount)) {
                 $this->dispatch(
                     "flash-error",
                     message: "You currently don't have enough funds in your Cardbeta wallet. Please top up your balance to proceed with purchasing gift cards."
@@ -67,7 +66,7 @@ new class extends Component {
             }
 
             // Check if requested quantity is available
-            if ($this->selected_gift_card->stock < $this->quantity) {
+            if ($this->selected_gift_card->available->count() < $this->quantity) {
                 $this->dispatch(
                     "flash-error",
                     message: "Only {$this->selected_gift_card->stock} units of this gift card are available."
@@ -110,14 +109,14 @@ new class extends Component {
                     wire:model.live.debounce.1000="quantity"
                     type="number"
                     min="1"
-                    max="{{ $selected_gift_card->stock }}"
+                    max="{{ $selected_gift_card->available->count() }}"
                     label="Quantity"
                     placeholder="Number of gift cards to purchase"
                 />
 
                 <div class="border p-4 rounded-lg">
                     <flux:subheading>Total Amount</flux:subheading>
-                    <flux:heading size="xl">${{ number_format($total_amount, 2) }}</flux:heading>
+                    <flux:heading size="xl">{{ to_money($total_amount, hideSymbol: true) }} USDT</flux:heading>
                 </div>
 
                 <div class="flex">
@@ -143,6 +142,7 @@ new class extends Component {
         </div>
         @php
             $giftCards = GiftCard::query()
+                ->with('available')
                 ->where('is_available', true)
                 ->paginate(10);
         @endphp

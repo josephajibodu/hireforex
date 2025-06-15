@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\KycResource\Pages;
+namespace App\Filament\Resources\GiftCardResource\Pages;
 
-use App\Filament\Resources\KycResource;
+use App\Filament\Resources\GiftCardResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditKyc extends EditRecord
+class EditGiftCard extends EditRecord
 {
-    protected static string $resource = KycResource::class;
+    protected static string $resource = GiftCardResource::class;
 
     protected function getHeaderActions(): array
     {

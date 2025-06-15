@@ -1,99 +1,61 @@
 <?php
 
 namespace App\Actions;
-namespace App\Actions;
 
 use App\Enums\OrderStatus;
-use App\Enums\SellAdvertType;
-use App\Enums\TradeStatus;
-use App\Enums\SellAdvertStatus;
+use App\Models\GiftCard;
 use App\Models\Order;
-use App\Models\PriceSchedule;
-use App\Models\SellAdvert;
 use App\Models\User;
-use App\Settings\GeneralSetting;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class CreateGiftCardOrder
 {
-    public function __construct(public GeneralSetting $generalSetting)
-    {}
-
     /**
-     * Create a new buy order.
+     * Create a new gift card order.
      *
      * @param User $user
-     * @param int $sellAdvertId
-     * @param float $amount
-     * @return mixed
+     * @param GiftCard $giftCard
+     * @param int $quantity
+     * @return Order
      * @throws Exception
      */
-    public function execute(User $user, int $sellAdvertId, float $amount): Order
+    public function execute(User $user, GiftCard $giftCard, int $quantity): Order
     {
-        if (! $user->kyc?->isCompleted()) {
-            throw new Exception('Your identity must be verified before you can create a buy order.');
+        if (!$giftCard->is_available) {
+            throw new Exception('This gift card is currently unavailable.');
         }
 
-        // check if the user already has a buy order
-        $buyOrder = $user->buyOrders()->scopes('orderStillOn')->latest()->first();
+        $availableUnits = $giftCard->available->count();
 
-        if ($buyOrder) {
-            throw new Exception("Please complete your pending order before proceeding with another order.");
+        if ($quantity > $availableUnits) {
+            throw new Exception("Only {$availableUnits} units are available for this gift card.");
         }
 
-        /** @var SellAdvert $sellAdvert */
-        $sellAdvert = SellAdvert::query()->findOrFail($sellAdvertId);
+        $cost = $giftCard->amount * $quantity;
+        $user->debit($cost, "Giftcard purchase - {$giftCard->name} x{$quantity}");
 
-        if ($sellAdvert->status == SellAdvertStatus::SoldOut) {
-            throw new Exception('The dealer is already sold out. Please choose another dealer or try again later.');
-        }
-
-        if ($user->id === $sellAdvert->user->id) {
-            throw new Exception("Invalid buy order");
-        }
-
-        $currentRate = getCurrentRate();
-
-        $amountToPay = $amount * $currentRate;
-
-        // Check if the amount is within the allowed range
-        if ($amountToPay < $sellAdvert->minimum_sell) {
-            throw new Exception("Amount is less than the minimum amount allowed for this sell order.");
-        }
-
-        if ($amountToPay > $sellAdvert->max_sell) {
-            throw new Exception("Amount exceeds the maximum amount allowed for this sell order.");
-        }
-
-        if (($amount * 100) > $sellAdvert->available_balance) {
-            throw new Exception("Amount exceeds the available USD for this sell order.");
-        }
-
-        return DB::transaction(function () use ($currentRate, $amountToPay, $user, $sellAdvert, $amount) {
-            $isUsdtPayment = $sellAdvert->type === SellAdvertType::Usdt;
-
+        return DB::transaction(function () use ($cost, $user, $giftCard, $quantity) {
             // Create the order
-            $order = Order::query()->create([
-                'reference' => Str::uuid(),
+            $order = Order::create([
                 'user_id' => $user->id,
-                'sell_advert_id' => $sellAdvert->id,
-                'coin_amount' => $coinAmt = $amount * 100,
-                'total_amount' => $amountToPay,
-                'seller_unit_price' => $currentRate,
-                'payment_time_limit' => $this->generalSetting->order_time_limit,
+                'gift_card_id' => $giftCard->id,
+                'quantity' => $quantity,
+                'total_amount' => $cost,
+                'delivery_time' => now()->addHours($giftCard->delivery_duration),
                 'status' => OrderStatus::Pending,
-                'type' => $sellAdvert->type,
-                'wallet_address' => $isUsdtPayment ? $sellAdvert->wallet_address : null,
-                'network_type' => $isUsdtPayment ? $sellAdvert->network_type : null,
             ]);
 
-            // Reduce the available balance of the sell advert
-            $sellAdvert->decrement('available_balance', $coinAmt);
+            // Get available units and mark them as used
+            $units = $giftCard->available()->take($quantity)->get();
 
-            if ($sellAdvert->refresh()->available_balance < 0) {
-                throw new Exception("Amount exceeds the available USD for this sell order.");
+            // Update units with order_id and mark as used
+            foreach ($units as $unit) {
+                $unit->update([
+                    'order_id' => $order->id,
+                    'is_used' => true
+                ]);
             }
 
             return $order;

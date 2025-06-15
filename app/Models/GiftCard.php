@@ -2,21 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class GiftCard extends Model
 {
-    use HasFactory;
-
-    protected $fillable = [
-        'name',
-        'amount',
-        'resell_value',
-        'delivery_duration',
-        'available_units',
-        'is_available'
-    ];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'amount' => 'decimal:2',
@@ -24,17 +17,17 @@ class GiftCard extends Model
         'is_available' => 'boolean'
     ];
 
-    public function orders()
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
     }
 
-    public function units()
+    public function units(): HasMany
     {
         return $this->hasMany(GiftCardUnit::class);
     }
 
-    public function availableUnits()
+    public function available(): HasMany
     {
         return $this->hasMany(GiftCardUnit::class)->where('is_used', false)->whereNull('order_id');
     }

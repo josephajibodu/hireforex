@@ -52,57 +52,13 @@ trait HasWallet
     }
 
     /**
-     * Get the user's bonus balance in Naira.
-     */
-    public function bonusBalance(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->wallet ? $this->wallet->bonus_balance / static::BALANCE_UNIT : 0,
-        );
-    }
-
-    /**
-     * Get the user's reserved balance in Naira.
-     */
-    public function reserveBalance(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->wallet ? $this->wallet->reserve_balance / static::BALANCE_UNIT : 0,
-        );
-    }
-
-    /**
-     * Get the user's trading balance in Naira.
-     */
-    public function tradingBalance(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->wallet ? $this->wallet->trading_balance / static::BALANCE_UNIT : 0,
-        );
-    }
-
-    /**
-     * Get the user's withdrawal balance in Naira.
-     */
-    public function withdrawalBalance(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->wallet ? $this->wallet->withdrawal_balance / static::BALANCE_UNIT : 0,
-        );
-    }
-
-    /**
      * Credit any of the users account
      *
      * @throws Exception
      */
-    public function credit(WalletType $creditWallet, float $amount, string $reason = ''): WalletTransaction
+    public function credit(float $amount, string $reason = ''): WalletTransaction
     {
-        if ($creditWallet === WalletType::Reserve) {
-            return WalletService::forUser($this)->creditReserve($amount, $reason);
-        }
-
-        return WalletService::forUser($this)->credit($creditWallet, $amount, $reason);
+        return WalletService::forUser($this)->credit(WalletType::from("main_balance"), $amount, $reason);
     }
 
     /**
@@ -110,65 +66,18 @@ trait HasWallet
      *
      * @throws Exception
      */
-    public function debit(WalletType $debitWallet, float $amount, string $reason = ''): WalletTransaction
+    public function debit(float $amount, string $reason = ''): WalletTransaction
     {
-        return WalletService::forUser($this)->debit($debitWallet, $amount, $reason);
-    }
-
-    /**
-     * Internal funds transfer between wallets
-     *
-     * @throws Exception
-     */
-    public function internalTransfers(WalletType $from, WalletType $to, float $amount, string $reason = ''): WalletTransaction
-    {
-        return WalletService::forUser($this)->transferFunds($from, $to, $amount, $reason);
+        return WalletService::forUser($this)->debit(WalletType::from("main_balance"), $amount, $reason);
     }
 
     /*
      * Check for sufficient balance
      */
-    public function hasSufficientBalance(WalletType | array $in, float $amount): bool
+    public function hasSufficientBalance(float $amount): bool
     {
         $amountInBaseUnit = $amount * 100;
 
-        if ($in instanceof WalletType) {
-            return $this->wallet->{$in->value} >= $amountInBaseUnit;
-        } else {
-            $totalBalance = collect($in)->reduce(function ($carry, WalletType $walletType) {
-                return $carry + $this->wallet->{$walletType->value};
-            }, 0);
-
-            return ($totalBalance * 100)>= $amountInBaseUnit;
-        }
-    }
-
-    /*
-    * Debit Multiple wallets: main and bonus
-    */
-    public function debitWithBonus(float $amount, string $reason = ''): WalletTransaction
-    {
-        return DB::transaction(function () use ($amount, $reason) {
-            $walletService = WalletService::forUser($this);
-            $mainBalance = $this->main_balance;
-            $bonusBalance = $this->bonus_balance;
-
-            if ($amount <= $mainBalance) {
-                return $walletService->debit(WalletType::Main, $amount, $reason);
-            }
-
-            if ($amount > ($mainBalance + $bonusBalance)) {
-                throw new Exception('Insufficient funds in main and bonus balance.');
-            }
-
-            // Debit whatever is available in the main balance
-            if ($mainBalance > 0) {
-                $walletService->debit(WalletType::Main, $mainBalance, $reason);
-            }
-
-            // Deduct the remaining amount from the bonus balance
-            $remainingAmount = $amount - $mainBalance;
-            return $walletService->debit(WalletType::Bonus, $remainingAmount, $reason);
-        });
+        return $this->wallet->main_balance >= $amountInBaseUnit;
     }
 }
