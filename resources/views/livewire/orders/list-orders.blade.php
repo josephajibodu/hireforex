@@ -66,7 +66,7 @@ new class extends Component {
             <div class="bg-gray-50 border rounded-lg p-4 mb-4">
                 <div class="flex justify-between">
                     <flux:heading class="font-semibold">Order ID:</flux:heading>
-                    <flux:subheading class="text-end!">{{ $order->id }}</flux:subheading>
+                    <flux:subheading class="text-end!">{{ $order->reference }}</flux:subheading>
                 </div>
                 <div class="flex justify-between">
                     <flux:heading class="font-semibold">Gift Card:</flux:heading>

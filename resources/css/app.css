@@ -23,27 +23,27 @@
     --color-zinc-900: #171717;
     --color-zinc-950: #0a0a0a;
 
-    --color-accent: #395094;
-    --color-accent-content: #395094;
+    --color-accent: #0167f4;
+    --color-accent-content: #0167f4;
     --color-accent-foreground: #ffffff;
 
-    --color-brand-50: #eef1fa;
-    --color-brand-100: #d6def4;
-    --color-brand-200: #adbce9;
-    --color-brand-300: #859adb;
-    --color-brand-400: #5d78c5;
-    --color-brand-500: #395094;
-    --color-brand-600: #2d3f78;
-    --color-brand-700: #222e5a;
-    --color-brand-800: #161f3d;
-    --color-brand-900: #0b0f1e;
-    --color-brand-950: #060a12;
+    --color-brand-50:  #e7f0ff;
+    --color-brand-100: #c2dbff;
+    --color-brand-200: #98c2ff;
+    --color-brand-300: #6da7ff;
+    --color-brand-400: #428bff;
+    --color-brand-500: #0167f4; /* your base color */
+    --color-brand-600: #0156cc;
+    --color-brand-700: #0144a3;
+    --color-brand-800: #003377;
+    --color-brand-900: #00214d;
+    --color-brand-950: #001127;
 }
 
 @layer theme {
     .dark {
-        --color-accent: #395094;
-        --color-accent-content: #395094;
+        --color-accent: #0167f4;
+        --color-accent-content: #0167f4;
         --color-accent-foreground: #ffffff;
     }
 }

@@ -2,7 +2,8 @@
     <div class="md:w-4/12 xl:w-6/12 lg:w-6/12 w-full flex-[0_0_auto] px-[15px] max-w-full xl:mt-0 lg:mt-0 mt-[30px]">
         <div class="widget">
             <div class="mb-4">
-                <x-app-logo-full />
+                <img src="{{ asset('full-logo.jpg') }}" class="h-[48px]" alt="logo" >
+{{--                <x-app-logo-full />--}}
             </div>
             <p class="!mb-4">© 2025 CardBeta. <br class="hidden xl:block lg:block">All rights reserved.</p>
         </div>
@@ -14,7 +15,7 @@
         <div class="widget">
             <h4 class="mb-3 text-[1rem] leading-[1.45] text-brand-800">Get in Touch</h4>
 
-            <a class="text-[#60697b] hover:text-[#60697b]" href="mailto:support@profitchain.com">help@profitchain.com</a><br> +2348079532641
+            <a class="text-[#60697b] hover:text-[#60697b]" href="mailto:support@profitchain.com">help@cardbeta.com</a><br> +2348079532641
         </div>
         <!-- /.widget -->
     </div>

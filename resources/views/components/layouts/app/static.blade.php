@@ -9,7 +9,8 @@
                 <nav class="flex items-center w-full h-24 select-none" x-data="{ showMenu: false }">
                     <div class="relative flex flex-wrap items-start justify-between w-full mx-auto font-medium md:items-center md:h-24 md:justify-between">
                         <a href="{{ url('/') }}" class="flex items-center w-1/4 py-4 pl-6 pr-4 space-x-2 font-extrabold text-black md:py-0">
-                            <x-app-logo-full />
+{{--                            <x-app-logo-full />--}}
+                            <img src="{{ asset('full-logo.jpg') }}" class="h-[48px]" alt="logo" >
                         </a>
                         <div :class="{'flex': showMenu, 'hidden md:flex': !showMenu }" class="absolute z-50 flex-col items-center justify-center w-full h-auto px-8 text-center text-gray-400 -translate-x-1/2 border-0 border rounded-full md:border md:w-auto md:h-10 left-1/2 md:flex-row md:items-center">
                             <a href="{{ url('/') }}"
