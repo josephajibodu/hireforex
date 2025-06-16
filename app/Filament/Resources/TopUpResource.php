@@ -2,11 +2,13 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\TopupStatus;
 use App\Filament\Resources\TopUpResource\Pages;
 use App\Filament\Resources\TopUpResource\RelationManagers;
 use App\Models\TopUp;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -91,28 +93,36 @@ class TopUpResource extends Resource
                     ->label('Confirm')
                     ->color('success')
                     ->icon('heroicon-o-check')
-                    ->visible(fn($record) => $record->status === 'pending')
+                    ->visible(fn($record) => $record->status === TopupStatus::Pending)
                     ->action(function($record) {
-                        $record->status = 'completed';
+                        $record->status = TopupStatus::Completed;
                         $record->save();
                         $record->user->credit($record->amount, 'Top-up via ' . $record->payment_method->getLabel());
-                        // TODO: Notify user
+
+                        Notification::make()
+                            ->success()
+                            ->title('Topup marked successful')
+                            ->send();
                     }),
                 Tables\Actions\Action::make('cancel')
                     ->label('Cancel')
                     ->color('danger')
                     ->icon('heroicon-o-x-mark')
-                    ->visible(fn($record) => $record->status === 'pending')
+                    ->visible(fn($record) => $record->status === TopupStatus::Pending)
                     ->form([
                         Forms\Components\Textarea::make('rejection_reason')
                             ->label('Rejection Reason')
                             ->required(),
                     ])
                     ->action(function($record, $data) {
-                        $record->status = 'rejected';
+                        $record->status = TopupStatus::Cancelled;
                         $record->rejection_reason = $data['rejection_reason'];
                         $record->save();
-                        // TODO: Notify user
+
+                        Notification::make()
+                            ->success()
+                            ->title('Topup cancelled')
+                            ->send();
                     }),
             ])
             ->bulkActions([

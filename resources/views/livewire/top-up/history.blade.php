@@ -49,7 +49,7 @@ new class extends Component {
                     </x-table.cell>
                     <x-table.cell>
                         <x-flux::badge color="{{ $topUp->status === 'pending' ? 'amber' : ($topUp->status === 'completed' ? 'green' : 'red') }}">
-                            {{ ucfirst($topUp->status) }}
+                            {{ ucfirst($topUp->status->getLabel()) }}
                         </x-flux::badge>
                     </x-table.cell>
                     <x-table.cell class="text-center">{{ $topUp->created_at->format('d M h:i A') }}</x-table.cell>
@@ -82,7 +82,7 @@ new class extends Component {
                 <div class="flex justify-between py-1">
                     <flux:heading class="font-semibold">Status:</flux:heading>
                     <x-flux::badge color="{{ $topUp->status === 'pending' ? 'amber' : ($topUp->status === 'completed' ? 'green' : 'red') }}">
-                        {{ ucfirst($topUp->status) }}
+                        {{ ucfirst($topUp->status->getLabel()) }}
                     </x-flux::badge>
                 </div>
                 <div class="flex justify-between">
