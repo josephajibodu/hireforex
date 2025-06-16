@@ -4,10 +4,10 @@
         <div class="text-start mb-8">
             <flux:heading class="text-xl! md:text-2xl!">Order Details</flux:heading>
             <flux:subheading class="text-gray-600 dark:text-gray-400 text-sm">
-                Order to buy {{ to_money($order->coin_amount, 100, currency: '$') }} into your main wallet from Dealer <b>{{ "{$dealer->username}" }}</b>
+                Order for {{ $order->quantity }}x {{ $order->giftCard->name }} gift card
             </flux:subheading>
         </div>
 
-{{--        <livewire:order.order-details :order="$order"  />--}}
+        <livewire:orders.order-details :order="$order"  />
     </div>
 </x-layouts.app>

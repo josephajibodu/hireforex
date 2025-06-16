@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\OrderStatus;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -40,5 +41,17 @@ class Order extends Model
     public function giftCardUnits(): HasMany
     {
         return $this->hasMany(GiftCardUnit::class);
+    }
+
+    public function getTimeLeft(): ?int
+    {
+        if (!$this->delivery_time || $this->status === OrderStatus::Completed || $this->status === OrderStatus::Cancelled) {
+            return null;
+        }
+
+        $now = Carbon::now();
+        $timeLeft = $now->diffInSeconds($this->delivery_time, false);
+
+        return max(0, $timeLeft);
     }
 }

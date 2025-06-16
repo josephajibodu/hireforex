@@ -54,8 +54,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
     Route::get('marketplace', [MarketPlaceController::class, 'index'])->name('marketplace.index');
-    Route::get('marketplace/active', [MarketPlaceController::class, 'active_orders'])->name('marketplace.active_trades');
-    Route::get('marketplace/all', [MarketPlaceController::class, 'all_orders'])->name('marketplace.all_trades');
+    Route::get('marketplace/active', [MarketPlaceController::class, 'active_orders'])->name('marketplace.active_orders');
+    Route::get('marketplace/all', [MarketPlaceController::class, 'all_orders'])->name('marketplace.all_orders');
+    Route::get('marketplace/{order}/details', [MarketPlaceController::class, 'show'])->name('marketplace.show');
 
     Route::get('withdraw-funds', [WithdrawalController::class, 'create'])->name('withdrawal.create');
     Route::get('withdrawal-history', [WithdrawalController::class, 'index'])->name('withdrawal.index');

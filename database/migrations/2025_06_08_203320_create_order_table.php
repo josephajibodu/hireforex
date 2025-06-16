@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+
+            $table->string('reference');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('gift_card_id')->constrained()->onDelete('cascade');
             $table->integer('quantity');
             $table->decimal('total_amount', 10, 2);
             $table->timestamp('delivery_time')->nullable();
             $table->json('card_codes')->nullable();
-            $table->enum('status', ['pending', 'completed'])->default('pending');
+            $table->string('status')->default(\App\Enums\OrderStatus::Paid);
+
             $table->timestamps();
         });
     }

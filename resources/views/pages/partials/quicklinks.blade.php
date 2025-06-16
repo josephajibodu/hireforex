@@ -10,6 +10,18 @@
             'icon' => 'chart-candlestick',
             'label' => 'Marketplace'
         ],
+
+        [
+            'route' => route('marketplace.active_orders'),
+            'icon' => 'activity',
+            'label' => 'Active Orders'
+        ],
+
+        [
+            'route' => route('marketplace.all_orders'),
+            'icon' => 'file-clock',
+            'label' => 'Order History'
+        ],
     ];
     @endphp
 

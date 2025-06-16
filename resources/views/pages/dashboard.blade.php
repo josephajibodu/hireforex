@@ -27,7 +27,7 @@
             <div class="border overflow-hidden bg-white dark:bg-neutral-800 p-4 rounded-lg flex">
                 <div class="flex-1">
                     <h6 class="text-lg font-medium text-gray-800 dark:text-white">Current Orders</h6>
-                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mt-2">{{ $user->orders()->where('status', 'pending')->count() }}</h2>
+                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mt-2">{{ $user->orders()->where('status', \App\Enums\OrderStatus::Paid)->count() }}</h2>
                     <p class="text-xs text-gray-400">Pending gift card orders</p>
                 </div>
                 <div>
@@ -59,6 +59,6 @@
         </div>
 
         <!-- Latest Gift Cards -->
-        <livewire:giftcards.available-giftcards />
+        <livewire:giftcards.available-giftcards limit="10" />
     </div>
 </x-layouts.app>

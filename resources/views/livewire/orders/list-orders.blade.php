@@ -18,9 +18,13 @@ new class extends Component {
         <flux:heading size="lg"></flux:heading>
     </div>
 
+    @php
+        $ordersQuery = Auth::user()->orders()->latest();
+        $orders = $limit ? $ordersQuery->take(5)->get() : $ordersQuery->paginate();
+    @endphp
+
     <x-table class="bg-gray-50 rounded-none! border-0 hidden md:table">
         <x-table.columns>
-            <x-table.column>Order ID</x-table.column>
             <x-table.column>Gift Card</x-table.column>
             <x-table.column>Quantity</x-table.column>
             <x-table.column>Amount</x-table.column>
@@ -30,14 +34,8 @@ new class extends Component {
         </x-table.columns>
 
         <x-table.rows x-data>
-            @php
-                $ordersQuery = Auth::user()->orders()->latest();
-                $orders = $limit ? $ordersQuery->take(5)->get() : $ordersQuery->paginate();
-            @endphp
-
             @forelse($orders as $order)
                 <x-table.row class="cursor-pointer">
-                    <x-table.cell>{{ $order->id }}</x-table.cell>
                     <x-table.cell>{{ $order->giftCard->name }}</x-table.cell>
                     <x-table.cell>{{ $order->quantity }}</x-table.cell>
                     <x-table.cell>{{ to_money($order->total_amount, 2, 'USDT') }}</x-table.cell>
@@ -49,8 +47,8 @@ new class extends Component {
                         @endif
                     </x-table.cell>
                     <x-table.cell>
-                        <flux:badge :color="$order->status === 'pending' ? 'warning' : 'success'">
-                            {{ ucfirst($order->status) }}
+                        <flux:badge :color="$order->status->getFluxColor()">
+                            {{ ucfirst($order->status->getLabel()) }}
                         </flux:badge>
                     </x-table.cell>
                     <x-table.cell>{{ $order->created_at->format('d M h:i A') }}</x-table.cell>
@@ -94,8 +92,8 @@ new class extends Component {
                 </div>
                 <div class="flex justify-between py-1">
                     <flux:heading class="font-semibold">Status:</flux:heading>
-                    <flux:badge :color="$order->status === 'pending' ? 'warning' : 'success'">
-                        {{ ucfirst($order->status) }}
+                    <flux:badge :color="$order->status->getFluxColor()">
+                        {{ ucfirst($order->status->getLabel()) }}
                     </flux:badge>
                 </div>
                 <div class="flex justify-between">

@@ -9,6 +9,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CreateGiftCardOrder
 {
@@ -39,12 +40,13 @@ class CreateGiftCardOrder
         return DB::transaction(function () use ($cost, $user, $giftCard, $quantity) {
             // Create the order
             $order = Order::create([
+                'reference' => Str::uuid(),
                 'user_id' => $user->id,
                 'gift_card_id' => $giftCard->id,
                 'quantity' => $quantity,
                 'total_amount' => $cost,
                 'delivery_time' => now()->addHours($giftCard->delivery_duration),
-                'status' => OrderStatus::Pending,
+                'status' => OrderStatus::Paid,
             ]);
 
             // Get available units and mark them as used
