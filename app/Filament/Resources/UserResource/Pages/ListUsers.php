@@ -24,6 +24,7 @@ class ListUsers extends ListRecords
 
 
             Actions\Action::make('transfer_funds')
+                ->hidden()
                 ->modalSubmitActionLabel('Send USD')
                 ->modalDescription('To credit/debit a users wallet directly. Click on the user in the table.')
                 ->form([

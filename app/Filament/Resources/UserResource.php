@@ -71,12 +71,14 @@ class UserResource extends Resource
                     ->description(fn(User $record) => "$record->email")
                     ->searchable(['phone_number', 'email']),
                 Tables\Columns\TextColumn::make('main_balance')
-                    ->formatStateUsing(fn(User $record) => "Main: ".to_money($record->main_balance, 1, '$'))
+                    ->formatStateUsing(fn(User $record) => "Main: ".to_money($record->main_balance, 100, '$'))
                     ->searchable(['username', 'first_name', 'last_name']),
                 Tables\Columns\TextColumn::make('account_status')
                     ->label('Status')
+                    ->hidden()
                     ->badge(),
                 Tables\Columns\TextColumn::make('roles')
+                    ->hidden()
                     ->label('Roles')
                     ->formatStateUsing(function (User $record) {
                         return $record->roles->pluck('name')->join(' | ');
@@ -98,7 +100,8 @@ class UserResource extends Resource
 
                 Tables\Actions\Action::make('ban_user')
                     ->button()
-                    ->visible(fn(User $record) => $record->account_status === AccountStatus::Active)
+                    ->hidden()
+//                    ->visible(fn(User $record) => $record->account_status === AccountStatus::Active)
                     ->color('danger')
                     ->action(function (User $record) {
                         $record->account_status = AccountStatus::Banned;
@@ -112,7 +115,8 @@ class UserResource extends Resource
 
                 Tables\Actions\Action::make('free_user')
                     ->button()
-                    ->hidden(fn(User $record) => $record->account_status === AccountStatus::Active)
+                    ->hidden()
+//                    ->hidden(fn(User $record) => $record->account_status === AccountStatus::Active)
                     ->color('success')
                     ->action(function (User $record) {
                         $record->account_status = AccountStatus::Active;

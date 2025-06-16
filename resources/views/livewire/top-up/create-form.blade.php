@@ -7,9 +7,14 @@ use App\Models\TopUp;
 use App\Enums\TopupMethod;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Settings\GeneralSetting;
 
 new class extends Component {
     use WithFileUploads;
+
+    public $bybit_uid;
+    public $usdt_trc;
+    public $usdt_bep;
 
     #[Validate('required|numeric|min:1')]
     public $amount = '';
@@ -22,11 +27,14 @@ new class extends Component {
     #[Validate('required|image|max:2048')]
     public $screenshot = null;
 
-    public function mount($type = null)
+    public function mount($type = null, GeneralSetting $settings)
     {
         if (in_array($type, ['bybit', 'usdt'])) {
             $this->payment_method = $type;
         }
+        $this->bybit_uid = $settings->bybit_uid;
+        $this->usdt_trc = $settings->usdt_trc;
+        $this->usdt_bep = $settings->usdt_bep;
     }
 
     public function create()
@@ -81,10 +89,10 @@ new class extends Component {
                 <div class="mt-4">
                     <div class="font-semibold mb-1">Cardbeta UID:</div>
                     <flux:input.group class="inline-flex items-center">
-                        <flux:input icon="badge-dollar-sign" value="54126679" readonly copyable />
+                        <flux:input icon="badge-dollar-sign" value="{{ $bybit_uid }}" readonly copyable />
                     </flux:input.group>
                 </div>
-            @elseif($payment_method === 'usdt')
+            @else
                 <ol class="list-decimal list-inside text-sm text-zinc-800 space-y-1 mb-2 px-4">
                     <li>You can fund your Cardbeta wallet using <b>USDT transfer</b> (TRC-20 or BEP-20).</li>
                     <li>After making the transfer, submit your amount and screenshot for confirmation.</li>
@@ -95,13 +103,13 @@ new class extends Component {
                     <div class="flex-1">
                         <div class="font-semibold mb-1">Network: TRC-20</div>
                         <flux:input.group class="inline-flex items-center">
-                            <flux:input value="Vsshdxxyqf68sssnbaklq" readonly copyable />
+                            <flux:input value="{{ $usdt_trc }}" readonly copyable />
                         </flux:input.group>
                     </div>
                     <div class="flex-1">
                         <div class="font-semibold mb-1">Network: BEP-20</div>
                         <flux:input.group class="inline-flex items-center">
-                            <flux:input value="Vsshdxxyqf68sssnbaklq" readonly copyable />
+                            <flux:input value="{{ $usdt_bep }}" readonly copyable />
                         </flux:input.group>
                     </div>
                 </div>

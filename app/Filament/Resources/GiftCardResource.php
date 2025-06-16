@@ -17,7 +17,7 @@ class GiftCardResource extends Resource
 {
     protected static ?string $model = GiftCard::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-gift';
 
     protected static ?string $navigationGroup = 'Main';
 
