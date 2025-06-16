@@ -19,6 +19,8 @@ class GiftCardResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Main';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -66,6 +68,7 @@ class GiftCardResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultPaginationPageOption(50)
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()

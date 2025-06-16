@@ -2,93 +2,88 @@
 
 namespace App\Filament\Resources;
 
-use App\Actions\AdminCancelBuyOrder;
-use App\Actions\AdminCompleteBuyOrder;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Order;
-use Exception;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\HtmlString;
 
 class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-circle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $navigationGroup = 'Main';
-
-    protected static ?int $navigationSort = 5;
-
-    protected static ?string $navigationLabel = 'Buy Order';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\Select::make('seller_id')
-                    ->relationship('seller', 'id'),
-                Forms\Components\TextInput::make('amount')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('seller_unit_price')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('payment_time_limit')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('status')
-                    ->required(),
-                Forms\Components\TextInput::make('payment_proof'),
+                Forms\Components\Section::make('Order Details')
+                    ->schema([
+                        Forms\Components\Select::make('user_id')
+                            ->relationship('user', 'username')
+                            ->searchable()
+                            ->required(),
+                        Forms\Components\Select::make('gift_card_id')
+                            ->relationship('giftCard', 'name')
+                            ->searchable()
+                            ->required(),
+                        Forms\Components\TextInput::make('quantity')
+                            ->numeric()
+                            ->minValue(1)
+                            ->required(),
+                        Forms\Components\TextInput::make('total_amount')
+                            ->numeric()
+                            ->prefix('USDT')
+                            ->required(),
+                        Forms\Components\Select::make('status')
+                            ->options([
+                                'pending' => 'Pending',
+                                'completed' => 'Completed',
+                            ])
+                            ->required(),
+                        Forms\Components\DateTimePicker::make('delivery_time')
+                            ->label('Delivery Time'),
+                    ])->columns(2),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultPaginationPageOption(50)
             ->columns([
-                Tables\Columns\TextColumn::make('buyer.username')
-                    ->description(fn(Order $record) => "from {$record->sellAdvert->user->username}"),
-                Tables\Columns\TextColumn::make('type')
-                    ->badge(),
-                Tables\Columns\TextColumn::make('coin_amount')
-                    ->label('Amount (USD)')
-                    ->alignCenter()
-                    ->formatStateUsing(fn($state) => to_money($state, 100, '$'))
-                    ->description(fn(Order $record) => $record->isLocalPayment() ? "at ₦$record->seller_unit_price /$" : null)
+                Tables\Columns\TextColumn::make('user.username')
+                    ->label('User')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('giftCard.name')
+                    ->label('Gift Card')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('quantity')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total_amount')
-                    ->label('Buyer Pays')
-                    ->formatStateUsing(function (Order $record, $state) {
-                        if ($record->isUsdtPayment()) {
-                            return to_money($record->coin_amount, 100, 'USDT ');
-                        }
-
-                        return to_money($state);
-                    })
+                    ->label('Total Amount')
+                    ->suffix(' USDT')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('status')
-                    ->badge(),
-                Tables\Columns\TextColumn::make('payment_proof')
-                    ->getStateUsing(function (Order $record) {
-                        if (! $record->payment_proof) return "-";
-
-                        $url = Storage::url($record->payment_proof);
-
-                        return new HtmlString("<a href='$url' target='_blank'>View Proof</a>");
-                    }),
+                Tables\Columns\BadgeColumn::make('status')
+                    ->colors([
+                        'primary' => 'pending',
+                        'success' => 'completed',
+                    ])
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('delivery_time')
+                    ->label('Delivery Time')
+                    ->dateTime()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -102,67 +97,11 @@ class OrderResource extends Resource
                 //
             ])
             ->actions([
-                // Tables\Actions\EditAction::make(),
-                Tables\Actions\ActionGroup::make([
-                    Tables\Actions\Action::make('release_to_seller')
-                        ->requiresConfirmation()
-                        ->modalDescription("The funds will be released back to the sellers sell order.")
-                        ->color('danger')
-                        ->icon('heroicon-o-x-mark')
-                        ->action(function (AdminCancelBuyOrder $cancelBuyOrder, Order $record) {
-                            try {
-                                $cancelBuyOrder($record);
-
-                                Notification::make()
-                                    ->color('success')
-                                    ->success()
-                                    ->title('Successful')
-                                    ->body("The funds has been released back to the seller")
-                                    ->send();
-                            } catch (Exception $ex) {
-                                report($ex);
-
-                                Notification::make()
-                                    ->color('danger')
-                                    ->danger()
-                                    ->title('Error')
-                                    ->body($ex->getMessage())
-                                    ->send();
-                            }
-                        }),
-
-                    Tables\Actions\Action::make('release_to_buyer')
-                        ->requiresConfirmation()
-                        ->modalDescription("The funds will be moved to the buyers reserve balance as normal.")
-                        ->color('primary')
-                        ->icon('heroicon-o-check')
-                        ->action(function (AdminCompleteBuyOrder $completeBuyOrder, Order $record) {
-                            try {
-                                $completeBuyOrder($record);
-
-                                Notification::make()
-                                    ->color('success')
-                                    ->success()
-                                    ->title('Successful')
-                                    ->body("The funds has been released back to the buyer")
-                                    ->send();
-                            } catch (Exception $ex) {
-                                report($ex);
-
-                                Notification::make()
-                                    ->color('danger')
-                                    ->danger()
-                                    ->title('Error')
-                                    ->body($ex->getMessage())
-                                    ->send();
-                            }
-                        })
-                ])->button()
-                ->visible(fn(Order $record) => ! $record->inCompletedState())
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                     // Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -170,7 +109,7 @@ class OrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\GiftCardUnitsRelationManager::class,
         ];
     }
 
@@ -179,7 +118,7 @@ class OrderResource extends Resource
         return [
             'index' => Pages\ListOrders::route('/'),
             'create' => Pages\CreateOrder::route('/create'),
-            // 'edit' => Pages\EditOrder::route('/{record}/edit'),
+            'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
     }
 }

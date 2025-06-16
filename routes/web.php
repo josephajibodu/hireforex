@@ -10,6 +10,7 @@ use App\Http\Controllers\DisputeController;
 use App\Http\Controllers\SellAdvertController;
 use App\Http\Controllers\TransferController;
 use App\Http\Controllers\WithdrawalController;
+use App\Http\Controllers\TopUpController;
 use App\Models\SellAdvert;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -78,6 +79,10 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/bank-details', 'settings.bank-details')->name('settings.bank-details');
     Volt::route('settings/refer-a-friend', 'settings.referrals')->name('settings.referrals');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
+
+    // Top Up Routes
+    Route::get('/top-up', [TopUpController::class, 'create'])->name('top-up.create');
+    Route::get('/top-up/history', [TopUpController::class, 'history'])->name('top-up.history');
 });
 
 require __DIR__.'/auth.php';

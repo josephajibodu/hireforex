@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('top_ups', function (Blueprint $table) {
             $table->id();
+
+            $table->string('reference')->unique();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->decimal('amount', 10, 2);
-            $table->enum('payment_method', ['bybit', 'usdt']);
+            $table->string('payment_method');
             $table->string('bybit_email')->nullable();
-            $table->string('transaction_reference')->nullable();
             $table->string('screenshot_path')->nullable();
-            $table->enum('status', ['pending', 'confirmed', 'rejected'])->default('pending');
-            $table->text('rejection_reason')->nullable();
+            $table->string('status')->default('pending');
+            $table->string('rejection_reason')->nullable();
+
             $table->timestamps();
         });
     }

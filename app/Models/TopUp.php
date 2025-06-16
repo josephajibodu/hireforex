@@ -2,27 +2,20 @@
 
 namespace App\Models;
 
+use App\Enums\TopupMethod;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TopUp extends Model
 {
-    use HasFactory;
+    protected $guarded = ['id'];
 
-    protected $fillable = [
-        'user_id',
-        'amount',
-        'payment_method',
-        'bybit_email',
-        'transaction_reference',
-        'screenshot_path',
-        'status',
-        'rejection_reason'
-    ];
-
-    protected $casts = [
-        'amount' => 'decimal:2'
-    ];
+    protected function casts(): array
+    {
+        return [
+            'payment_method' => TopupMethod::class
+        ];
+    }
 
     public function user()
     {
