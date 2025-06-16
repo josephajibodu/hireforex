@@ -30,15 +30,6 @@
                                 </span>
                             </a>
 
-                            <a href="{{ route('payouts') }}"
-                               wire:navigate
-                               class="{{ request()->routeIs('payouts') ? 'text-accent' : '' }} relative inline-block w-full h-full px-4 py-5 mx-2 font-medium leading-tight text-center duration-300 ease-out md:py-2 group hover:text-accent md:w-auto md:px-2 lg:mx-3 md:text-center">
-                                <span>Payouts</span>
-                                <span class="absolute bottom-0 h-px duration-300 ease-out translate-y-px bg-gradient-to-r md:from-gray-200 md:via-accent md:to-gray-200 from-gray-900 via-gray-600 to-gray-900
-                                    {{ request()->routeIs('payouts') ? 'w-full left-0' : 'w-0 left-1/2 group-hover:w-full group-hover:left-0' }}">
-                                </span>
-                            </a>
-
                             <a href="{{ route('contact-us') }}"
                                wire:navigate
                                class="{{ request()->routeIs('contact-us') ? 'text-accent' : '' }} relative inline-block w-full h-full px-4 py-5 mx-2 font-medium leading-tight text-center duration-300 ease-out md:py-2 group hover:text-accent md:w-auto md:px-2 lg:mx-3 md:text-center">

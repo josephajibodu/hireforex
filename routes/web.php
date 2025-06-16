@@ -40,15 +40,9 @@ Route::get('/download/{file}', function ($file) {
 })->name('download.file');
 
 Route::view('/frequently-asked-questions', 'pages.faq')->name('faq');
-Route::view('/community', 'pages.community')->name('community');
 Route::view('/contact-us', 'pages.contact-us')->name('contact-us');
 Route::view('/terms-and-conditions', 'pages.terms')->name('terms-and-conditions');
 Route::view('/privacy-policy', 'pages.privacy')->name('privacy-policy');
-Route::view('/become-dealer', 'pages.become-dealer')->name('become-dealer');
-Route::view('/payouts', 'pages.payouts')->name('payouts');
-Route::view('/members-reward', 'pages.rewards')->name('rewards');
-Route::view('/profitchain-partner', 'pages.partner')->name('profitchain-partner');
-Route::view('/responsible-trading', 'pages.responsible-trading')->name('responsible-trading');
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -58,15 +52,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('marketplace/active', [MarketPlaceController::class, 'active_orders'])->name('marketplace.active_orders');
     Route::get('marketplace/all', [MarketPlaceController::class, 'all_orders'])->name('marketplace.all_orders');
     Route::get('marketplace/{order}/details', [MarketPlaceController::class, 'show'])->name('marketplace.show');
-
-    Route::get('withdraw-funds', [WithdrawalController::class, 'create'])->name('withdrawal.create');
-    Route::get('withdrawal-history', [WithdrawalController::class, 'index'])->name('withdrawal.index');
-
-    Route::get('transfer-funds', [TransferController::class, 'create'])->name('transfer.create');
-    Route::get('transfer-history', [TransferController::class, 'index'])->name('transfer.index');
-
-    Route::get('buy-usdt', [BuyUSDTController::class, 'create'])->name('buy-usdt.create');
-    Route::get('buy-usdt-history', [BuyUSDTController::class, 'index'])->name('buy-usdt.index');
 
     Route::get('dispute', DisputeController::class)->name('dispute');
 });

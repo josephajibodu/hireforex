@@ -4,7 +4,7 @@
             <div class="mb-4">
                 <x-app-logo-full />
             </div>
-            <p class="!mb-4">© 2025 Profitchain. <br class="hidden xl:block lg:block">All rights reserved.</p>
+            <p class="!mb-4">© 2025 CardBeta. <br class="hidden xl:block lg:block">All rights reserved.</p>
         </div>
         <!-- /.widget -->
     </div>
@@ -25,14 +25,8 @@
             <h4 class="mb-3 text-[1rem] leading-[1.45] text-brand-800">Learn More</h4>
             <ul class="pl-0 list-none !mb-0">
                 <li><a class="text-gray-500 hover:text-brand-500" href="{{ route('faq') }}" wire:navigate>Frequently Asked Questions</a></li>
-                <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('community') }}" wire:navigate>Community Links</a></li>
                 <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('terms-and-conditions') }}" wire:navigate>Terms of Use</a></li>
                 <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('privacy-policy') }}" wire:navigate>Privacy Policy</a></li>
-                <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('become-dealer') }}" wire:navigate>Apply to become a Profitchain dealer</a></li>
-                <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('payouts') }}" wire:navigate>Payout</a></li>
-                <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('rewards') }}" wire:navigate>Member's Reward</a></li>
-                <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('profitchain-partner') }}" wire:navigate>Become a Profitchain Partner</a></li>
-                <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('responsible-trading') }}" wire:navigate>Responsible Trading</a></li>
             </ul>
         </div>
         <!-- /.widget -->

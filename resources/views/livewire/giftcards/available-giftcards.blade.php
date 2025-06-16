@@ -19,9 +19,15 @@ new class extends Component {
 
     public float $total_amount = 0;
 
-    public function mount($limit = null)
+    public bool $showHeader;
+
+    public bool $guest;
+
+    public function mount($limit = null, $showHeader = true, $guest = false)
     {
         $this->limit = $limit;
+        $this->showHeader = $showHeader;
+        $this->guest = $guest;
     }
 
     public function updatedQuantity()
@@ -138,14 +144,16 @@ new class extends Component {
     <div class="mt-8">
         <div class="flex flex-col gap-2 mb-2">
             <flux:heading class="text-xl! md:text-2xl!">Available Gift Cards</flux:heading>
-            <div class="flex gap-2 justify-between">
-                <flux:button icon-trailing="shopping-cart" href="{{ route('marketplace.active_orders') }}">
-                    My Orders
-                </flux:button>
-                <flux:button icon-trailing="history" href="{{ route('marketplace.all_orders') }}">
-                    Order History
-                </flux:button>
-            </div>
+            @if($showHeader)
+                <div class="flex gap-2 justify-between">
+                    <flux:button icon-trailing="shopping-cart" href="{{ route('marketplace.active_orders') }}">
+                        My Orders
+                    </flux:button>
+                    <flux:button icon-trailing="history" href="{{ route('marketplace.all_orders') }}">
+                        Order History
+                    </flux:button>
+                </div>
+            @endif
         </div>
         @php
             $giftCards = GiftCard::query()
@@ -159,7 +167,7 @@ new class extends Component {
         @endphp
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             @forelse($giftCards as $giftCard)
-                <x-main.giftcard :giftCard="$giftCard" />
+                <x-main.giftcard :giftCard="$giftCard" :redirect="$guest" />
             @empty
                 <div class="flex flex-col justify-center items-center col-span-full py-12">
                     <flux:icon name="gift" class="size-12 text-gray-300 mb-4" />
