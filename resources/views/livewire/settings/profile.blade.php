@@ -11,7 +11,6 @@ new class extends Component {
     public string $first_name = '';
     public string $last_name = '';
     public string $phone_number = '';
-    public string $whatsapp_number = '';
     public string $email = '';
 
     /**
@@ -24,7 +23,6 @@ new class extends Component {
         $this->first_name = $user->first_name;
         $this->last_name = $user->last_name;
         $this->phone_number = $user->phone_number;
-        $this->whatsapp_number = $user->whatsapp_number;
         $this->email = $user->email;
     }
 
@@ -37,7 +35,6 @@ new class extends Component {
 
         $validated = $this->validate([
             'phone_number' => ['nullable', 'string', 'max:11', 'regex:/^(0[789][01]\d{8})$/'],
-            'whatsapp_number' => ['nullable', 'string', 'max:11', 'regex:/^(0[789][01]\d{8})$/'],
         ]);
 
         $user->fill($validated);
@@ -77,7 +74,6 @@ new class extends Component {
             <flux:input wire:model="first_name" label="{{ __('First Name') }}" type="text" name="first_name" disabled />
             <flux:input wire:model="last_name" label="{{ __('Last Name') }}" type="text" name="last_name" disabled />
             <flux:input wire:model="phone_number" label="{{ __('Phone Number') }}" type="text" name="phone_number" autocomplete="tel" />
-            <flux:input wire:model="whatsapp_number" label="{{ __('WhatsApp Number') }}" type="text" name="whatsapp_number" autocomplete="tel" />
             <div>
                 <flux:input wire:model="email" label="{{ __('Email') }}" type="email" name="email" disabled />
 

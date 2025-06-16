@@ -3,8 +3,6 @@
         <flux:navlist>
             <flux:navlist.item href="{{ route('settings.profile') }}" wire:navigate>{{ __('Profile') }}</flux:navlist.item>
             <flux:navlist.item href="{{ route('settings.password') }}" wire:navigate>{{ __('Password') }}</flux:navlist.item>
-            <flux:navlist.item href="{{ route('settings.bank-details') }}" wire:navigate>{{ __('Bank Details') }}</flux:navlist.item>
-            <flux:navlist.item href="{{ route('settings.referrals') }}" wire:navigate>{{ __('Refer a friend') }}</flux:navlist.item>
         </flux:navlist>
     </div>
 

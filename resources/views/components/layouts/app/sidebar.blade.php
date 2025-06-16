@@ -17,18 +17,9 @@
 
                     <flux:navlist.item icon="chart-candlestick" :href="route('marketplace.index')" :current="request()->routeIs('marketplace.index')" wire:navigate>{{ __('Marketplace') }}</flux:navlist.item>
 
-                    <flux:navlist.item icon="wallet" :href="route('withdrawal.create')" :current="request()->routeIs('withdrawal.create')" wire:navigate>{{ __('Withdraw (Naira)') }}</flux:navlist.item>
-
                     <flux:navlist.item icon="arrow-up-circle" :href="route('top-up.create', ['type' => 'bybit'])" :current="request()->routeIs('top-up.create') && request()->query('type') === 'bybit'" wire:navigate>{{ __('Top Up (Bybit)') }}</flux:navlist.item>
                     <flux:navlist.item icon="arrow-up-circle" :href="route('top-up.create', ['type' => 'usdt'])" :current="request()->routeIs('top-up.create') && request()->query('type') === 'usdt'" wire:navigate>{{ __('Top Up (USDT)') }}</flux:navlist.item>
 
-                    <flux:navlist.item icon="arrow-right-left" :href="route('transfer.create')" :current="request()->routeIs('transfer.create')" wire:navigate>{{ __('Transfer USD') }}</flux:navlist.item>
-
-                    <flux:navlist.item icon="coins" :href="route('buy-usdt.create')" :current="request()->routeIs('buy-usdt.create')" wire:navigate>{{ __('Withdraw USDT(Tether)') }}</flux:navlist.item>
-
-                    <flux:navlist.item icon="scale" :href="route('dispute')" :current="request()->routeIs('dispute')" wire:navigate>{{ __('Dispute') }}</flux:navlist.item>
-                    <flux:navlist.item icon="heart-handshake" :href="route('rewards')" :current="request()->routeIs('rewards')" wire:navigate>{{ __("Race to Top 4") }}</flux:navlist.item>
-                    <flux:navlist.item icon="users" :href="route('settings.referrals')" :current="request()->routeIs('settings.referrals')" wire:navigate>{{ __("Refer a Friend") }}</flux:navlist.item>
                 </flux:navlist.group>
 
                 @can(\App\Enums\SystemPermissions::CreateSellOrder->value)

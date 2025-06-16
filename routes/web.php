@@ -76,7 +76,6 @@ Route::middleware(['auth'])->group(function () {
 
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
-    Volt::route('settings/bank-details', 'settings.bank-details')->name('settings.bank-details');
     Volt::route('settings/refer-a-friend', 'settings.referrals')->name('settings.referrals');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 
