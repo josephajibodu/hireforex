@@ -13,7 +13,7 @@
             <div class="border overflow-hidden bg-white dark:bg-neutral-800 p-4 rounded-lg flex">
                 <div class="flex-1">
                     <h6 class="text-lg font-medium text-gray-800 dark:text-white">USDT Balance</h6>
-                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mt-2">{{ to_money($user->main_balance, hideSymbol: true) }} USDT</h2>
+                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mt-2">{{ to_money($user->main_balance, divider: 100, hideSymbol: true) }} USDT</h2>
                     <p class="text-xs text-gray-400">Available balance for purchases</p>
                 </div>
                 <div>
