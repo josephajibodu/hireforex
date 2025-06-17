@@ -8,7 +8,10 @@
             <div class="flex w-full max-w-md flex-col gap-2">
                 <a href="{{ route('home') }}" class="flex flex-col items-center gap-2 font-medium" wire:navigate>
                     <span class="flex aspect-square size-12 items-center justify-center rounded-md bg-accent-content text-accent-foreground">
-                        <x-app-logo-icon class="size-8 fill-current text-white dark:text-black" />
+{{--                        <x-app-logo-icon class="size-8 fill-current text-white dark:text-black" />--}}
+                        <div class="rounded overflow-hidden bg-white">
+                            <img src="{{ asset('logo-icon.jpg') }}" class="size-9 object-contain" alt="icon logo" >
+                        </div>
                     </span>
                     <span class="sr-only">{{ config('app.name', 'Profitchain') }}</span>
                 </a>
