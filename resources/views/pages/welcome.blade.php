@@ -1,5 +1,5 @@
 <x-layouts.guest>
-    @section('title', 'Buy Gift Cards Instantly | Cardbeta')
+    @section('title', 'Buy Gift Cards Online at the Best Rates | Secure & Fast')
 
     <!-- Hero Section -->
     <section class="w-full px-3 antialiased bg-white lg:px-6 border-b">

@@ -1,5 +1,5 @@
 <x-layouts.guest>
-    @section('title', 'Everything you need to know about Profitchain')
+    @section('title', 'Everything you need to know about Cardbeta')
 
     <section class="overflow-hidden bg-accent">
         <div class="mx-auto max-w-screen-lg">
