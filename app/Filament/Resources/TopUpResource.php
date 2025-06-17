@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Enums\TopupStatus;
 use App\Filament\Resources\TopUpResource\Pages;
 use App\Filament\Resources\TopUpResource\RelationManagers;
+use App\Models\Order;
 use App\Models\TopUp;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -14,6 +15,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\HtmlString;
 
 class TopUpResource extends Resource
 {
@@ -54,22 +57,30 @@ class TopUpResource extends Resource
         return $table
             ->defaultPaginationPageOption(50)
             ->columns([
+                Tables\Columns\TextColumn::make('reference')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('user.username')
                     ->label('Username')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('amount')
+                    ->label('Amt')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('payment_method')
+                    ->label('Method')
                     ->badge()
                     ->color(fn($record) => $record->payment_method->getColor()),
-                Tables\Columns\TextColumn::make('reference')
-                    ->searchable(),
                 Tables\Columns\ImageColumn::make('screenshot_path')
                     ->label('Screenshot')
-                    ->disk('public')
-                    ->height(60)
-                    ->width(60),
+                    ->square(),
+                Tables\Columns\TextColumn::make('screenshot_path')
+                    ->getStateUsing(function (TopUp $record) {
+                        if (! $record->screenshot_path) return "-";
+
+                        $url = Storage::url($record->screenshot_path);
+
+                        return new HtmlString("<a class='text-sm underline' href='$url' target='_blank'>View Image</a>");
+                    }),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->color(fn($record) => match($record->status) {
@@ -81,7 +92,7 @@ class TopUpResource extends Resource
                 Tables\Columns\TextColumn::make('bybit_email')
                     ->label('Bybit Email')
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable(),

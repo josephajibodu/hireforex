@@ -13,14 +13,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'gift_card_id',
-        'quantity',
-        'total_amount',
-        'delivery_time',
-        'status'
-    ];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'total_amount' => 'decimal:2',
