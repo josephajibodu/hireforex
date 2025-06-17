@@ -42,7 +42,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         // Create wallet for the user
         Wallet::query()->create([
             'user_id' => $user->id,
-            'balance' => 0
+            'main_balance' => 0
         ]);
 
         Auth::login($user);
