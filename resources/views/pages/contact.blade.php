@@ -10,7 +10,7 @@
                             Contact Us
                         </h1>
                         <p class="lead text-white/80 lg:!px-[1.25rem] xl:!px-[1.25rem] xxl:!px-[2rem] leading-[1.65] text-[0.9rem] font-medium !mb-[.25rem]">
-                            We're here to help with any questions or support you need.
+                            Our support team is always available to help with any questions or concerns.
                         </p>
                     </div>
                 </div>

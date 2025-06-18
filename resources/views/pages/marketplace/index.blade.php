@@ -16,7 +16,7 @@
                 <p>Before proceeding, review the delivery time and cost details carefully.</p>
                 <p>Once you click "BUY NOW," your transaction will appear under "CURRENT ORDER."</p>
                 <p>You'll be able to track your order, and once the delivery duration has passed, the gift card codes will become visible.</p>
-                <p class="font-medium">Please note: Gift card availability is on a first-come, first-served basis. If a specific card is sold out, you can either choose a different one or check back later.</p>
+                <p class="font-medium">Please note: Gift card availability is on a first-come, first-served basis. If a specific card is unavailable, you can either choose a different one or check back later.</p>
             </div>
         </div>
 

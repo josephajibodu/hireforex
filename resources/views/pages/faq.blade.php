@@ -10,7 +10,7 @@
                             Frequently Asked Questions
                         </h1>
                         <p class="lead text-white/80 lg:!px-[1.25rem] xl:!px-[1.25rem] xxl:!px-[2rem] leading-[1.65] text-[0.9rem] font-medium !mb-[.25rem]">
-                            Everything you need to know about Profitchain
+                            Everything you need to know about Cardbeta.com
                         </p>
                     </div>
                 </div>

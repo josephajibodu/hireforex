@@ -6,12 +6,12 @@
         <div class="mx-auto max-w-screen-xl border-x">
             <div class="container px-6 py-24 md:py-32 mx-auto text-center md:px-4">
                 <h1 class="text-3xl font-extrabold leading-none tracking-tight text-black sm:text-4xl md:text-5xl">
-                    <span class="block">Buy Gift Cards Instantly</span>
+                    <span class="block">Buy Discounted Gift Cards</span>
                     <span class="relative inline-block mt-3 text-black">with</span>
                     <span class="block mt-3 text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-indigo-700">Cardbeta</span>
                 </h1>
                 <p class="mx-auto mt-6 text-base text-gray-700 text-center md:mt-8 sm:text-lg md:max-w-xl md:text-xl">
-                    Cardbeta is a secure and user-friendly platform that allows you to buy gift cards and e-cards at the best rates. Get instant access to discounted digital cards from top global brands, with a smooth and transparent experience.
+                    Cardbeta is a secure and user-friendly platform that allows you to buy gift cards and e-cards at the best rates. Get access to discounted digital cards from top global brands, with a smooth and transparent experience.
                 </p>
                 <div class="flex items-center justify-center mt-8 space-y-4 gap-4 md:space-y-0 md:space-x-4 md:flex-row">
                     <flux:button href="{{ route('register') }}" variant="primary" class="mb-0">
@@ -31,7 +31,7 @@
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-gray-900 md:text-4xl">Why Cardbeta?</h2>
                 <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-                    Cardbeta connects you to the best deals on digital gift cards from trusted brands, with instant delivery and unbeatable support.
+                    Cardbeta connects you to the best deals on digital gift cards with better delivery and unbeatable support.
                 </p>
             </div>
 
@@ -42,8 +42,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
-                    <h3 class="mb-3 text-xl font-bold">Secure Platform</h3>
-                    <p class="text-gray-600">Your transactions and data are protected with industry-leading security.</p>
+                    <h3 class="mb-3 text-xl font-bold">User-Friendly</h3>
+                    <p class="text-gray-600">Buying discounted gift cards is now simple and stress-free.</p>
                 </div>
 
                 <div class="p-6 bg-white rounded-none border">
@@ -62,8 +62,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
                         </svg>
                     </div>
-                    <h3 class="mb-3 text-xl font-bold">Instant Delivery</h3>
-                    <p class="text-gray-600">Receive your gift card codes instantly after purchase, 24/7.</p>
+                    <h3 class="mb-3 text-xl font-bold">Quick Delivery</h3>
+                    <p class="text-gray-600">Gift card codes are delivered within 48–72 hours of your order.</p>
                 </div>
 
                 <div class="p-6 bg-white rounded-none border">
@@ -85,7 +85,7 @@
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-gray-900 md:text-4xl">How Cardbeta Works</h2>
                 <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-                    Buying digital gift cards is easy, fast, and secure with Cardbeta.
+                    Buying digital gift cards is easy, fast, and affordable with Cardbeta.
                 </p>
             </div>
 
@@ -99,19 +99,19 @@
                 <div class="relative p-6 bg-white rounded-none border border-gray-200">
                     <div class="absolute -top-5 -left-5 w-10 h-10 rounded-none bg-brand-100 border border-accent text-accent flex items-center justify-center font-bold text-lg">2</div>
                     <h3 class="mb-3 text-xl font-bold pt-4">Browse & Buy</h3>
-                    <p class="text-gray-600">Explore a wide range of gift cards and choose the ones you want.</p>
+                    <p class="text-gray-600">Explore a wide range of gift cards and choose the ones you want at the Marketplace.</p>
                 </div>
 
                 <div class="relative p-6 bg-white rounded-none border border-gray-200">
                     <div class="absolute -top-5 -left-5 w-10 h-10 rounded-none bg-brand-100 border border-accent text-accent flex items-center justify-center font-bold text-lg">3</div>
-                    <h3 class="mb-3 text-xl font-bold pt-4">Receive Instantly</h3>
-                    <p class="text-gray-600">Get your digital code delivered instantly to your dashboard.</p>
+                    <h3 class="mb-3 text-xl font-bold pt-4">Quick Delivery </h3>
+                    <p class="text-gray-600">Get your digital code delivered to your Cardbeta dashboard.</p>
                 </div>
 
                 <div class="relative p-6 bg-white rounded-none border border-gray-200">
                     <div class="absolute -top-5 -left-5 w-10 h-10 rounded-none bg-brand-100 border border-accent text-accent flex items-center justify-center font-bold text-lg">4</div>
-                    <h3 class="mb-3 text-xl font-bold pt-4">Track Your Orders</h3>
-                    <p class="text-gray-600">Monitor your purchases and order status in real time.</p>
+                    <h3 class="mb-3 text-xl font-bold pt-4">Track Your Card Orders</h3>
+                    <p class="text-gray-600">Monitor your gift card purchases and order status in real time.</p>
                 </div>
             </div>
         </div>
@@ -172,9 +172,9 @@
     <section class="py-16 md:py-32 bg-white border-b">
         <div class="container px-4 mx-auto max-w-screen-xl">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900 md:text-4xl">Join the Cardbeta Community</h2>
+                <h2 class="text-3xl font-bold text-gray-900 md:text-4xl">Join Cardbeta.com</h2>
                 <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-                    Stay updated and connect with other gift card buyers and sellers!
+                    Buy Gift Cards At Favourable Prices
                 </p>
             </div>
 

@@ -21,7 +21,7 @@
     <section class="mx-auto max-w-4xl px-4 py-16 md:pb-32">
         <div class="prose max-w-none">
             <p class="mb-6">
-                By registering for an Account or utilizing any services offered on the platform, you acknowledge your agreement to adhere to all terms and conditions outlined in this user agreement. These terms encompass a commitment to settling disputes through arbitration on an individual basis.
+                By registering for an Account or utilizing any services offered on the platform, you acknowledge your agreement to adhere to all terms and conditions outlined in this user agreement. These terms encompass a commitment to settling disputes through trading on an individual basis.
             </p>
 
             <div class="space-y-6">

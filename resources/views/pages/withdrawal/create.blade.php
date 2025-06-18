@@ -20,7 +20,7 @@
                     below.</li>
                 <li>All withdrawals will be completed within 24 hours.</li>
                 <li>If your bank details are incorrect, you can update them on your dashboard.</li>
-                <li>Please note that Profitchain charge {{ $rate * 100 }}% of the total amount withdrawn as
+                <li>Please note that charge {{ $rate * 100 }}% of the total amount withdrawn as
                     transaction fee.</li>
                     <li><b>This withdrawal option is only for Naira Withdrawal, to withdraw via USDT, use the Withdraw USDT(Tether) Option.</b></li>
             </ol>

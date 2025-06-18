@@ -15,7 +15,7 @@
         <div class="widget">
             <h4 class="mb-3 text-[1rem] leading-[1.45] text-brand-800">Get in Touch</h4>
 
-            <a class="text-[#60697b] hover:text-[#60697b]" href="mailto:support@profitchain.com">help@cardbeta.com</a><br> +2348079532641
+            <a class="text-[#60697b] hover:text-[#60697b]" href="mailto:support@profitchain.com">support@cardbeta.com</a>
         </div>
         <!-- /.widget -->
     </div>

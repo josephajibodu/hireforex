@@ -22,19 +22,19 @@
                                 </span>
                             </a>
 
-                            <a href="{{ route('faq') }}"
+                            <a href="{{ route('login') }}"
                                wire:navigate
                                class="{{ request()->routeIs('faq') ? 'text-accent' : '' }} relative inline-block w-full h-full px-4 py-5 mx-2 font-medium leading-tight text-center duration-300 ease-out md:py-2 group hover:text-accent md:w-auto md:px-2 lg:mx-3 md:text-center">
-                                <span>FAQ</span>
+                                <span>Login</span>
                                 <span class="absolute bottom-0 h-px duration-300 ease-out translate-y-px bg-gradient-to-r md:from-gray-200 md:via-accent md:to-gray-200 from-gray-900 via-gray-600 to-gray-900
                                     {{ request()->routeIs('faq') ? 'w-full left-0' : 'w-0 left-1/2 group-hover:w-full group-hover:left-0' }}">
                                 </span>
                             </a>
 
-                            <a href="{{ route('contact-us') }}"
+                            <a href="{{ route('register') }}"
                                wire:navigate
                                class="{{ request()->routeIs('contact-us') ? 'text-accent' : '' }} relative inline-block w-full h-full px-4 py-5 mx-2 font-medium leading-tight text-center duration-300 ease-out md:py-2 group hover:text-accent md:w-auto md:px-2 lg:mx-3 md:text-center">
-                                <span>Contact</span>
+                                <span>Register</span>
                                 <span class="absolute bottom-0 h-px duration-300 ease-out translate-y-px bg-gradient-to-r md:from-gray-200 md:via-accent md:to-gray-200 from-gray-900 via-gray-600 to-gray-900
                                     {{ request()->routeIs('contact-us') ? 'w-full left-0' : 'w-0 left-1/2 group-hover:w-full group-hover:left-0' }}">
                                 </span>
@@ -44,8 +44,8 @@
                             <div class="flex-col items-center w-full h-full p-3 overflow-hidden bg-white bg-opacity-50 rounded-lg select-none md:p-0 backdrop-blur-lg md:h-auto md:bg-transparent md:rounded-none md:relative md:flex md:flex-row md:overflow-auto">
                                 <div class="flex flex-col items-center justify-end w-full h-full pt-2 md:w-full md:flex-row md:py-0">
                                     @guest()
-                                        <flux:button variant="ghost" href="{{ route('login') }}" wire:navigate class="w-full">Sign In</flux:button>
-                                        <flux:button variant="primary" href="{{ route('register') }}" wire:navigate class="w-full">Sign Up</flux:button>
+                                        <flux:button variant="ghost" href="{{ route('login') }}" wire:navigate class="w-full">Login</flux:button>
+                                        <flux:button variant="primary" href="{{ route('register') }}" wire:navigate class="w-full">Register</flux:button>
                                     @endguest
 
                                     @auth()
