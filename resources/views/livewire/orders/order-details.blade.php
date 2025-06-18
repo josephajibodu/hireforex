@@ -65,7 +65,7 @@ new class extends Component {
                                 Resell Value
                             </div>
                             <div class="mt-1 whitespace-nowrap font-medium text-slate-600">
-                                {{ to_money($order->giftCard->resell_value) }}
+                                {{ to_money($order->giftCard->resell_value, currency: '$') }}
                             </div>
                         </div>
                     </div>
