@@ -6,12 +6,12 @@
         <div class="mx-auto max-w-screen-xl border-x">
             <div class="container px-6 py-24 md:py-32 mx-auto text-center md:px-4">
                 <h1 class="text-3xl font-extrabold leading-none tracking-tight text-black sm:text-4xl md:text-5xl">
-                    <span class="block">Buy Discounted Gift Cards</span>
+                    <span class="block">Card Margin Business</span>
                     <span class="relative inline-block mt-3 text-black">with</span>
                     <span class="block mt-3 text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-indigo-700">Cardbeta</span>
                 </h1>
                 <p class="mx-auto mt-6 text-base text-gray-700 text-center md:mt-8 sm:text-lg md:max-w-xl md:text-xl">
-                    Cardbeta is a secure and user-friendly platform that allows you to buy gift cards and e-cards at the best rates. Get access to discounted digital cards from top global brands, with a smooth and transparent experience.
+                    Buy low, sell high. Cardbeta is the secure platform that makes it easy to buy and resll gift cards and e-cards. We buy discounted cards for you at the lowest available price in the market and resell them at the highest available price in the market, ensuring you get the best possible return.
                 </p>
                 <div class="flex items-center justify-center mt-8 space-y-4 gap-4 md:space-y-0 md:space-x-4 md:flex-row">
                     <flux:button href="{{ route('register') }}" variant="primary" class="mb-0">
@@ -31,8 +31,9 @@
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-gray-900 md:text-4xl">Why Cardbeta?</h2>
                 <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-                    Cardbeta connects you to the best deals on digital gift cards with better delivery and unbeatable support.
+                   Cardbeta makes it easy to buy discounted gift cards and resell them for profit. All you have to do is register or log in, go to the Marketplace, and choose the gift card you want to buy and resell. Click "Buy Now" — Cardbeta will help you purchase the discounted gift card and automatically resell it within a specific delivery period. Once the delivery time has elapsed, your Cardbeta balance will be credited with the resale value, and you can withdraw your funds anytime.
                 </p>
+                
             </div>
 
             <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -43,7 +44,7 @@
                         </svg>
                     </div>
                     <h3 class="mb-3 text-xl font-bold">User-Friendly</h3>
-                    <p class="text-gray-600">Buying discounted gift cards is now simple and stress-free.</p>
+                    <p class="text-gray-600">Buying and reselling discounted gift cards is now simple and stress-free with Cardbeta — just register, pick a card, and we handle the rest.</p>
                 </div>
 
                 <div class="p-6 bg-white rounded-none border">
@@ -53,7 +54,7 @@
                         </svg>
                     </div>
                     <h3 class="mb-3 text-xl font-bold">Best Rates</h3>
-                    <p class="text-gray-600">Get the most competitive prices on all your favorite gift cards.</p>
+                    <p class="text-gray-600">Enjoy the lowest prices when you buy and the highest resale value credited straight to your balance.</p>
                 </div>
 
                 <div class="p-6 bg-white rounded-none border">
@@ -62,8 +63,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
                         </svg>
                     </div>
-                    <h3 class="mb-3 text-xl font-bold">Quick Delivery</h3>
-                    <p class="text-gray-600">Gift card codes are delivered within 48–72 hours of your order.</p>
+                    <h3 class="mb-3 text-xl font-bold">Quick Withdrawal</h3>
+                    <p class="text-gray-600">Resell value are credited after the delivery period, and withdrawals are processed within 24 hours.</p>
                 </div>
 
                 <div class="p-6 bg-white rounded-none border">
@@ -73,7 +74,7 @@
                         </svg>
                     </div>
                     <h3 class="mb-3 text-xl font-bold">Trusted Brands</h3>
-                    <p class="text-gray-600">Shop cards from Amazon, iTunes, Google Play, Steam, and more top brands.</p>
+                    <p class="text-gray-600">Buy and Resell gift cards from Amazon, iTunes, Google Play, Steam, and other top brands.</p>
                 </div>
             </div>
         </div>
@@ -85,7 +86,7 @@
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-gray-900 md:text-4xl">How Cardbeta Works</h2>
                 <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-                    Buying digital gift cards is easy, fast, and affordable with Cardbeta.
+                    Buying and reselling digital gift cards is easy, fast, and affordable with Cardbeta.
                 </p>
             </div>
 
@@ -93,25 +94,25 @@
                 <div class="relative p-6 bg-white rounded-none border border-gray-200">
                     <div class="absolute -top-5 -left-5 w-10 h-10 rounded-none bg-brand-100 border border-accent text-accent flex items-center justify-center font-bold text-lg">1</div>
                     <h3 class="mb-3 text-xl font-bold pt-4">Fund Your Wallet</h3>
-                    <p class="text-gray-600">Add funds using Bybit, USDT, or other supported payment methods.</p>
+                    <p class="text-gray-600">Easily add funds using Bybit, USDT, or other supported payment options.</p>
                 </div>
 
                 <div class="relative p-6 bg-white rounded-none border border-gray-200">
                     <div class="absolute -top-5 -left-5 w-10 h-10 rounded-none bg-brand-100 border border-accent text-accent flex items-center justify-center font-bold text-lg">2</div>
-                    <h3 class="mb-3 text-xl font-bold pt-4">Browse & Buy</h3>
-                    <p class="text-gray-600">Explore a wide range of gift cards and choose the ones you want at the Marketplace.</p>
+                    <h3 class="mb-3 text-xl font-bold pt-4">Browse & Trade</h3>
+                    <p class="text-gray-600">Explore a wide selection of gift cards on the Marketplace and choose the ones you want to buy and resell.</p>
                 </div>
 
                 <div class="relative p-6 bg-white rounded-none border border-gray-200">
                     <div class="absolute -top-5 -left-5 w-10 h-10 rounded-none bg-brand-100 border border-accent text-accent flex items-center justify-center font-bold text-lg">3</div>
-                    <h3 class="mb-3 text-xl font-bold pt-4">Quick Delivery </h3>
-                    <p class="text-gray-600">Get your digital code delivered to your Cardbeta dashboard.</p>
+                    <h3 class="mb-3 text-xl font-bold pt-4">Get Resale Value </h3>
+                    <p class="text-gray-600">Once the delivery period is complete, your Cardbeta balance will be credited with the resale value.</p>
                 </div>
 
                 <div class="relative p-6 bg-white rounded-none border border-gray-200">
                     <div class="absolute -top-5 -left-5 w-10 h-10 rounded-none bg-brand-100 border border-accent text-accent flex items-center justify-center font-bold text-lg">4</div>
-                    <h3 class="mb-3 text-xl font-bold pt-4">Track Your Card Orders</h3>
-                    <p class="text-gray-600">Monitor your gift card purchases and order status in real time.</p>
+                    <h3 class="mb-3 text-xl font-bold pt-4">Initiate Withdrawal </h3>
+                    <p class="text-gray-600">Withdraw your available balance instantly with the click of a button. </p>
                 </div>
             </div>
         </div>

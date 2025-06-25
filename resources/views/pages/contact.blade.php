@@ -21,10 +21,10 @@
     <section class="mx-auto max-w-4xl px-4 py-16 md:pb-32">
         <div class="prose max-w-none">
             <h2 class="mb-3 text-xl font-semibold">Customer Support</h2>
-            <p>For general inquiries, account issues, or buy support, reach out to our support team via:</p>
+            <p>For general inquiries, account issues, or buy and sell support, reach out to our support team via:</p>
             <ul class="list-disc space-y-2 pl-6">
                 <li>Email: <a href="mailto:support@cardbeta.com" class="text-blue-600 underline">support@cardbeta.com</a></li>
-                <li>Support Hours: Monday – Sunday (24/7)</li>
+                <li>On WhatsApp: +447862216350 (24/7)</li>
             </ul>
         </div>
     </section>

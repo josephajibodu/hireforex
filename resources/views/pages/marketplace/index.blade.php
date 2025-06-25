@@ -12,11 +12,17 @@
         <div class="bg-gray-100 dark:bg-neutral-800 p-6 rounded-lg border mb-8">
             <flux:heading class="text-2xl! mb-4">Welcome to the Cardbeta Gift Card Marketplace!</flux:heading>
             <div class="space-y-4 text-gray-700 dark:text-gray-300">
-                <p>Browse and select any gift card you will like to purchase.</p>
-                <p>Before proceeding, review the delivery time and cost details carefully.</p>
-                <p>Once you click "BUY NOW," your transaction will appear under "CURRENT ORDER."</p>
-                <p>You'll be able to track your order, and once the delivery duration has passed, the gift card codes will become visible.</p>
-                <p class="font-medium">Please note: Gift card availability is on a first-come, first-served basis. If a specific card is unavailable, you can either choose a different one or check back later.</p>
+                <p>Browse and select any gift card you want Cardbeta to help you buy and resell.</p>
+                
+                <p>Review the Details: Before proceeding, carefully review the gift card's cost, resell value, and delivery time.</p>
+                
+                <p>The resell value is the amount that will be credited to your Cardbeta balance once the delivery period is complete.</p>
+                
+                <p>Once you click "Buy now", Cardbeta manages the entire transaction for you. Cardbeta will purchase the discounted gift card and then resell it at the listed price, completing the process within the specified delivery time.</p>
+                
+                <p>You will be able to track your order once you have initiated the transaction</p>
+                
+                <p class="font-medium">Buying and selling of gift cards are subject to availability on a first-come, first-served basis. If a card is unavailable, please select another or check back later.</p>
             </div>
         </div>
 

@@ -14,7 +14,7 @@
                 <div class="flex-1">
                     <h6 class="text-lg font-medium text-gray-800 dark:text-white">USDT Balance</h6>
                     <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mt-2">{{ to_money($user->main_balance, divider: 1, hideSymbol: true) }} USDT</h2>
-                    <p class="text-xs text-gray-400">Available balance for purchases</p>
+                    <p class="text-xs text-gray-400">Available balance for transactions and withdrawals</p>
                 </div>
                 <div>
                     <div class="text-brand-600 bg-brand-100 size-10 flex items-center justify-center rounded">
@@ -28,7 +28,7 @@
                 <div class="flex-1">
                     <h6 class="text-lg font-medium text-gray-800 dark:text-white">Current Orders</h6>
                     <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mt-2">{{ $user->orders()->where('status', \App\Enums\OrderStatus::Paid)->count() }}</h2>
-                    <p class="text-xs text-gray-400">Pending gift card orders</p>
+                    <p class="text-xs text-gray-400">Pending giftcard orders </p>
                 </div>
                 <div>
                     <div class="text-brand-600 bg-brand-100 size-10 flex items-center justify-center rounded">
