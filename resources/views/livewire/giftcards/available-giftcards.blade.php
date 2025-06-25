@@ -90,10 +90,11 @@ new class extends Component {
             }
 
             $order = $createGiftCardOrder->execute($user, $this->selected_gift_card, $this->quantity);
+            $costAmount = to_money($order->getExpectedResaleValue(), currency: '$');
 
             $this->dispatch(
                 "flash-success",
-                message: "Your gift card order has been successfully created! Your card codes will be available once the scheduled delivery time has elapsed. Please check your Current Order section to view your card codes when they become available."
+                message: "Your gift card order has been successfully created! Cardbeta will process the purchase and resale automatically. You'll receive $costAmount in your Cardbeta balance after the delivery period. Check your Current Orders section to track the progress."
             );
 
             $this->reset(['quantity', 'total_amount', 'selected_gift_card']);

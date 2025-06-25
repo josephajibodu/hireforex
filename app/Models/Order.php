@@ -17,7 +17,9 @@ class Order extends Model
 
     protected $casts = [
         'total_amount' => 'decimal:2',
+        'resale_amount' => 'decimal:2',
         'delivery_time' => 'datetime',
+        'completed_at' => 'datetime',
         'status' => OrderStatus::class
     ];
 
@@ -46,5 +48,23 @@ class Order extends Model
         $timeLeft = $now->diffInSeconds($this->delivery_time, false);
 
         return max(0, $timeLeft);
+    }
+
+    /**
+     * Calculate the expected resale value for this order.
+     */
+    public function getExpectedResaleValue(): float
+    {
+        return $this->quantity * $this->giftCard->resell_value;
+    }
+
+    /**
+     * Check if the order is ready for completion (delivery time has elapsed).
+     */
+    public function isReadyForCompletion(): bool
+    {
+        return $this->status === OrderStatus::Paid &&
+               $this->delivery_time &&
+               now()->greaterThanOrEqualTo($this->delivery_time);
     }
 }

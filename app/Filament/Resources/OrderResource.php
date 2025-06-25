@@ -43,6 +43,11 @@ class OrderResource extends Resource
                             ->numeric()
                             ->prefix('USDT')
                             ->required(),
+                        Forms\Components\TextInput::make('resale_amount')
+                            ->numeric()
+                            ->prefix('$')
+                            ->helperText('Amount credited to user after delivery')
+                            ->columnSpanFull(),
                         Forms\Components\Select::make('status')
                             ->options([
                                 'pending' => 'Pending',
@@ -51,6 +56,9 @@ class OrderResource extends Resource
                             ->required(),
                         Forms\Components\DateTimePicker::make('delivery_time')
                             ->label('Delivery Time'),
+                        Forms\Components\DateTimePicker::make('completed_at')
+                            ->label('Completed At')
+                            ->helperText('When the order was completed and resale value credited'),
                     ])->columns(2),
             ]);
     }
@@ -74,6 +82,10 @@ class OrderResource extends Resource
                     ->label('Total Amount')
                     ->suffix(' USDT')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('resale_amount')
+                    ->label('Resale Amount')
+                    ->money('USD')
+                    ->sortable(),
                 Tables\Columns\BadgeColumn::make('status')
                     ->colors([
                         'primary' => 'pending',
@@ -82,6 +94,10 @@ class OrderResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('delivery_time')
                     ->label('Delivery Time')
+                    ->dateTime()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('completed_at')
+                    ->label('Completed At')
                     ->dateTime()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
