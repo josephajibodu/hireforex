@@ -47,7 +47,7 @@
                 <flux:heading class="text-xl! md:text-2xl!">Recent Orders</flux:heading>
 
                 <flux:button
-                    href="{{ url('/order-history') }}"
+                    href="{{ route('marketplace.index') }}"
                     wire:navigate="true"
                     size="sm"
                 >
