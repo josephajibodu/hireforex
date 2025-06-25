@@ -7,7 +7,8 @@ return [
      * put them (manually) here.
      */
     'settings' => [
-        \App\Settings\GeneralSetting::class
+        \App\Settings\GeneralSetting::class,
+        \App\Settings\WithdrawalSetting::class,
     ],
 
     /*

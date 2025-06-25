@@ -4,6 +4,7 @@ use Livewire\Volt\Component;
 use App\Actions\InitiateUSDTWithdrawal;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Settings\WithdrawalSetting;
 use Livewire\Attributes\Validate;
 
 new class extends Component {
@@ -23,17 +24,29 @@ new class extends Component {
     public User $user;
     public float $fee = 0;
     public float $amountPayable = 0;
-    public float $feePercentage = 10; // 10% fee
+
+    // Settings as simple properties
+    public float $minimumWithdrawalAmount = 10;
+    public float $maximumWithdrawalAmount = 10000;
+    public float $withdrawalFeePercentage = 10;
+    public int $withdrawalProcessingTimeHours = 1;
 
     public function mount()
     {
         $this->user = Auth::user();
+
+        // Load settings into simple properties
+        $settings = app(WithdrawalSetting::class);
+        $this->minimumWithdrawalAmount = $settings->minimum_withdrawal_amount;
+        $this->maximumWithdrawalAmount = $settings->maximum_withdrawal_amount;
+        $this->withdrawalFeePercentage = $settings->withdrawal_fee_percentage;
+        $this->withdrawalProcessingTimeHours = $settings->withdrawal_processing_time_hours;
     }
 
     public function updatedAmount()
     {
         if ($this->amount) {
-            $this->fee = (floatval($this->amount) * $this->feePercentage) / 100;
+            $this->fee = (floatval($this->amount) * $this->withdrawalFeePercentage) / 100;
             $this->amountPayable = floatval($this->amount) - $this->fee;
         } else {
             $this->fee = 0;
@@ -60,7 +73,7 @@ new class extends Component {
                 $this->withdrawalMethod === 'usdt_address' ? $this->networkType : null
             );
 
-            $this->dispatch('flash-success', message: 'Withdrawal request submitted successfully. It will be processed within 1 hour.');
+            $this->dispatch('flash-success', message: "Withdrawal request submitted successfully. It will be processed within {$this->withdrawalProcessingTimeHours} hour(s).");
             $this->reset(['amount', 'destination', 'fee', 'amountPayable']);
         } catch (Exception $ex) {
             report($ex);
@@ -91,10 +104,11 @@ new class extends Component {
                     <flux:input
                         type="number"
                         step="0.01"
-                        min="10"
+                        min="{{ $minimumWithdrawalAmount }}"
+                        max="{{ $maximumWithdrawalAmount }}"
                         name="amount"
                         wire:model.live.debounce="amount"
-                        placeholder="Enter amount in USDT"
+                        placeholder="Enter amount in USDT (Min: {{ $minimumWithdrawalAmount }}, Max: {{ $maximumWithdrawalAmount }})"
                         required
                     />
                     <flux:input.group.suffix>USDT</flux:input.group.suffix>
@@ -166,7 +180,7 @@ new class extends Component {
                     <flux:subheading>{{ number_format($amount, 2) }} USDT</flux:subheading>
                 </div>
                 <div class="flex justify-between">
-                    <flux:subheading>Fee ({{ $feePercentage }}%):</flux:subheading>
+                    <flux:subheading>Fee ({{ $withdrawalFeePercentage }}%):</flux:subheading>
                     <flux:subheading class="text-red-600">-{{ number_format($fee, 2) }} USDT</flux:subheading>
                 </div>
                 <hr class="my-2">
