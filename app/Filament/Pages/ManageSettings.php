@@ -18,7 +18,7 @@ class ManageSettings extends SettingsPage
 
     protected static ?int $navigationSort = 11;
 
-    protected static ?string $navigationGroup = 'Others';
+    protected static ?string $navigationGroup = 'Settings';
 
     public static function canAccess(): bool
     {

@@ -24,11 +24,6 @@ class ManageWithdrawalSettings extends SettingsPage
 
     protected static ?string $navigationLabel = 'Withdrawal Settings';
 
-    public static function canAccess(): bool
-    {
-        return Auth::user()->hasPermissionTo(SystemPermissions::ManageSettings);
-    }
-
     public function form(Form $form): Form
     {
         return $form
