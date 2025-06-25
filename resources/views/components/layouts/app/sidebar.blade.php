@@ -20,6 +20,8 @@
                     <flux:navlist.item icon="arrow-up-circle" :href="route('top-up.create', ['type' => 'bybit'])" :current="request()->routeIs('top-up.create') && request()->query('type') === 'bybit'" wire:navigate>{{ __('Top Up (Bybit)') }}</flux:navlist.item>
                     <flux:navlist.item icon="arrow-up-circle" :href="route('top-up.create', ['type' => 'usdt'])" :current="request()->routeIs('top-up.create') && request()->query('type') === 'usdt'" wire:navigate>{{ __('Top Up (USDT)') }}</flux:navlist.item>
 
+                    <flux:navlist.item icon="arrows-right-left" :href="route('withdrawal.create')" :current="request()->routeIs('withdrawal.create')" wire:navigate>{{ __('Withdrawal') }}</flux:navlist.item>
+
                 </flux:navlist.group>
 
                 @can(\App\Enums\SystemPermissions::CreateSellOrder->value)

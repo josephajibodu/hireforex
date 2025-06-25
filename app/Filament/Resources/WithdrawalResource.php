@@ -137,8 +137,7 @@ class WithdrawalResource extends Resource
 
                 Tables\Columns\TextColumn::make('network_type')
                     ->label('Network')
-                    ->badge()
-                    ->visible(fn (Withdrawal $record) => $record->withdrawal_method === 'usdt_address'),
+                    ->badge(),
 
                 Tables\Columns\BadgeColumn::make('status')
                     ->colors([

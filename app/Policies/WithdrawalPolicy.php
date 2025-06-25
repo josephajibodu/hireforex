@@ -15,7 +15,7 @@ class WithdrawalPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasRole('admin') || $user->hasPermissionTo('view withdrawals');
+        return true;
     }
 
     /**
@@ -24,7 +24,6 @@ class WithdrawalPolicy
     public function view(User $user, Withdrawal $withdrawal): bool
     {
         return $user->hasRole('admin') ||
-               $user->hasPermissionTo('view withdrawals') ||
                $user->id === $withdrawal->user_id;
     }
 
@@ -33,7 +32,7 @@ class WithdrawalPolicy
      */
     public function create(User $user): bool
     {
-        return true; // Any authenticated user can create withdrawals
+        return true;
     }
 
     /**
@@ -41,7 +40,7 @@ class WithdrawalPolicy
      */
     public function update(User $user, Withdrawal $withdrawal): bool
     {
-        return $user->hasRole('admin') || $user->hasPermissionTo('update withdrawals');
+        return $user->hasRole('admin');
     }
 
     /**
@@ -49,7 +48,7 @@ class WithdrawalPolicy
      */
     public function delete(User $user, Withdrawal $withdrawal): bool
     {
-        return $user->hasRole('admin') || $user->hasPermissionTo('delete withdrawals');
+        return $user->hasRole('admin');
     }
 
     /**
@@ -57,7 +56,7 @@ class WithdrawalPolicy
      */
     public function restore(User $user, Withdrawal $withdrawal): bool
     {
-        return $user->hasRole('admin') || $user->hasPermissionTo('restore withdrawals');
+        return $user->hasRole('admin');
     }
 
     /**
@@ -65,6 +64,6 @@ class WithdrawalPolicy
      */
     public function forceDelete(User $user, Withdrawal $withdrawal): bool
     {
-        return $user->hasRole('admin') || $user->hasPermissionTo('force delete withdrawals');
+        return $user->hasRole('admin');
     }
 }
