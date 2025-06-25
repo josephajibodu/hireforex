@@ -22,6 +22,18 @@
             'icon' => 'file-clock',
             'label' => 'Order History'
         ],
+
+        [
+            'route' => route('top-up.create'),
+            'icon' => 'plus-circle',
+            'label' => 'Top Up'
+        ],
+
+        [
+            'route' => route('withdrawal.create'),
+            'icon' => 'arrow-down-circle',
+            'label' => 'Withdraw'
+        ],
     ];
     @endphp
 

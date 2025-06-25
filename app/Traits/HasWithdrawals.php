@@ -2,7 +2,6 @@
 
 namespace App\Traits;
 
-use App\Models\Trade;
 use App\Models\Withdrawal;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 

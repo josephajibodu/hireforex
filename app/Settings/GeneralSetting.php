@@ -9,6 +9,7 @@ class GeneralSetting extends Settings
     public string $bybit_uid;
     public string $usdt_trc;
     public string $usdt_bep;
+    public float $minimum_usdt_withdrawal = 10.0;
 
     public static function group(): string
     {

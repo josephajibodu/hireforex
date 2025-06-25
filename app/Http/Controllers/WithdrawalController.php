@@ -14,10 +14,13 @@ class WithdrawalController extends Controller
         ]);
     }
 
-    public function create(GeneralSetting $generalSetting)
+    public function create()
     {
-        return view('pages.withdrawal.create', [
-            'rate' => getWithdrawalFeePercentage()
-        ]);
+        return view('pages.withdrawal.create');
+    }
+
+    public function history()
+    {
+        return view('pages.withdrawal.history');
     }
 }

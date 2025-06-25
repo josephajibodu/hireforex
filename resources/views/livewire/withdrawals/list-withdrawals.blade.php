@@ -19,10 +19,11 @@ new class extends Component {
 <div class="overflow-x-auto">
     <x-table class="bg-gray-50 rounded-none! border-0 hidden md:table">
         <x-table.columns>
-            <x-table.column >Reference</x-table.column>
-            <x-table.column class="text-center">Amount(USD)</x-table.column>
-            <x-table.column>Amount (Naira)</x-table.column>
-            <x-table.column>Bank Details</x-table.column>
+            <x-table.column>Reference</x-table.column>
+            <x-table.column class="text-center">Amount (USDT)</x-table.column>
+            <x-table.column class="text-center">Amount Payable (USDT)</x-table.column>
+            <x-table.column>Withdrawal Method</x-table.column>
+            <x-table.column>Destination</x-table.column>
             <x-table.column>Status</x-table.column>
             <x-table.column class="text-center">Date</x-table.column>
         </x-table.columns>
@@ -30,7 +31,7 @@ new class extends Component {
         <x-table.rows x-data>
             @php
                 $withdrawalQuery = Auth::user()->withdrawals()->latest();
-                $withdrawals = $limit ? $withdrawalQuery->take(3)->get() : $withdrawalQuery->paginate();
+                $withdrawals = $limit ? $withdrawalQuery->take($limit)->get() : $withdrawalQuery->paginate();
             @endphp
 
             @forelse($withdrawals as $withdrawal)
@@ -38,15 +39,22 @@ new class extends Component {
                     <x-table.cell class="min-w-24 capitalize">{{ $withdrawal->reference }}</x-table.cell>
                     <x-table.cell class="">
                         <div class="text-center">
-                            <flux:heading>{{ to_money($withdrawal->amount, 100, '$') }}</flux:heading>
+                            <flux:heading>{{ number_format($withdrawal->amount, 2) }} USDT</flux:heading>
                         </div>
                     </x-table.cell>
-                    <x-table.cell class="">{{ to_money($withdrawal->amount_payable) }}</x-table.cell>
                     <x-table.cell class="">
                         <div class="text-center">
-                            <flux:heading>{{ $withdrawal->bank_name }}</flux:heading>
-                            <flux:subheading>{{ $withdrawal->bank_account_number }}</flux:subheading>
+                            <flux:heading>{{ number_format($withdrawal->amount_payable, 2) }} USDT</flux:heading>
                         </div>
+                    </x-table.cell>
+                    <x-table.cell class="">
+                        <flux:heading>{{ $withdrawal->method_label }}</flux:heading>
+                        @if($withdrawal->network_type)
+                            <flux:subheading>{{ $withdrawal->network_type }}</flux:subheading>
+                        @endif
+                    </x-table.cell>
+                    <x-table.cell class="">
+                        <flux:heading class="break-words">{{ $withdrawal->destination }}</flux:heading>
                     </x-table.cell>
                     <x-table.cell class="text-center">
                         <x-flux::badge color="{{ $withdrawal->status->getFluxColor() }}">
@@ -59,7 +67,7 @@ new class extends Component {
                 </x-table.row>
             @empty
                 <x-table.row>
-                    <x-table.cell colspan="6" class="text-center">No withdrawals yet!</x-table.cell>
+                    <x-table.cell colspan="7" class="text-center">No withdrawals yet!</x-table.cell>
                 </x-table.row>
             @endforelse
         </x-table.rows>
@@ -73,19 +81,25 @@ new class extends Component {
                     <flux:subheading class="uppercase text-end">{{ $withdrawal->reference }}</flux:subheading>
                 </div>
                 <div class="flex justify-between">
-                    <flux:heading class="font-semibold">Amount (USD):</flux:heading>
-                    <flux:subheading>{{ to_money($withdrawal->amount, 100, '$') }}</flux:subheading>
+                    <flux:heading class="font-semibold">Amount (USDT):</flux:heading>
+                    <flux:subheading>{{ number_format($withdrawal->amount, 2) }} USDT</flux:subheading>
                 </div>
                 <div class="flex justify-between">
-                    <flux:heading class="font-semibold">Amount (Naira):</flux:heading>
-                    <flux:subheading>{{ to_money($withdrawal->amount_payable) }}</flux:subheading>
+                    <flux:heading class="font-semibold">Amount Payable (USDT):</flux:heading>
+                    <flux:subheading>{{ number_format($withdrawal->amount_payable, 2) }} USDT</flux:subheading>
                 </div>
                 <div class="flex justify-between">
-                    <flux:heading class="font-semibold">Bank Details:</flux:heading>
+                    <flux:heading class="font-semibold">Method:</flux:heading>
                     <div class="text-right">
-                        <flux:subheading>{{ $withdrawal->bank_name }}</flux:subheading>
-                        <flux:subheading class="text-gray-500">{{ $withdrawal->bank_account_number }}</flux:subheading>
+                        <flux:subheading>{{ $withdrawal->method_label }}</flux:subheading>
+                        @if($withdrawal->network_type)
+                            <flux:subheading class="text-gray-500">{{ $withdrawal->network_type }}</flux:subheading>
+                        @endif
                     </div>
+                </div>
+                <div class="flex justify-between">
+                    <flux:heading class="font-semibold">Destination:</flux:heading>
+                    <flux:subheading class="break-words text-right">{{ $withdrawal->destination }}</flux:subheading>
                 </div>
                 <div class="flex justify-between py-1">
                     <flux:heading class="font-semibold">Status:</flux:heading>

@@ -67,6 +67,10 @@ Route::middleware(['auth'])->group(function () {
     // Top Up Routes
     Route::get('/top-up', [TopUpController::class, 'create'])->name('top-up.create');
     Route::get('/top-up/history', [TopUpController::class, 'history'])->name('top-up.history');
+
+    // Withdrawal Routes
+    Route::get('/withdrawal', [WithdrawalController::class, 'create'])->name('withdrawal.create');
+    Route::get('/withdrawal/history', [WithdrawalController::class, 'history'])->name('withdrawal.history');
 });
 
 require __DIR__.'/auth.php';
