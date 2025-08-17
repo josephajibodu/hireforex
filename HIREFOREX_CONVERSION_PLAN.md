@@ -32,12 +32,12 @@ Converting the existing project to a HireForex forex trader marketplace while ma
 - [x] Run migrations and seed data
 
 ### Phase 3: Core Business Logic (Days 7-10)
-**Status**: ⏳ Pending
-- [ ] Implement TraderService
-- [ ] Implement TradeService (Using actions for specific actions instead)
-- [ ] Implement TopUpService (Using actions for specific actions instead)
-- [ ] Implement WithdrawalService (Using actions for specific actions instead)
-- [ ] Update WalletService (Using actions for specific actions instead)
+**Status**: ✅ Completed
+- [x] Implement TraderService (Using actions for specific actions instead)
+- [x] Implement TradeService (Using actions for specific actions instead)
+- [x] Implement TopUpService (Using actions for specific actions instead)
+- [x] Implement WithdrawalService (Using actions for specific actions instead)
+- [x] Update WalletService (Using actions for specific actions instead)
 
 ### Phase 4: Frontend Views & Components (Days 11-18)
 **Status**: ⏳ Pending
