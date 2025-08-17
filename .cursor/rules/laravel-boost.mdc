@@ -44,6 +44,11 @@ This application is a Laravel application and its main Laravel ecosystems packag
 ## Documentation Files
 - You must only create documentation files if explicitly requested by the user.
 
+## User-facing User Interface
+- The design language, layout structure, and interaction flow must remain exactly the same as the existing project’s user interface.
+- You may adjust the UI only to accommodate the new feature or content, but do not introduce any new design patterns, styles, components, or visual changes that do not already exist in the original interface.
+- Adapt, don’t redesign. The cursor (AI or dev) should treat the existing UI as the strict base template and reuse it as-is for the new project.
+
 
 === boost rules ===
 
@@ -637,4 +642,5 @@ it('has emails', function (string $email) {
 
 - Every change must be programmatically tested. Write a new test or update an existing test, then run the affected tests to make sure they pass.
 - Run the minimum number of tests needed to ensure code quality and speed. Use `php artisan test` with a specific filename or filter.
+
 </laravel-boost-guidelines>
