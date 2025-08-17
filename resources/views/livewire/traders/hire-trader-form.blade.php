@@ -1,3 +1,51 @@
+<?php
+
+use Livewire\Volt\Component;
+use App\Models\Trader;
+use App\Actions\HireTrader;
+use Livewire\Attributes\Rule;
+
+new class extends Component {
+    public Trader $trader;
+    public $amount = '';
+    public $successMessage = '';
+    public $errorMessage = '';
+
+    #[Rule('required|numeric|min:0.01')]
+    public function rules()
+    {
+        return [
+            'amount' => [
+                'required',
+                'numeric',
+                'min:' . $this->trader->min_capital,
+                'max:' . $this->trader->available_volume,
+            ]
+        ];
+    }
+
+    public function hireTrader()
+    {
+        $this->validate();
+
+        try {
+            $hireTraderAction = new HireTrader();
+            $trade = $hireTraderAction->execute(auth()->user(), $this->trader, (float) $this->amount);
+
+            $this->successMessage = "Your trade has been successfully created! Your returns will be available when the duration time has elapsed. Please check your Active Trades section to view your trade details when they become available.";
+            $this->amount = '';
+            $this->errorMessage = '';
+
+            // Redirect to active trades after successful creation
+            $this->redirect(route('trades.active'));
+
+        } catch (\Exception $e) {
+            $this->errorMessage = $e->getMessage();
+            $this->successMessage = '';
+        }
+    }
+}; ?>
+
 <div>
     <form wire:submit="hireTrader" class="space-y-4">
         <!-- Amount Input -->
@@ -6,7 +54,7 @@
                 Amount to Trade (USDT)
             </label>
             <flux:input
-                wire:model.live="amount"
+                wire:model="amount"
                 id="amount"
                 type="number"
                 step="0.01"

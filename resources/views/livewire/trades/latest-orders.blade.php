@@ -1,11 +1,25 @@
-<div>
-    @php
-        $latestTrades = auth()->user()->trades()->with('trader')->latest()->take($limit ?? 4)->get();
-    @endphp
+<?php
 
-    @if($latestTrades->count() > 0)
+use Livewire\Volt\Component;
+
+new class extends Component {
+    public $limit = 4;
+
+    public function mount($limit = 4)
+    {
+        $this->limit = $limit;
+    }
+
+    public function getLatestTradesProperty()
+    {
+        return auth()->user()->trades()->with('trader')->latest()->take($this->limit)->get();
+    }
+}; ?>
+
+<div>
+    @if($this->latestTrades->count() > 0)
         <div class="grid gap-4">
-            @foreach($latestTrades as $trade)
+            @foreach($this->latestTrades as $trade)
                 <div class="flex items-center justify-between p-4 border-b border-neutral-200 dark:border-neutral-700 last:border-b-0">
                     <div class="flex items-center gap-3">
                         <div class="w-8 h-8 {{ $trade->isCompleted() ? 'bg-green-100 dark:bg-green-900/20' : ($trade->isRefunded() ? 'bg-blue-100 dark:bg-blue-900/20' : 'bg-brand-100 dark:bg-brand-900/20') }} rounded-full flex items-center justify-center">

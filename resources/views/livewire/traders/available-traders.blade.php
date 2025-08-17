@@ -1,7 +1,30 @@
+<?php
+
+use Livewire\Volt\Component;
+use App\Models\Trader;
+
+new class extends Component {
+    public $limit = 10;
+
+    public function mount($limit = 10)
+    {
+        $this->limit = $limit;
+    }
+
+    public function getTradersProperty()
+    {
+        return Trader::where('is_available', true)
+            ->orderBy('mbg_rate', 'desc')
+            ->orderBy('experience_years', 'desc')
+            ->take($this->limit)
+            ->get();
+    }
+}; ?>
+
 <div>
-    @if($traders->count() > 0)
+    @if($this->traders->count() > 0)
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            @foreach($traders->take($limit ?? 10) as $trader)
+            @foreach($this->traders as $trader)
                 <div class="bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 shadow-sm">
                     <!-- Trader Header -->
                     <div class="flex items-center justify-between mb-3">
@@ -40,7 +63,7 @@
                             <span class="font-medium">${{ number_format($trader->min_capital, 0) }}</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-neutral-600 dark:text-neutral-400">Duration:</span>
+                            <span class="text-neutral-400">Duration:</span>
                             <span class="font-medium">{{ $trader->duration_days }}d</span>
                         </div>
                     </div>

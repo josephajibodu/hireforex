@@ -1,11 +1,25 @@
-<div>
-    @php
-        $activeTrades = auth()->user()->activeTrades()->with('trader')->take($limit ?? 4)->get();
-    @endphp
+<?php
 
-    @if($activeTrades->count() > 0)
+use Livewire\Volt\Component;
+
+new class extends Component {
+    public $limit = 4;
+
+    public function mount($limit = 4)
+    {
+        $this->limit = $limit;
+    }
+
+    public function getActiveTradesProperty()
+    {
+        return auth()->user()->activeTrades()->with('trader')->take($this->limit)->get();
+    }
+}; ?>
+
+<div>
+    @if($this->activeTrades->count() > 0)
         <div class="grid gap-4">
-            @foreach($activeTrades as $trade)
+            @foreach($this->activeTrades as $trade)
                 <div class="flex items-center justify-between p-4 border-b border-neutral-200 dark:border-neutral-700 last:border-b-0">
                     <div class="flex items-center gap-3">
                         <div class="w-8 h-8 bg-brand-100 dark:bg-brand-900/20 rounded-full flex items-center justify-center">
@@ -25,7 +39,11 @@
                             {{ $trade->mbg_rate }}% MBG
                         </div>
                         <div class="text-xs text-neutral-600 dark:text-neutral-400">
-                            {{ $trade->getTimeRemainingAttribute() ? gmdate('H:i:s', $trade->getTimeRemainingAttribute()) : '0:00:00' }} left
+                            @if($trade->getTimeRemainingAttribute())
+                                {{ gmdate('H:i:s', $trade->getTimeRemainingAttribute()) }} left
+                            @else
+                                0:00:00 left
+                            @endif
                         </div>
                     </div>
                 </div>

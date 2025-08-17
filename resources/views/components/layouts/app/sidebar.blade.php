@@ -15,7 +15,7 @@
                 <flux:navlist.group heading="Platform" class="grid mb-8">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
 
-                    <flux:navlist.item icon="chart-candlestick" :href="route('marketplace.index')" :current="request()->routeIs('marketplace.index')" wire:navigate>{{ __('Marketplace') }}</flux:navlist.item>
+                    <flux:navlist.item icon="chart-candlestick" :href="route('traders.index')" :current="request()->routeIs('traders.*')" wire:navigate>{{ __('Hire Traders') }}</flux:navlist.item>
 
                     <flux:navlist.item icon="arrow-up-circle" :href="route('top-up.create', ['type' => 'bybit'])" :current="request()->routeIs('top-up.create') && request()->query('type') === 'bybit'" wire:navigate>{{ __('Top Up (Bybit)') }}</flux:navlist.item>
                     <flux:navlist.item icon="arrow-up-circle" :href="route('top-up.create', ['type' => 'usdt'])" :current="request()->routeIs('top-up.create') && request()->query('type') === 'usdt'" wire:navigate>{{ __('Top Up (USDT)') }}</flux:navlist.item>

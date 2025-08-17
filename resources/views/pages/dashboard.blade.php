@@ -13,7 +13,7 @@
             <div class="border overflow-hidden bg-white dark:bg-neutral-800 p-4 rounded-lg flex">
                 <div class="flex-1">
                     <h6 class="text-lg font-medium text-gray-800 dark:text-white">USDT Balance</h6>
-                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mt-2">{{ number_format($user->wallet?->balance ?? 0, 2) }} USDT</h2>
+                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mt-2">{{ number_format(auth()->user()->wallet?->balance ?? 0, 2) }} USDT</h2>
                     <p class="text-xs text-gray-400">Available balance for hiring traders and withdrawals</p>
                 </div>
                 <div>
@@ -27,7 +27,7 @@
             <div class="border overflow-hidden bg-white dark:bg-neutral-800 p-4 rounded-lg flex">
                 <div class="flex-1">
                     <h6 class="text-lg font-medium text-gray-800 dark:text-white">Active Trades</h6>
-                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mt-2">{{ $user->activeTrades()->count() }}</h2>
+                    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mt-2">{{ auth()->user()->activeTrades()->count() }}</h2>
                     <p class="text-xs text-gray-400">Currently active forex trades</p>
                 </div>
                 <div>
