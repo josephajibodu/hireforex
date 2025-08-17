@@ -40,13 +40,13 @@ Converting the existing project to a HireForex forex trader marketplace while ma
 - [x] Update WalletService (Using actions for specific actions instead)
 
 ### Phase 4: Frontend Views & Components (Days 11-18)
-**Status**: ⏳ Pending
-- [ ] Update main dashboard
-- [ ] Create trader marketplace page
-- [ ] Implement trade creation modal
-- [ ] Create top-up forms
-- [ ] Create withdrawal forms
-- [ ] Update trade history views
+**Status**: 🚧 In Progress
+- [x] Update main dashboard
+- [x] Create trader marketplace page
+- [x] Implement trade creation modal
+- [x] Create top-up forms (already exists, needs updating)
+- [x] Create withdrawal forms (already exists, needs updating)
+- [x] Update trade history views
 
 ### Phase 5: Filament Admin Panel (Days 19-22)
 **Status**: ⏳ Pending

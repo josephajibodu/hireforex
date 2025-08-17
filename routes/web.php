@@ -11,6 +11,8 @@ use App\Http\Controllers\SellAdvertController;
 use App\Http\Controllers\TransferController;
 use App\Http\Controllers\WithdrawalController;
 use App\Http\Controllers\TopUpController;
+use App\Http\Controllers\TraderController;
+use App\Http\Controllers\TradeController;
 use App\Models\SellAdvert;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -48,10 +50,14 @@ Route::view('/privacy-policy', 'pages.privacy')->name('privacy-policy');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
-    Route::get('marketplace', [MarketPlaceController::class, 'index'])->name('marketplace.index');
-    Route::get('marketplace/active', [MarketPlaceController::class, 'active_orders'])->name('marketplace.active_orders');
-    Route::get('marketplace/all', [MarketPlaceController::class, 'all_orders'])->name('marketplace.all_orders');
-    Route::get('marketplace/{order}/details', [MarketPlaceController::class, 'show'])->name('marketplace.show');
+    // HireForex Trader Routes
+    Route::get('traders', [TraderController::class, 'index'])->name('traders.index');
+    Route::get('traders/{trader}', [TraderController::class, 'show'])->name('traders.show');
+
+    // HireForex Trade Routes
+    Route::get('trades/active', [TradeController::class, 'active'])->name('trades.active');
+    Route::get('trades/history', [TradeController::class, 'history'])->name('trades.history');
+    Route::get('trades/{trade}', [TradeController::class, 'show'])->name('trades.show');
 
     Route::get('dispute', DisputeController::class)->name('dispute');
 });
