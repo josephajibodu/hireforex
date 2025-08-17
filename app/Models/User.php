@@ -7,11 +7,11 @@ use App\Enums\AccountStatus;
 use App\Enums\KYCStatus;
 use App\Enums\SystemPermissions;
 use App\Traits\HasAccountStatus;
-use App\Traits\HasCryptoTrades;
-use App\Traits\HasKycVerification;
-use App\Traits\HasOrders;
-use App\Traits\HasReferrals;
-use App\Traits\HasTrades;
+
+
+
+
+
 use App\Traits\HasTransfers;
 use App\Traits\HasWallet;
 use App\Traits\HasWithdrawals;
@@ -61,11 +61,11 @@ class User extends Authenticatable implements FilamentUser, HasName
 {
     use HasFactory, Notifiable;
     use HasRoles;
-    use HasReferrals;
-    use HasKycVerification;
-    use HasOrders;
-    use HasTrades;
-    use HasCryptoTrades;
+
+
+
+
+
     use HasWithdrawals;
     use HasTransfers;
     use HasAccountStatus;
@@ -126,10 +126,7 @@ class User extends Authenticatable implements FilamentUser, HasName
         return "https://www.gravatar.com/avatar/$hash?d=$default";
     }
 
-    public function kycVerification(): HasOne
-    {
-        return $this->hasOne(KycVerification::class);
-    }
+
 
     /**
      * Get the user's initials
@@ -161,13 +158,42 @@ class User extends Authenticatable implements FilamentUser, HasName
         return $this->hasOne(Wallet::class);
     }
 
-    public function orders()
-    {
-        return $this->hasMany(Order::class);
-    }
+
 
     public function topUps()
     {
         return $this->hasMany(TopUp::class);
+    }
+
+    /**
+     * Get all trades for this user
+     */
+    public function trades()
+    {
+        return $this->hasMany(Trade::class);
+    }
+
+    /**
+     * Get active trades for this user
+     */
+    public function activeTrades()
+    {
+        return $this->hasMany(Trade::class)->where('status', Trade::STATUS_ACTIVE);
+    }
+
+    /**
+     * Get completed trades for this user
+     */
+    public function completedTrades()
+    {
+        return $this->hasMany(Trade::class)->where('status', Trade::STATUS_COMPLETED);
+    }
+
+    /**
+     * Get refunded trades for this user
+     */
+    public function refundedTrades()
+    {
+        return $this->hasMany(Trade::class)->where('status', Trade::STATUS_REFUNDED);
     }
 }

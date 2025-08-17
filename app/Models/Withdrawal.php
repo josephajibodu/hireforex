@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property int $user_id
  * @property float $amount Amount requested in USDT
- * @property float $fee 10% transaction fee
+ * @property float $fee 3% transaction fee
  * @property float $amount_payable Amount after fee deduction
  * @property string $withdrawal_method Either 'usdt_address' or 'bybit_uid'
  * @property string|null $usdt_address USDT wallet address
