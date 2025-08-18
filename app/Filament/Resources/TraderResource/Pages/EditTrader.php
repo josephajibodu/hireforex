@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\GiftCardResource\Pages;
+namespace App\Filament\Resources\TraderResource\Pages;
 
-use App\Filament\Resources\GiftCardResource;
+use App\Filament\Resources\TraderResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditGiftCard extends EditRecord
+class EditTrader extends EditRecord
 {
-    protected static string $resource = GiftCardResource::class;
+    protected static string $resource = TraderResource::class;
 
     protected function getHeaderActions(): array
     {

@@ -2,10 +2,8 @@
 
 namespace App\Filament\Resources;
 
-use App\Enums\TopupStatus;
 use App\Filament\Resources\TopUpResource\Pages;
 use App\Filament\Resources\TopUpResource\RelationManagers;
-use App\Models\Order;
 use App\Models\TopUp;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -15,8 +13,6 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\HtmlString;
 
 class TopUpResource extends Resource
 {
@@ -24,31 +20,71 @@ class TopUpResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-trending-up';
 
-    protected static ?string $navigationGroup = 'Main';
+    protected static ?string $navigationGroup = 'Financial Management';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('amount')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('payment_method')
-                    ->required(),
-                Forms\Components\TextInput::make('bybit_email')
-                    ->email()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('reference')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('screenshot_path')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('status')
-                    ->required(),
-                Forms\Components\Textarea::make('rejection_reason')
-                    ->columnSpanFull(),
+                Forms\Components\Section::make('Top-Up Details')
+                    ->schema([
+                        Forms\Components\Select::make('user_id')
+                            ->relationship('user', 'username')
+                            ->searchable()
+                            ->required()
+                            ->label('User'),
+
+                        Forms\Components\TextInput::make('amount')
+                            ->required()
+                            ->numeric()
+                            ->prefix('USDT')
+                            ->label('Amount'),
+
+                        Forms\Components\Select::make('method')
+                            ->options([
+                                'bybit' => 'Bybit Transfer',
+                                'usdt' => 'USDT Transfer',
+                            ])
+                            ->required()
+                            ->label('Payment Method'),
+
+                        Forms\Components\TextInput::make('bybit_email')
+                            ->email()
+                            ->maxLength(255)
+                            ->label('Bybit Email')
+                            ->visible(fn (Forms\Get $get) => $get('method') === 'bybit'),
+
+                        Forms\Components\Select::make('network')
+                            ->options([
+                                'TRC-20' => 'TRC-20',
+                                'BEP-20' => 'BEP-20',
+                            ])
+                            ->label('Network Type')
+                            ->visible(fn (Forms\Get $get) => $get('method') === 'usdt'),
+
+                        Forms\Components\FileUpload::make('screenshot')
+                            ->label('Payment Screenshot')
+                            ->image()
+                            ->directory('topup-screenshots')
+                            ->visibility('public'),
+
+                        Forms\Components\Select::make('status')
+                            ->options([
+                                'pending' => 'Pending',
+                                'confirmed' => 'Confirmed',
+                                'cancelled' => 'Cancelled',
+                            ])
+                            ->required()
+                            ->default('pending'),
+
+                        Forms\Components\Textarea::make('admin_notes')
+                            ->label('Admin Notes')
+                            ->rows(3)
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(2),
             ]);
     }
 
@@ -57,84 +93,132 @@ class TopUpResource extends Resource
         return $table
             ->defaultPaginationPageOption(50)
             ->columns([
-                Tables\Columns\TextColumn::make('reference')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('user.username')
                     ->label('Username')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('amount')
-                    ->label('Amt')
-                    ->numeric()
+                    ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('payment_method')
-                    ->label('Method')
+
+                Tables\Columns\TextColumn::make('amount')
+                    ->label('Amount (USDT)')
+                    ->money('USD')
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('method')
+                    ->label('Payment Method')
                     ->badge()
-                    ->color(fn($record) => $record->payment_method->getColor()),
-                Tables\Columns\ImageColumn::make('screenshot_path')
-                    ->label('Screenshot')
-                    ->square(),
-                Tables\Columns\TextColumn::make('screenshot_path')
-                    ->getStateUsing(function (TopUp $record) {
-                        if (! $record->screenshot_path) return "-";
-
-                        $url = Storage::url($record->screenshot_path);
-
-                        return new HtmlString("<a class='text-sm underline' href='$url' target='_blank'>View Image</a>");
+                    ->color(fn($record) => match($record->method) {
+                        'bybit' => 'warning',
+                        'usdt' => 'info',
+                        default => 'gray',
                     }),
+
+                Tables\Columns\TextColumn::make('bybit_email')
+                    ->label('Bybit Email')
+                    ->searchable()
+                    ->formatStateUsing(function ($state, $record) {
+                        return ($record && $record->method === 'bybit') ? ($state ?: '-') : '-';
+                    }),
+
+                Tables\Columns\TextColumn::make('network')
+                    ->label('Network')
+                    ->badge()
+                    ->formatStateUsing(function ($state, $record) {
+                        return ($record && $record->method === 'usdt') ? ($state ?: '-') : '-';
+                    }),
+
+                Tables\Columns\ImageColumn::make('screenshot')
+                    ->label('Screenshot')
+                    ->square()
+                    ->size(60),
+
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->color(fn($record) => match($record->status) {
                         'pending' => 'warning',
-                        'completed' => 'success',
-                        'rejected' => 'danger',
+                        'confirmed' => 'success',
+                        'cancelled' => 'danger',
                         default => 'gray',
                     }),
-                Tables\Columns\TextColumn::make('bybit_email')
-                    ->label('Bybit Email')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: false),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'confirmed' => 'Confirmed',
+                        'cancelled' => 'Cancelled',
+                    ]),
+
+                Tables\Filters\SelectFilter::make('method')
+                    ->options([
+                        'bybit' => 'Bybit Transfer',
+                        'usdt' => 'USDT Transfer',
+                    ]),
+
+                Tables\Filters\Filter::make('created_at')
+                    ->form([
+                        Forms\Components\DatePicker::make('created_from'),
+                        Forms\Components\DatePicker::make('created_until'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    }),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\Action::make('confirm')
-                    ->label('Confirm')
+                    ->label('CONFIRM')
                     ->color('success')
                     ->icon('heroicon-o-check')
-                    ->visible(fn($record) => $record->status === TopupStatus::Pending)
-                    ->action(function($record) {
-                        $record->status = TopupStatus::Completed;
-                        $record->save();
-                        $record->user->credit($record->amount, 'Top-up via ' . $record->payment_method->getLabel());
+                    ->visible(fn($record) => $record->status === 'pending')
+                    ->requiresConfirmation()
+                    ->modalHeading('Confirm Top-Up')
+                    ->modalDescription('Are you sure you want to confirm this top-up request? This will credit the user\'s HireForex balance.')
+                    ->form([
+                        Forms\Components\Textarea::make('admin_notes')
+                            ->label('Admin Notes (Optional)')
+                            ->rows(3),
+                    ])
+                    ->action(function($record, $data) {
+                        app(\App\Actions\ConfirmTopUp::class)->execute($record, $data['admin_notes'] ?? '');
 
                         Notification::make()
                             ->success()
-                            ->title('Topup marked successful')
+                            ->title('Top-up confirmed successfully')
+                            ->body('User\'s HireForex balance has been credited.')
                             ->send();
                     }),
                 Tables\Actions\Action::make('cancel')
-                    ->label('Cancel')
+                    ->label('REJECT')
                     ->color('danger')
                     ->icon('heroicon-o-x-mark')
-                    ->visible(fn($record) => $record->status === TopupStatus::Pending)
+                    ->visible(fn($record) => $record->status === 'pending')
+                    ->requiresConfirmation()
+                    ->modalHeading('Reject Top-Up')
+                    ->modalDescription('Are you sure you want to reject this top-up request?')
                     ->form([
-                        Forms\Components\Textarea::make('rejection_reason')
+                        Forms\Components\Textarea::make('admin_notes')
                             ->label('Rejection Reason')
                             ->required(),
                     ])
                     ->action(function($record, $data) {
-                        $record->status = TopupStatus::Cancelled;
-                        $record->rejection_reason = $data['rejection_reason'];
-                        $record->save();
+                        app(\App\Actions\CancelTopUp::class)->execute($record, $data['admin_notes']);
 
                         Notification::make()
                             ->success()
-                            ->title('Topup cancelled')
+                            ->title('Top-up rejected')
+                            ->body('User has been notified of the rejection.')
                             ->send();
                     }),
             ])
