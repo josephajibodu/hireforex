@@ -21,8 +21,9 @@
         }
     }"
 >
-    <flux:badge class="flex justify-center" x-show="!showMessage" style="width: 7rem!important;">
-        <span x-text="Math.floor(countdown / 3600).toString().padStart(2, '0')"></span>:
+    <flux:badge class="flex justify-center" x-show="!showMessage" style="width: 9rem!important;">
+        <span x-text="Math.floor(countdown / 86400) > 0 ? Math.floor(countdown / 86400) + 'd ' : ''"></span>
+        <span x-text="Math.floor((countdown % 86400) / 3600).toString().padStart(2, '0')"></span>:
         <span x-text="Math.floor((countdown % 3600) / 60).toString().padStart(2, '0')"></span>:
         <span x-text="(countdown % 60).toString().padStart(2, '0')"></span>
     </flux:badge>

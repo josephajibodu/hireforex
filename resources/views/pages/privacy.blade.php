@@ -10,7 +10,7 @@
                             Privacy Policy
                         </h1>
                         <p class="lead text-white/80 lg:!px-[1.25rem] xl:!px-[1.25rem] xxl:!px-[2rem] leading-[1.65] text-[0.9rem] font-medium !mb-[.25rem]">
-                            Learn how Cardbeta collects, uses, and protects your personal information.
+                            Learn how HireForex collects, uses, and protects your personal information.
                         </p>
                     </div>
                 </div>
@@ -21,14 +21,14 @@
     <section class="mx-auto max-w-4xl px-4 py-16 md:pb-32">
         <div class="prose max-w-none">
             <p class="mb-6">
-                Kindly review the following information carefully to grasp our perspectives and practices concerning your personal data ("Information") and how we intend to handle it. This Privacy Policy ("Policy"), in conjunction with our Terms and Conditions and any referenced documents, establishes the foundation for processing any Information collected from you or provided by you to manage your association with Cardbeta.
+                Kindly review the following information carefully to grasp our perspectives and practices concerning your personal data ("Information") and how we intend to handle it. This Privacy Policy ("Policy"), in conjunction with our Terms and Conditions and any referenced documents, establishes the foundation for processing any Information collected from you or provided by you to manage your association with HireForex.
             </p>
 
             <div class="space-y-6">
                 <section>
                     <h2 class="mb-3 text-xl font-semibold">1. Consent</h2>
                     <p>
-                        By submitting your Information to us or utilizing Cardbeta services, you affirm your consent to the utilization of your Information as articulated in this Policy.
+                        By submitting your Information to us or utilizing HireForex services, you affirm your consent to the utilization of your Information as articulated in this Policy.
                     </p>
                 </section>
 
@@ -36,7 +36,7 @@
                     <h2 class="mb-3 text-xl font-semibold">2. Information Collection</h2>
                     <p>We may collect and process the following Information about you:</p>
                     <ul class="list-disc space-y-2 pl-6">
-                        <li>Information provided during Cardbeta account registration, material posting, or service requests.</li>
+                        <li>Information provided during HireForex account registration, material posting, or service requests.</li>
                         <li>Information requested during participation in competitions or promotions, and when reporting issues with our services.</li>
                         <li>Recorded telephone calls to and from our Call Centre for training, security, and query resolution purposes.</li>
                         <li>Details of transactions and order fulfillment.</li>
@@ -74,7 +74,7 @@
             </div>
 
             <p class="mt-8 font-semibold">
-                By using Cardbeta, you acknowledge that you have read, understood, and agreed to this Privacy Policy.
+                By using HireForex, you acknowledge that you have read, understood, and agreed to this Privacy Policy.
             </p>
         </div>
     </section>

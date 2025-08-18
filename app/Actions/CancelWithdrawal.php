@@ -32,11 +32,8 @@ class CancelWithdrawal
                 throw new Exception('User not found for this withdrawal.');
             }
 
-            // Refund the withdrawal amount back to user's wallet
-            if (!$user->wallet) {
-                $user->wallet()->create(['balance' => 0]);
-            }
-            $user->wallet->increment('balance', $withdrawal->amount);
+                                    // Refund the withdrawal amount back to user's wallet
+                                    $user->credit($withdrawal->amount, 'Withdrawal cancellation refund');
 
             // Update withdrawal status to cancelled
             $withdrawal->update([

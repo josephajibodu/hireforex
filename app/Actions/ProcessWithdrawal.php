@@ -37,12 +37,12 @@ class ProcessWithdrawal
             $amountPayable = $withdrawal->amount - $fee;
 
             // Check if user has sufficient balance
-            if (!$user->wallet || $user->wallet->balance < $withdrawal->amount) {
+                                    if (!$user->hasSufficientBalance($withdrawal->amount)) {
                 throw new Exception('Insufficient balance for withdrawal.');
             }
 
             // Deduct amount from user's wallet
-            $user->wallet->decrement('balance', $withdrawal->amount);
+                                    $user->debit($withdrawal->amount, 'Withdrawal processing');
 
             // Update withdrawal with fee details and mark as completed
             $withdrawal->update([

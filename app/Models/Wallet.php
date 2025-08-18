@@ -27,11 +27,11 @@ class Wallet extends Model
 
     protected $fillable = [
         'user_id',
-        'balance'
+        'main_balance'
     ];
 
     protected $casts = [
-        'balance' => 'decimal:2'
+        'main_balance' => 'decimal:2'
     ];
 
     /**

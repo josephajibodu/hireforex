@@ -32,13 +32,10 @@ class ConfirmTopUp
                 throw new Exception('User not found for this top-up.');
             }
 
-            // Ensure user has a wallet
-            if (!$user->wallet) {
-                $user->wallet()->create(['balance' => 0]);
-            }
+                                    // Ensure user has a wallet (trait methods will handle this)
 
             // Credit user's wallet
-            $user->wallet->increment('balance', $topUp->amount);
+                                    $user->credit($topUp->amount, 'Top-up confirmation');
 
             // Update top-up status to confirmed
             $topUp->update([

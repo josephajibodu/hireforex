@@ -57,7 +57,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // HireForex Trade Routes
     Route::get('trades/active', [TradeController::class, 'active'])->name('trades.active');
     Route::get('trades/history', [TradeController::class, 'history'])->name('trades.history');
-    Route::get('trades/{trade}', [TradeController::class, 'show'])->name('trades.show');
 
     Route::get('dispute', DisputeController::class)->name('dispute');
 });

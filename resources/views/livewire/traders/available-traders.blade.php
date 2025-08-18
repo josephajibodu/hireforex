@@ -73,7 +73,6 @@ new class extends Component {
                         href="{{ route('traders.show', $trader) }}"
                         wire:navigate="true"
                         variant="primary"
-                        size="sm"
                         class="w-full"
                     >
                         Hire Now

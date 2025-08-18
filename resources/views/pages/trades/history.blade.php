@@ -24,7 +24,13 @@
                                         Trade with {{ $trade->trader->name }}
                                     </h3>
                                     <p class="text-sm text-neutral-600 dark:text-neutral-400">
-                                        {{ $trade->isCompleted() ? 'Completed' : 'Refunded' }} {{ $trade->completed_at->diffForHumans() }}
+                                        @if($trade->isCompleted())
+                                            Completed {{ $trade->completed_at?->diffForHumans() ?? 'recently' }}
+                                        @elseif($trade->isRefunded())
+                                            Refunded {{ $trade->completed_at?->diffForHumans() ?? 'recently' }}
+                                        @else
+                                            {{ $trade->status }}
+                                        @endif
                                     </p>
                                 </div>
                             </div>
@@ -71,18 +77,8 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-between">
-                            <div class="text-sm text-neutral-600 dark:text-neutral-400">
-                                <strong>Trade Period:</strong> {{ $trade->start_date->format('M j, Y') }} - {{ $trade->end_date->format('M j, Y') }}
-                            </div>
-                            <flux:button
-                                href="{{ route('trades.show', $trade) }}"
-                                wire:navigate="true"
-                                variant="outline"
-                                size="sm"
-                            >
-                                View Details
-                            </flux:button>
+                        <div class="text-sm text-neutral-600 dark:text-neutral-400">
+                            <strong>Trade Period:</strong> {{ $trade->start_date?->format('M j, Y') ?? 'N/A' }} - {{ $trade->end_date?->format('M j, Y') ?? 'N/A' }}
                         </div>
                     </div>
                 @endforeach

@@ -46,10 +46,7 @@ class CompleteTrade
                 $returnAmount = $trade->amount * ($trade->potential_return / 100);
 
                 // Credit user's wallet with returns
-                if (!$user->wallet) {
-                    $user->wallet()->create(['balance' => 0]);
-                }
-                $user->wallet->increment('balance', $returnAmount);
+                $user->credit($returnAmount, 'Trade completion - returns');
 
                 // Update trade status
                 $trade->update([
@@ -70,10 +67,7 @@ class CompleteTrade
                 $refundAmount = $trade->amount * ($trade->mbg_rate / 100);
 
                 // Credit user's wallet with refund
-                if (!$user->wallet) {
-                    $user->wallet()->create(['balance' => 0]);
-                }
-                $user->wallet->increment('balance', $refundAmount);
+                $user->credit($refundAmount, 'Trade completion - MBG refund');
 
                 // Update trade status
                 $trade->update([

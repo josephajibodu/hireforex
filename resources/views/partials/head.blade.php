@@ -2,14 +2,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 @php
-    $description = "Cardbeta is a secure and easy-to-use platform for buying discounted gift cards and e-cards from top global brands. Get the best rates with fast delivery, full transparency, and zero hassle. Perfect for both vendors and everyday users.";
+    $description = "HireForex is the first forex trader marketplace that allows individuals to hire vetted forex traders for short-term trading sessions with money-back guarantees. Get up to 170% returns with up to 100% MBG protection.";
 @endphp
 @stack('meta')
-<title>@yield('title') | Cardbeta</title>
+<title>@yield('title') | HireForex</title>
 <meta name="description" content="{{ $description }}" />
 
 <!-- Open Graph Tags -->
-<meta property="og:title" content="@yield('title') | Cardbeta">
+<meta property="og:title" content="@yield('title') | HireForex">
 <meta property="og:description" content="{{ $description }}">
 {{--<meta property="og:image" content="{{ asset('images/social-image.jpg') }}">--}}
 <meta property="og:url" content="{{ url()->current() }}">
@@ -17,10 +17,10 @@
 
 <!-- Twitter Card Tags -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="@yield('title') | Cardbeta">
+<meta name="twitter:title" content="@yield('title') | HireForex">
 <meta name="twitter:description" content="{{ $description }}">
 {{--<meta name="twitter:image" content="{{ asset('images/social-image.jpg') }}">--}}
-<meta name="twitter:site" content="@profitchain">
+<meta name="twitter:site" content="@hireforex">
 
 <link rel="canonical" href="@yield('canonical', url()->current())">
 

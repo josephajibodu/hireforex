@@ -7,7 +7,6 @@
                 href="{{ route('traders.index') }}"
                 wire:navigate="true"
                 variant="outline"
-                size="sm"
             >
                 <flux:icon name="arrow-left" class="w-4 h-4 mr-2" />
                 Back to Traders
@@ -78,29 +77,6 @@
                     <livewire:traders.hire-trader-form :trader="$trader" />
                 </div>
 
-                <!-- Trade Summary -->
-                <div class="bg-gray-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg p-6">
-                    <flux:heading size="lg" class="mb-4">Trade Summary</flux:heading>
-
-                    <div class="space-y-3">
-                        <div class="flex justify-between">
-                            <span class="text-neutral-600 dark:text-neutral-400">Your Investment:</span>
-                            <span class="font-medium" id="investment-amount">$0.00</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-neutral-600 dark:text-neutral-400">Potential Return:</span>
-                            <span class="font-medium text-green-600 dark:text-green-400" id="potential-return">$0.00</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-neutral-600 dark:text-neutral-400">MBG Refund (if trade fails):</span>
-                            <span class="font-medium text-blue-600 dark:text-blue-400" id="mbg-refund">$0.00</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-neutral-600 dark:text-neutral-400">Trade Duration:</span>
-                            <span class="font-medium">{{ $trader->duration_days }} days</span>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

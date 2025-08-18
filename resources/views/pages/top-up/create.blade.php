@@ -4,19 +4,19 @@
         <div class="text-start mb-8">
             <flux:heading class="text-xl! md:text-2xl!">Top Up Balance</flux:heading>
             <flux:subheading class="text-gray-600 dark:text-gray-400 text-sm">
-                Fund your Cardbeta wallet using Bybit or USDT transfer.
+                Fund your HireForex wallet using Bybit or USDT transfer.
             </flux:subheading>
         </div>
 
         <!-- Step-by-step Guide -->
         <div class="bg-gray-100 dark:bg-neutral-800 p-6 rounded-lg border">
             <flux:heading size="lg" class="mb-4 text-gray-800 dark:text-gray-200">
-                Top Up Your Cardbeta Balance
+                Top Up Your HireForex Balance
             </flux:heading>
             <ol class="space-y-3 text-sm text-gray-700 dark:text-gray-300 list-decimal pl-5">
-                <li>You can fund your Cardbeta wallet using Bybit UID transfer or USDT transfer (TRC-20 or BEP-20).</li>
+                <li>You can fund your HireForex wallet using Bybit UID transfer or USDT transfer (TRC-20 or BEP-20).</li>
                 <li>After making the transfer, submit your details and screenshot for confirmation.</li>
-                <li>Your Cardbeta wallet will be credited within 10 minutes after confirmation.</li>
+                <li>Your HireForex wallet will be credited within 10 minutes after confirmation.</li>
                 <li>If payment is not received or invalid, your top-up request will be rejected and you will be notified.</li>
             </ol>
         </div>

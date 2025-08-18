@@ -1,5 +1,5 @@
 <x-layouts.guest>
-    @section('title', 'Everything you need to know about Cardbeta')
+    @section('title', 'Everything you need to know about HireForex')
 
     <section class="overflow-hidden bg-accent">
         <div class="mx-auto max-w-screen-lg">
@@ -10,7 +10,7 @@
                             Frequently Asked Questions
                         </h1>
                         <p class="lead text-white/80 lg:!px-[1.25rem] xl:!px-[1.25rem] xxl:!px-[2rem] leading-[1.65] text-[0.9rem] font-medium !mb-[.25rem]">
-                            Everything you need to know about Cardbeta.com
+                            Everything you need to know about HireForex.com
                         </p>
                     </div>
                 </div>

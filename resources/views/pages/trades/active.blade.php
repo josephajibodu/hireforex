@@ -20,7 +20,7 @@
                                         Trade with {{ $trade->trader->name }}
                                     </h3>
                                     <p class="text-sm text-neutral-600 dark:text-neutral-400">
-                                        Started {{ $trade->start_date->diffForHumans() }}
+                                        Started {{ $trade->start_date?->diffForHumans() ?? 'recently' }}
                                     </p>
                                 </div>
                             </div>
@@ -53,24 +53,39 @@
                             </div>
                             <div class="text-center p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
                                 <div class="text-lg font-semibold text-orange-600 dark:text-orange-400">
-                                    {{ $trade->getTimeRemainingAttribute() ? gmdate('H:i:s', $trade->getTimeRemainingAttribute()) : '0:00:00' }}
+                                    <div x-data="{
+                                        timeLeft: {{ $trade->getTimeRemainingAttribute() ?? 0 }},
+                                        updateTimer() {
+                                            if (this.timeLeft > 0) {
+                                                this.timeLeft--;
+                                                setTimeout(() => this.updateTimer(), 1000);
+                                            }
+                                        },
+                                        formatTime() {
+                                            if (this.timeLeft <= 0) return 'Expired';
+
+                                            const days = Math.floor(this.timeLeft / 86400);
+                                            const hours = Math.floor((this.timeLeft % 86400) / 3600);
+                                            const minutes = Math.floor((this.timeLeft % 3600) / 60);
+                                            const seconds = this.timeLeft % 60;
+
+                                            if (days > 0) {
+                                                return `${days}d ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                                            } else {
+                                                return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                                            }
+                                        }
+                                    }" x-init="updateTimer()">
+                                        <span x-show="timeLeft > 0" x-text="formatTime()"></span>
+                                        <span x-show="timeLeft <= 0" class="text-red-500">Expired</span>
+                                    </div>
                                 </div>
                                 <div class="text-xs text-orange-700 dark:text-orange-300">Time Left</div>
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-between">
-                            <div class="text-sm text-neutral-600 dark:text-neutral-400">
-                                <strong>Expected Completion:</strong> {{ $trade->end_date->format('M j, Y g:i A') }}
-                            </div>
-                            <flux:button
-                                href="{{ route('trades.show', $trade) }}"
-                                wire:navigate="true"
-                                variant="outline"
-                                size="sm"
-                            >
-                                View Details
-                            </flux:button>
+                        <div class="text-sm text-neutral-600 dark:text-neutral-400">
+                            <strong>Expected Completion:</strong> {{ $trade->end_date?->format('M j, Y g:i A') ?? 'N/A' }}
                         </div>
                     </div>
                 @endforeach

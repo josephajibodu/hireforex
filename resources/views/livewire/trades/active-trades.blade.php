@@ -40,7 +40,19 @@ new class extends Component {
                         </div>
                         <div class="text-xs text-neutral-600 dark:text-neutral-400">
                             @if($trade->getTimeRemainingAttribute())
-                                {{ gmdate('H:i:s', $trade->getTimeRemainingAttribute()) }} left
+                                @php
+                                    $timeLeft = $trade->getTimeRemainingAttribute();
+                                    $days = floor($timeLeft / 86400);
+                                    $hours = floor(($timeLeft % 86400) / 3600);
+                                    $minutes = floor(($timeLeft % 3600) / 60);
+                                    $seconds = $timeLeft % 60;
+
+                                    if ($days > 0) {
+                                        echo $days . 'd ' . str_pad($hours, 2, '0', STR_PAD_LEFT) . ':' . str_pad($minutes, 2, '0', STR_PAD_LEFT) . ':' . str_pad($seconds, 2, '0', STR_PAD_LEFT);
+                                    } else {
+                                        echo str_pad($hours, 2, '0', STR_PAD_LEFT) . ':' . str_pad($minutes, 2, '0', STR_PAD_LEFT) . ':' . str_pad($seconds, 2, '0', STR_PAD_LEFT);
+                                    }
+                                @endphp left
                             @else
                                 0:00:00 left
                             @endif

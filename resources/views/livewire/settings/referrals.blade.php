@@ -160,7 +160,6 @@ new class extends Component {
                             <flux:button
                                 icon="arrow-down-on-square"
                                 class="absolute! bottom-3 right-3 shadow-lg cursor-pointer"
-                                size="sm"
                                 variant="primary"
                                 wire:click="download('{{ $post->image }}')"
                             >

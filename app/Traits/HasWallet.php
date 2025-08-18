@@ -27,7 +27,7 @@ trait HasWallet
 {
     /**
      * The base unit for wallet balance
-     * 
+     *
      */
     public const BALANCE_UNIT = 100;
 
@@ -76,8 +76,6 @@ trait HasWallet
      */
     public function hasSufficientBalance(float $amount): bool
     {
-        $amountInBaseUnit = $amount * 100;
-
-        return $this->wallet->main_balance >= $amountInBaseUnit;
+        return $this->wallet && $this->main_balance >= $amount;
     }
 }

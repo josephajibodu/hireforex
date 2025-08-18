@@ -20,7 +20,7 @@ class HireTrader
     {
         return DB::transaction(function () use ($user, $trader, $amount) {
             // Check if user has sufficient balance
-            if (!$user->wallet || $user->wallet->balance < $amount) {
+                                    if (!$user->hasSufficientBalance($amount)) {
                 throw new Exception('You currently don\'t have enough funds in your HireForex wallet. Please top up your balance to proceed with hiring a forex trader.');
             }
 
@@ -58,7 +58,7 @@ class HireTrader
             ]);
 
             // Deduct amount from user's wallet
-            $user->wallet->decrement('balance', $amount);
+                                    $user->debit($amount, 'Trade with ' . $trader->name);
 
             // Reduce trader's available volume
             $trader->decrement('available_volume', $amount);

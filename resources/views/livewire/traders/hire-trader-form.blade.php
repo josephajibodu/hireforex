@@ -11,7 +11,6 @@ new class extends Component {
     public $successMessage = '';
     public $errorMessage = '';
 
-    #[Rule('required|numeric|min:0.01')]
     public function rules()
     {
         return [
@@ -47,7 +46,7 @@ new class extends Component {
 }; ?>
 
 <div>
-    <form wire:submit="hireTrader" class="space-y-4">
+    <form wire:submit="hireTrader" x-data="{ amount: {{ (float) ($amount ?? 0) }}, potential: {{ (float) $trader->potential_return }}, mbg: {{ (float) $trader->mbg_rate }}, duration: {{ (int) $trader->duration_days }}, format(v) { v = Number(v) || 0; return '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }, potentialAmount() { return (Number(this.amount) || 0) * (Number(this.potential) / 100); }, mbgAmount() { return (Number(this.amount) || 0) * (Number(this.mbg) / 100); } }" class="space-y-4">
         <!-- Amount Input -->
         <div>
             <label for="amount" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
@@ -55,6 +54,7 @@ new class extends Component {
             </label>
             <flux:input
                 wire:model="amount"
+                x-model.number="amount"
                 id="amount"
                 type="number"
                 step="0.01"
@@ -71,42 +71,36 @@ new class extends Component {
             @enderror
         </div>
 
-        <!-- Trade Summary -->
-        @if($amount && $amount >= $trader->min_capital)
-            <div class="bg-gray-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg p-4">
-                <flux:heading size="sm" class="mb-3">Trade Summary</flux:heading>
+        <!-- Trade Summary (live, via Alpine) -->
+        <div class="bg-gray-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg p-4">
+            <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-3">Trade Summary</h3>
 
-                <div class="space-y-2 text-sm">
-                    <div class="flex justify-between">
-                        <span class="text-neutral-600 dark:text-neutral-400">Your Investment:</span>
-                        <span class="font-medium">${{ number_format($amount, 2) }}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-neutral-600 dark:text-neutral-400">Potential Return:</span>
-                        <span class="font-medium text-green-600 dark:text-green-400">
-                            ${{ number_format($amount * ($trader->potential_return / 100), 2) }}
-                        </span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-neutral-600 dark:text-neutral-400">MBG Refund (if trade fails):</span>
-                        <span class="font-medium text-blue-600 dark:text-blue-400">
-                            ${{ number_format($amount * ($trader->mbg_rate / 100), 2) }}
-                        </span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-neutral-600 dark:text-neutral-400">Trade Duration:</span>
-                        <span class="font-medium">{{ $trader->duration_days }} days</span>
-                    </div>
+            <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                    <span class="text-neutral-600 dark:text-neutral-400">Your Investment:</span>
+                    <span class="font-medium" x-text="format(amount)"></span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-neutral-600 dark:text-neutral-400">Potential Return:</span>
+                    <span class="font-medium text-green-600 dark:text-green-400" x-text="format(potentialAmount())"></span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-neutral-600 dark:text-neutral-400">MBG Refund (if trade fails):</span>
+                    <span class="font-medium text-blue-600 dark:text-blue-400" x-text="format(mbgAmount())"></span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-neutral-600 dark:text-neutral-400">Trade Duration:</span>
+                    <span class="font-medium" x-text="duration + ' days'"></span>
                 </div>
             </div>
-        @endif
+        </div>
 
         <!-- Current Balance -->
         <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
             <div class="flex justify-between items-center">
                 <span class="text-blue-700 dark:text-blue-300 text-sm">Your Current Balance:</span>
                 <span class="text-blue-800 dark:text-blue-200 font-semibold">
-                    ${{ number_format(auth()->user()->wallet?->balance ?? 0, 2) }} USDT
+                    ${{ number_format(auth()->user()->main_balance ?? 0, 2) }} USDT
                 </span>
             </div>
         </div>
@@ -138,7 +132,7 @@ new class extends Component {
     @if($errorMessage)
         <div class="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
             <div class="flex items-center gap-2">
-                <flux:icon name="alert-circle" class="w-5 h-5 text-red-500" />
+                <flux:icon name="circle-alert" class="w-5 h-5 text-red-500" />
                 <p class="text-red-700 dark:text-red-300">{{ $errorMessage }}</p>
             </div>
         </div>

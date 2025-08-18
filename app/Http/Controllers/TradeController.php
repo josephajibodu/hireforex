@@ -35,17 +35,5 @@ class TradeController extends Controller
         return view('pages.trades.history', compact('trades'));
     }
 
-    /**
-     * Display the specified trade
-     */
-    public function show(Trade $trade)
-    {
-        // Ensure user can only view their own trades
-        $user = auth()->user();
-        if ($trade->user_id !== $user->id) {
-            abort(403);
-        }
 
-        return view('pages.trades.show', compact('trade'));
-    }
 }

@@ -10,7 +10,7 @@
                             Terms and Conditions
                         </h1>
                         <p class="lead text-white/80 lg:!px-[1.25rem] xl:!px-[1.25rem] xxl:!px-[2rem] leading-[1.65] text-[0.9rem] font-medium !mb-[.25rem]">
-                            By using Cardbeta, you agree to the terms outlined below. Please read them carefully.
+                            By using HireForex, you agree to the terms outlined below. Please read them carefully.
                         </p>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
             </div>
 
             <p class="mt-8 text-center font-semibold">
-                By using Cardbeta, you acknowledge that you have read, understood, and agreed to these Terms and Conditions.
+                By using HireForex, you acknowledge that you have read, understood, and agreed to these Terms and Conditions.
             </p>
         </div>
     </section>

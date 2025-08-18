@@ -64,7 +64,7 @@ new class extends Component {
 
             $this->dispatch('flash-success',
                 title: "Your top-up details have been successfully submitted.",
-                message: "If the information and payment are correct, your Cardbeta account will be credited within 10 minutes."
+                message: "If the information and payment are correct, your HireForex account will be credited within 10 minutes."
             );
 
             $this->reset(['amount', 'payment_method', 'bybit_email', 'screenshot']);
@@ -77,26 +77,26 @@ new class extends Component {
 
 <div>
     <div class="mb-8">
-        <flux:heading size="xl" level="1">Top Up Your Cardbeta Balance</flux:heading>
+                    <flux:heading size="xl" level="1">Top Up Your HireForex Balance</flux:heading>
         <div class="rounded-xl py-6 mb-6 mt-4">
             @if($payment_method === 'bybit')
                 <ol class="list-decimal text-sm list-inside text-base text-zinc-800 space-y-1 mb-2 px-4">
-                    <li>You can fund your Cardbeta wallet using <b>Bybit UID transfer</b>.</li>
+                    <li>You can fund your HireForex wallet using <b>Bybit UID transfer</b>.</li>
                     <li>After making the transfer, submit your Bybit email, amount, and screenshot for confirmation.</li>
-                    <li>Your Cardbeta wallet will be credited within 10 minutes after confirmation.</li>
+                    <li>Your HireForex wallet will be credited within 10 minutes after confirmation.</li>
                     <li>If payment is not received or invalid, your top-up request will be rejected and you will be notified.</li>
                 </ol>
                 <div class="mt-4">
-                    <div class="font-semibold mb-1">Cardbeta UID:</div>
+                    <div class="font-semibold mb-1">HireForex UID:</div>
                     <flux:input.group class="inline-flex items-center">
                         <flux:input icon="badge-dollar-sign" value="{{ $bybit_uid }}" readonly copyable />
                     </flux:input.group>
                 </div>
             @else
                 <ol class="list-decimal list-inside text-sm text-zinc-800 space-y-1 mb-2 px-4">
-                    <li>You can fund your Cardbeta wallet using <b>USDT transfer</b> (TRC-20 or BEP-20).</li>
+                    <li>You can fund your HireForex wallet using <b>USDT transfer</b> (TRC-20 or BEP-20).</li>
                     <li>After making the transfer, submit your amount and screenshot for confirmation.</li>
-                    <li>Your Cardbeta wallet will be credited within 10 minutes after confirmation.</li>
+                    <li>Your HireForex wallet will be credited within 10 minutes after confirmation.</li>
                     <li>If payment is not received or invalid, your top-up request will be rejected and you will be notified.</li>
                 </ol>
                 <div class="mt-4 flex flex-col gap-4">

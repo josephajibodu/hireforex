@@ -23,7 +23,7 @@
             <h2 class="mb-3 text-xl font-semibold">Customer Support</h2>
             <p>For general inquiries, account issues, or buy support, reach out to our support team via:</p>
             <ul class="list-disc space-y-2 pl-6">
-                <li>Email: <a href="mailto:support@cardbeta.com" class="text-blue-600 underline">support@cardbeta.com</a></li>
+                <li>Email: <a href="mailto:support@hireforex.com" class="text-blue-600 underline">support@hireforex.com</a></li>
                 <li>Support Hours: Monday – Sunday (24/7)</li>
             </ul>
         </div>

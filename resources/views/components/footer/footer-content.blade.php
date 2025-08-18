@@ -5,7 +5,7 @@
                 <img src="{{ asset('full-logo.jpg') }}" class="h-[48px]" alt="logo" >
 {{--                <x-app-logo-full />--}}
             </div>
-            <p class="!mb-4">© 2025 CardBeta. <br class="hidden xl:block lg:block">All rights reserved.</p>
+            <p class="!mb-4">© 2025 HireForex. <br class="hidden xl:block lg:block">All rights reserved.</p>
         </div>
         <!-- /.widget -->
     </div>
@@ -15,7 +15,7 @@
         <div class="widget">
             <h4 class="mb-3 text-[1rem] leading-[1.45] text-brand-800">Get in Touch</h4>
 
-            <a class="text-[#60697b] hover:text-[#60697b]" href="mailto:support@profitchain.com">support@cardbeta.com</a>
+                            <a class="text-[#60697b] hover:text-[#60697b]" href="mailto:support@hireforex.com">support@hireforex.com</a>
         </div>
         <!-- /.widget -->
     </div>
