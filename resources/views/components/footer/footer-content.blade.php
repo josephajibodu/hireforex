@@ -14,8 +14,10 @@
     <div class="md:w-4/12 xl:w-3/12 lg:w-3/12 w-full flex-[0_0_auto] px-[15px] max-w-full xl:mt-0 lg:mt-0 mt-[30px]">
         <div class="widget">
             <h4 class="mb-3 text-[1rem] leading-[1.45] text-brand-800">Get in Touch</h4>
-
-                            <a class="text-[#60697b] hover:text-[#60697b]" href="mailto:support@hireforex.com">support@hireforex.com</a>
+            <ul class="pl-0 list-none !mb-0">
+                <li><a class="text-gray-500 hover:text-brand-500" href="{{ route('contact-us') }}" wire:navigate>Contact Us</a></li>
+                <li class="mt-[0.35rem]"><a class="text-[#60697b] hover:text-[#60697b]" href="mailto:support@hireforex.com">support@hireforex.com</a></li>
+            </ul>
         </div>
         <!-- /.widget -->
     </div>
