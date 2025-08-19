@@ -2,7 +2,7 @@
     <div class="md:w-4/12 xl:w-6/12 lg:w-6/12 w-full flex-[0_0_auto] px-[15px] max-w-full xl:mt-0 lg:mt-0 mt-[30px]">
         <div class="widget">
             <div class="mb-4">
-                <img src="{{ asset('full-logo.jpg') }}" class="h-[48px]" alt="logo" >
+                <img src="{{ asset('full-logo.png') }}" class="h-[48px]" alt="logo" >
 {{--                <x-app-logo-full />--}}
             </div>
             <p class="!mb-4">© 2025 HireForex. <br class="hidden xl:block lg:block">All rights reserved.</p>

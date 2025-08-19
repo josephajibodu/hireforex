@@ -9,11 +9,11 @@
                 <a href="{{ route('home') }}" class="flex flex-col items-center gap-2 font-medium" wire:navigate>
                     <span class="flex aspect-square size-12 items-center justify-center rounded-md bg-accent-content text-accent-foreground">
 {{--                        <x-app-logo-icon class="size-8 fill-current text-white dark:text-black" />--}}
-                        <div class="rounded overflow-hidden bg-white">
-                            <img src="{{ asset('logo-icon.jpg') }}" class="size-9 object-contain" alt="icon logo" >
+                        <div class="rounded overflow-hidden size-8 bg-white flex items-center justify-center">
+                            <img src="{{ asset('logo-icon.png') }}" class="size-6 object-contain" alt="icon logo" >
                         </div>
                     </span>
-                    <span class="sr-only">{{ config('app.name', 'Profitchain') }}</span>
+                    <span class="sr-only">{{ config('app.name', 'Hireforex') }}</span>
                 </a>
                 <div class="flex flex-col gap-6">
                     {{ $slot }}
