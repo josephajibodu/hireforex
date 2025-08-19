@@ -19,8 +19,8 @@ return new class extends Migration
             $table->decimal('potential_return', 5, 2); // Potential return percentage
             $table->decimal('mbg_rate', 5, 2); // Money Back Guarantee rate
             $table->enum('status', ['active', 'completed', 'refunded', 'cancelled'])->default('active');
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
 
