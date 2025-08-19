@@ -71,7 +71,7 @@ class UserResource extends Resource
                     ->description(fn(User $record) => "$record->email")
                     ->searchable(['phone_number', 'email']),
                 Tables\Columns\TextColumn::make('main_balance')
-                    ->formatStateUsing(fn(User $record) => "Main: ".to_money($record->main_balance, 100, '$'))
+                    ->formatStateUsing(fn(User $record) => "Main: ".to_money($record->main_balance, 1, '$'))
                     ->searchable(['username', 'first_name', 'last_name']),
                 Tables\Columns\TextColumn::make('account_status')
                     ->label('Status')

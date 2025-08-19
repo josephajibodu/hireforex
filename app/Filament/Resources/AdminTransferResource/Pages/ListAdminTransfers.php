@@ -13,7 +13,7 @@ class ListAdminTransfers extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            // Using table header action for transfers instead
         ];
     }
 }

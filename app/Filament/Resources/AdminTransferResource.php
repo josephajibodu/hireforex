@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class AdminTransferResource extends Resource
 {
@@ -130,6 +131,95 @@ class AdminTransferResource extends Resource
                             );
                     }),
             ])
+            ->headerActions([
+                Tables\Actions\Action::make('transfer_funds')
+                    ->label('Transfer Funds')
+                    ->icon('heroicon-o-plus')
+                    ->color('primary')
+                    ->form([
+                        Forms\Components\TextInput::make('username')
+                            ->label('Recipient Username')
+                            ->required()
+                            ->placeholder('Enter username to transfer to'),
+
+                        Forms\Components\TextInput::make('amount')
+                            ->label('Amount (USDT)')
+                            ->required()
+                            ->numeric()
+                            ->minValue(0.01)
+                            ->step(0.01)
+                            ->prefix('USDT')
+                            ->placeholder('Enter amount to transfer'),
+
+                        Forms\Components\Textarea::make('notes')
+                            ->label('Transfer Notes')
+                            ->rows(3)
+                            ->placeholder('Reason for this transfer...')
+                            ->required(),
+                    ])
+                    ->action(function (array $data) {
+                        // Validate the data
+                        if (empty($data['username'])) {
+                            \Filament\Notifications\Notification::make()
+                                ->danger()
+                                ->title('Validation Error')
+                                ->body('Username is required.')
+                                ->send();
+                            return;
+                        }
+
+                        if (empty($data['amount']) || !is_numeric($data['amount']) || $data['amount'] < 0.01) {
+                            \Filament\Notifications\Notification::make()
+                                ->danger()
+                                ->title('Validation Error')
+                                ->body('Amount must be at least 0.01 USDT.')
+                                ->send();
+                            return;
+                        }
+
+                        if (empty($data['notes'])) {
+                            \Filament\Notifications\Notification::make()
+                                ->danger()
+                                ->title('Validation Error')
+                                ->body('Transfer notes are required.')
+                                ->send();
+                            return;
+                        }
+
+                        // Find the user by username
+                        $user = \App\Models\User::where('username', $data['username'])->first();
+                        if (!$user) {
+                            \Filament\Notifications\Notification::make()
+                                ->danger()
+                                ->title('User Not Found')
+                                ->body('The username you entered was not found.')
+                                ->send();
+                            return;
+                        }
+
+                        // Create the admin transfer record
+                        $adminTransfer = \App\Models\AdminTransfer::create([
+                            'admin_id' => Auth::id(),
+                            'user_id' => $user->id,
+                            'amount' => $data['amount'],
+                            'notes' => $data['notes'],
+                            'status' => 'pending',
+                        ]);
+
+                        // Process the transfer immediately
+                        app(\App\Actions\ProcessAdminTransfer::class)->execute($adminTransfer);
+
+                        \Filament\Notifications\Notification::make()
+                            ->success()
+                            ->title('Transfer completed successfully')
+                            ->body('User\'s HireForex balance has been credited.')
+                            ->send();
+                    })
+                    ->requiresConfirmation()
+                    ->modalHeading('Transfer Funds to User')
+                    ->modalDescription('Enter the username and amount to transfer USDT to a user\'s HireForex balance.')
+                    ->modalSubmitActionLabel('Transfer'),
+            ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\Action::make('process')
@@ -168,7 +258,6 @@ class AdminTransferResource extends Resource
     {
         return [
             'index' => Pages\ListAdminTransfers::route('/'),
-            'create' => Pages\CreateAdminTransfer::route('/create'),
         ];
     }
 }

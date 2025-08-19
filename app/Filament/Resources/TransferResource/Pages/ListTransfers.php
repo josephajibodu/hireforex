@@ -19,6 +19,7 @@ class ListTransfers extends ListRecords
     {
         return [
             Actions\CreateAction::make()
+                ->hidden(true)
                 ->successNotificationTitle("User account credited")
                 ->using(function (array $data) {
                     $user = User::find($data['recipient_id']);
