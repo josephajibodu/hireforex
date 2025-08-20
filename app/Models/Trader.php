@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $favorite_pairs
  * @property string $track_record
  * @property float $mbg_rate
+ * @property float $potential_return
  * @property float $min_capital
  * @property float $available_volume
  * @property int $duration_days
@@ -30,6 +31,7 @@ class Trader extends Model
         'favorite_pairs',
         'track_record',
         'mbg_rate',
+        'potential_return',
         'min_capital',
         'available_volume',
         'duration_days',
@@ -38,28 +40,11 @@ class Trader extends Model
 
     protected $casts = [
         'mbg_rate' => 'decimal:2',
+        'potential_return' => 'decimal:2',
         'min_capital' => 'decimal:2',
         'available_volume' => 'decimal:2',
         'is_available' => 'boolean',
     ];
-
-    /**
-     * Get the trader's potential return percentage
-     */
-    public function getPotentialReturnAttribute(): float
-    {
-        // Calculate potential return based on MBG rate
-        // Higher MBG = lower return, lower MBG = higher return
-        if ($this->mbg_rate >= 100) {
-            return 110; // 110% return for 100% MBG
-        } elseif ($this->mbg_rate >= 95) {
-            return 130; // 130% return for 95% MBG
-        } elseif ($this->mbg_rate >= 90) {
-            return 150; // 150% return for 90% MBG
-        } else {
-            return 170; // 170% return for 80% MBG
-        }
-    }
 
     /**
      * Check if trader has sufficient volume for a trade
@@ -116,7 +101,7 @@ class Trader extends Model
     {
         $wins = substr_count($this->track_record, 'W');
         $total = strlen($this->track_record);
-        
+
         return $total > 0 ? ($wins / $total) * 100 : 0;
     }
 }

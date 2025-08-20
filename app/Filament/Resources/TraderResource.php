@@ -64,6 +64,16 @@ class TraderResource extends Resource
                             ->label('Money-Back Guarantee Rate')
                             ->helperText('Rate between 80% and 100%'),
 
+                        Forms\Components\TextInput::make('potential_return')
+                            ->required()
+                            ->numeric()
+                            ->minValue(110)
+                            ->maxValue(200)
+                            ->step(0.01)
+                            ->suffix('%')
+                            ->label('Potential Returns')
+                            ->helperText('Expected return percentage (e.g., 130 for 130% return)'),
+
                         Forms\Components\TextInput::make('min_capital')
                             ->required()
                             ->numeric()
@@ -223,7 +233,7 @@ class TraderResource extends Resource
                     ->color(fn($record) => $record->is_available ? 'warning' : 'success')
                     ->action(function($record) {
                         $record->update(['is_available' => !$record->is_available]);
-                        
+
                         \Filament\Notifications\Notification::make()
                             ->success()
                             ->title('Trader availability updated')
