@@ -9,46 +9,61 @@
                 <nav class="flex items-center w-full h-24 select-none" x-data="{ showMenu: false }">
                     <div class="relative flex flex-wrap items-start justify-between w-full mx-auto font-medium md:items-center md:h-24 md:justify-between">
                         <a href="{{ url('/') }}" class="flex items-center w-1/4 py-4 pl-6 pr-4 space-x-2 font-extrabold text-black md:py-0">
-{{--                            <x-app-logo-full />--}}
                             <img src="{{ asset('full-logo.png') }}" class="h-[48px]" alt="logo" >
                         </a>
                         <div :class="{'flex': showMenu, 'hidden md:flex': !showMenu }" class="absolute z-50 flex-col items-center justify-center w-full h-auto px-8 text-center text-gray-400 -translate-x-1/2 border-0 border rounded-full md:border md:w-auto md:h-10 left-1/2 md:flex-row md:items-center">
                             <a href="{{ url('/') }}"
-                               wire:navigate
-                               class="{{ request()->routeIs('home') ? 'text-accent' : '' }} relative inline-block w-full h-full px-4 py-5 mx-2 font-medium leading-tight text-center md:py-2 group md:w-auto md:px-2 lg:mx-3 md:text-center">
+                                wire:navigate
+                                class="{{ request()->routeIs('home') ? 'text-accent' : '' }} relative inline-block w-full h-full px-4 py-5 mx-2 font-medium leading-tight text-center md:py-2 group md:w-auto md:px-2 lg:mx-3 md:text-center">
                                 <span>Home</span>
                                 <span class="absolute bottom-0 left-0 h-px duration-300 ease-out translate-y-px bg-gradient-to-r md:from-gray-200 md:via-accent md:to-gray-200 from-gray-900 via-gray-600 to-gray-900
                                     {{ request()->routeIs('home') ? 'w-full left-0' : 'w-0 left-1/2 group-hover:w-full group-hover:left-0' }}">
                                 </span>
                             </a>
 
-                            <a href="{{ route('login') }}"
-                               wire:navigate
-                               class="{{ request()->routeIs('faq') ? 'text-accent' : '' }} relative inline-block w-full h-full px-4 py-5 mx-2 font-medium leading-tight text-center duration-300 ease-out md:py-2 group hover:text-accent md:w-auto md:px-2 lg:mx-3 md:text-center">
-                                <span>Login</span>
-                                <span class="absolute bottom-0 h-px duration-300 ease-out translate-y-px bg-gradient-to-r md:from-gray-200 md:via-accent md:to-gray-200 from-gray-900 via-gray-600 to-gray-900
-                                    {{ request()->routeIs('faq') ? 'w-full left-0' : 'w-0 left-1/2 group-hover:w-full group-hover:left-0' }}">
-                                </span>
-                            </a>
+                            <!-- ===== Conditional Links Added Here ===== -->
+                            @guest
+                                <a href="{{ route('login') }}"
+                                   wire:navigate
+                                   class="{{ request()->routeIs('login') ? 'text-accent' : '' }} relative inline-block w-full h-full px-4 py-5 mx-2 font-medium leading-tight text-center duration-300 ease-out md:py-2 group hover:text-accent md:w-auto md:px-2 lg:mx-3 md:text-center">
+                                    <span>Login</span>
+                                    <span class="absolute bottom-0 h-px duration-300 ease-out translate-y-px bg-gradient-to-r md:from-gray-200 md:via-accent md:to-gray-200 from-gray-900 via-gray-600 to-gray-900
+                                        {{ request()->routeIs('login') ? 'w-full left-0' : 'w-0 left-1/2 group-hover:w-full group-hover:left-0' }}">
+                                    </span>
+                                </a>
 
-                            <a href="{{ route('register') }}"
-                               wire:navigate
-                               class="{{ request()->routeIs('contact-us') ? 'text-accent' : '' }} relative inline-block w-full h-full px-4 py-5 mx-2 font-medium leading-tight text-center duration-300 ease-out md:py-2 group hover:text-accent md:w-auto md:px-2 lg:mx-3 md:text-center">
-                                <span>Register</span>
-                                <span class="absolute bottom-0 h-px duration-300 ease-out translate-y-px bg-gradient-to-r md:from-gray-200 md:via-accent md:to-gray-200 from-gray-900 via-gray-600 to-gray-900
-                                    {{ request()->routeIs('contact-us') ? 'w-full left-0' : 'w-0 left-1/2 group-hover:w-full group-hover:left-0' }}">
-                                </span>
-                            </a>
+                                <a href="{{ route('register') }}"
+                                   wire:navigate
+                                   class="{{ request()->routeIs('register') ? 'text-accent' : '' }} relative inline-block w-full h-full px-4 py-5 mx-2 font-medium leading-tight text-center duration-300 ease-out md:py-2 group hover:text-accent md:w-auto md:px-2 lg:mx-3 md:text-center">
+                                    <span>Register</span>
+                                    <span class="absolute bottom-0 h-px duration-300 ease-out translate-y-px bg-gradient-to-r md:from-gray-200 md:via-accent md:to-gray-200 from-gray-900 via-gray-600 to-gray-900
+                                        {{ request()->routeIs('register') ? 'w-full left-0' : 'w-0 left-1/2 group-hover:w-full group-hover:left-0' }}">
+                                    </span>
+                                </a>
+                            @endguest
+
+                            @auth
+                                <a href="{{ route('dashboard') }}"
+                                   wire:navigate
+                                   class="{{ request()->routeIs('dashboard') ? 'text-accent' : '' }} relative inline-block w-full h-full px-4 py-5 mx-2 font-medium leading-tight text-center duration-300 ease-out md:py-2 group hover:text-accent md:w-auto md:px-2 lg:mx-3 md:text-center">
+                                    <span>Dashboard</span>
+                                    <span class="absolute bottom-0 h-px duration-300 ease-out translate-y-px bg-gradient-to-r md:from-gray-200 md:via-accent md:to-gray-200 from-gray-900 via-gray-600 to-gray-900
+                                        {{ request()->routeIs('dashboard') ? 'w-full left-0' : 'w-0 left-1/2 group-hover:w-full group-hover:left-0' }}">
+                                    </span>
+                                </a>
+                            @endauth
+                            <!-- ===== End of Conditional Links ===== -->
+
                         </div>
                         <div class="fixed top-0 left-0 z-40 items-center hidden w-full h-full p-3 text-sm bg-accent bg-opacity-50 md:w-auto md:bg-transparent md:p-0 md:relative md:flex" :class="{'flex': showMenu, 'hidden': !showMenu }">
                             <div class="flex-col items-center w-full h-full p-3 overflow-hidden bg-white bg-opacity-50 rounded-lg select-none md:p-0 backdrop-blur-lg md:h-auto md:bg-transparent md:rounded-none md:relative md:flex md:flex-row md:overflow-auto">
                                 <div class="flex flex-col items-center justify-end w-full h-full pt-2 md:w-full md:flex-row md:py-0">
-                                    @guest()
+                                    @guest
                                         <flux:button variant="ghost" href="{{ route('login') }}" wire:navigate class="w-full">Login</flux:button>
                                         <flux:button variant="primary" href="{{ route('register') }}" wire:navigate class="w-full">Register</flux:button>
                                     @endguest
 
-                                    @auth()
+                                    @auth
                                         <flux:button variant="primary" href="{{ route('dashboard') }}" wire:navigate class="w-full">Dashboard</flux:button>
                                     @endauth
                                 </div>

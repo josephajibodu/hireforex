@@ -43,7 +43,8 @@ new class extends Component {
                         <h3 class="text-xl font-semibold text-brand-600">{{ $trader->name }}</h3>
                         <div class="text-right">
                             <div class="text-2xl font-bold text-green-600">{{ $trader->potential_return }}%</div>
-                            <div class="text-sm text-gray-500">Returns</div>
+                            <!-- Text updated in the line below -->
+                            <div class="text-sm text-gray-500">Returns (capital included)</div>
                         </div>
                     </div>
                     <div class="space-y-2 text-sm mb-4">
@@ -72,7 +73,7 @@ new class extends Component {
                     </div>
                     @if($this->guest)
                         <flux:button href="{{ route('register') }}" variant="primary" class="w-full">
-                            Start Trading
+                            Hire Now
                         </flux:button>
                     @else
                         <flux:button

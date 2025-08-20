@@ -2,11 +2,10 @@
     @section('title', 'Available Traders')
 
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
-        <flux:heading size="xl" level="1">Available Traders</flux:heading>
+        <flux:heading size="xl" level="1">Hire Top Traders</flux:heading>
 
-        <flux:subheading size="lg" class="mb-6">Browse through a list of verified forex traders and choose the one that fits your goals and risk tolerance.</flux:subheading>
+        <flux:subheading size="lg" class="mb-6">Browse through a list of skilled traders and choose the one that fits your objectives.</flux:subheading>
 
-        <!-- How to Choose a Trader Guide -->
         <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
             <flux:heading size="lg" class="text-blue-800 dark:text-blue-200 mb-3">How to Choose a Trader on HireForex:</flux:heading>
             <ul class="text-blue-700 dark:text-blue-300 space-y-2 text-sm">
@@ -33,11 +32,9 @@
             </ul>
         </div>
 
-        <!-- Traders Grid -->
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             @foreach($traders as $trader)
                 <div class="bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg p-6 shadow-sm">
-                    <!-- Trader Header -->
                     <div class="flex items-center justify-between mb-4">
                         <div>
                             <flux:heading size="lg" class="text-brand-600 dark:text-brand-400">{{ $trader->name }}</flux:heading>
@@ -45,11 +42,10 @@
                         </div>
                         <div class="text-right">
                             <div class="text-2xl font-bold text-green-600 dark:text-green-400">{{ $trader->potential_return }}%</div>
-                            <div class="text-sm text-neutral-600 dark:text-neutral-400">Returns</div>
+                            <div class="text-sm text-neutral-600 dark:text-neutral-400">Returns (capital included)</div>
                         </div>
                     </div>
 
-                    <!-- Trader Details -->
                     <div class="space-y-3 mb-4">
                         <div class="flex justify-between">
                             <span class="text-sm text-neutral-600 dark:text-neutral-400">MBG Rate:</span>
@@ -83,7 +79,6 @@
                         </div>
                     </div>
 
-                    <!-- Hire Button -->
                     <flux:button
                         href="{{ route('traders.show', $trader) }}"
                         wire:navigate="true"
@@ -96,7 +91,6 @@
             @endforeach
         </div>
 
-        <!-- Pagination -->
         @if($traders->hasPages())
             <div class="mt-8">
                 {{ $traders->links() }}

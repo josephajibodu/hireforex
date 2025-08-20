@@ -1,7 +1,6 @@
 <x-layouts.guest>
     @section('title', 'HireForex - Hire Professional Forex Traders with Money-Back Guarantee')
 
-    <!-- Hero Section -->
     <section class="w-full px-3 antialiased bg-white lg:px-6 border-b">
         <div class="mx-auto max-w-screen-xl border-x">
             <div class="container px-6 py-24 md:py-32 mx-auto text-center md:px-4">
@@ -11,21 +10,29 @@
                     <span class="block mt-3 text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-indigo-700">with Money-Back Guarantee</span>
                 </h1>
                 <p class="mx-auto mt-6 text-base text-gray-700 text-center md:mt-8 sm:text-lg md:max-w-xl md:text-xl">
-                    HireForex is the first forex trader marketplace that allows you to hire vetted professionals for short-term trading sessions. Get up to 170% returns with up to 100% money-back guarantee protection.
+                    HireForex is the first marketplace where you can hire verified professional forex traders for short-term sessions, delivering competitive returns backed by  80%–100% money-back guarantee for maximum confidence.
                 </p>
                 <div class="flex items-center justify-center mt-8 space-y-4 gap-4 md:space-y-0 md:space-x-4 md:flex-row">
                     <flux:button href="{{ route('register') }}" variant="primary" class="mb-0">
-                        Start Trading Now
+                        Register Now
                     </flux:button>
                     <flux:button href="{{ route('login') }}">
                         Login
                     </flux:button>
                 </div>
+                <div class="mt-8">
+                <p class="text-sm text-gray-500 mb-3">Currently available in</p>
+                <div class="flex justify-center items-center gap-4">
+                    <img class="h-6 rounded-md" src="https://flagcdn.com/ng.svg" alt="Nigeria flag" title="Nigeria">
+                    <img class="h-6 rounded-md" src="https://flagcdn.com/za.svg" alt="South Africa flag" title="South Africa">
+                    <img class="h-6 rounded-md" src="https://flagcdn.com/ke.svg" alt="Kenya flag" title="Kenya">
+                    <img class="h-6 rounded-md" src="https://flagcdn.com/gh.svg" alt="Ghana flag" title="Ghana">
+                </div>
+            </div>
             </div>
         </div>
     </section>
 
-    <!-- Why HireForex Section -->
     <section class="py-16 bg-gray-50 border-b">
         <div class="container px-4 mx-auto max-w-screen-xl">
             <div class="text-center mb-16">
@@ -41,7 +48,7 @@
                         <flux:icon name="shield-check" class="w-6 h-6" />
                     </div>
                     <h3 class="mb-3 text-xl font-bold">Money-Back Guarantee</h3>
-                    <p class="text-gray-600">Up to 100% MBG protection ensures your capital is safe even if trades fail.</p>
+                    <p class="text-gray-600">Up to 100% MBG protection ensures your capital is safe even if trades is a loss.</p>
                 </div>
 
                 <div class="p-6 bg-white rounded-none border">
@@ -60,18 +67,35 @@
                     <p class="text-gray-600">Short-term trading sessions (5-14 days) for faster returns and flexibility.</p>
                 </div>
 
-                <div class="p-6 bg-white rounded-none border">
+               <div class="p-6 bg-white rounded-none border">
                     <div class="w-12 h-12 mb-4 text-brand-600 bg-brand-100 rounded-full flex items-center justify-center">
                         <flux:icon name="wallet" class="w-6 h-6" />
                     </div>
-                    <h3 class="mb-3 text-xl font-bold">USDT Payments</h3>
-                    <p class="text-gray-600">Fast deposits and withdrawals using USDT with minimal transaction fees.</p>
+                    <h3 class="mb-3 text-xl font-bold">Our Active Regions</h3>
+                    
+                    <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-gray-600">
+                        <span class="inline-flex items-center gap-2">
+                            <img class="w-5 rounded-sm" src="https://flagcdn.com/ng.svg" alt="Nigeria flag">
+                            Nigeria
+                        </span>
+                        <span class="inline-flex items-center gap-2">
+                            <img class="w-5 rounded-sm" src="https://flagcdn.com/za.svg" alt="South Africa flag">
+                            South Africa
+                        </span>
+                        <span class="inline-flex items-center gap-2">
+                            <img class="w-5 rounded-sm" src="https://flagcdn.com/ke.svg" alt="Kenya flag">
+                            Kenya
+                        </span>
+                        <span class="inline-flex items-center gap-2">
+                            <img class="w-5 rounded-sm" src="https://flagcdn.com/gh.svg" alt="Ghana flag">
+                            Ghana
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How It Works Section -->
     <section id="how-it-works" class="py-16 md:py-32 bg-white border-b">
         <div class="container px-4 mx-auto max-w-screen-xl">
             <div class="text-center mb-16">
@@ -103,20 +127,18 @@
                 <div class="relative p-6 bg-white rounded-none border border-gray-200">
                     <div class="absolute -top-5 -left-5 w-10 h-10 rounded-none bg-brand-100 border border-accent text-accent flex items-center justify-center font-bold text-lg">4</div>
                     <h3 class="mb-3 text-xl font-bold pt-4">Get Returns</h3>
-                    <p class="text-gray-600">Receive your profits or MBG refund directly to your wallet after completion.</p>
+                    <p class="text-gray-600">Receive the profits or MBG refund directly to your hireforex wallet after completion.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Available Traders Section -->
     <section class="py-16 bg-gray-50 border-b">
         <div class="container px-4 mx-auto max-w-screen-xl">
             <livewire:traders.available-traders limit="3" showHeader="{{ false }}" guest="{{ true }}" />
         </div>
     </section>
 
-    <!-- FAQ Section -->
     <section class="bg-white border-b">
         <div
             x-data="{
@@ -208,13 +230,61 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
+    <section class="py-16 bg-gray-50 border-b">
+        <div class="container px-4 mx-auto max-w-screen-xl">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 md:text-4xl">Join Our Community</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                    Stay connected with us for the latest updates, support, and exclusive offers.
+                </p>
+            </div>
+
+            <div class="max-w-2xl mx-auto">
+                <div class="p-6 border rounded-lg bg-white">
+                    <p class="mb-6 text-slate-600 text-center">
+                        Join our members community for quick support, guides, realtime Q&A, exclusive promos, and exciting giveaways.
+                    </p>
+    
+                    @php
+                    // The 'icon' and 'color' keys have been removed from this array.
+                    $communityLinks = [
+                        [
+                            'href' => 'https://whatsapp.com/channel/0029Vb6aV9i6mYPK3LpKgz3Y',
+                            'label' => 'Join WhatsApp Channel',
+                        ],
+                        [
+                            'href' => 'https://t.me/+-VVhyy8vgkFmODI0',
+                            'label' => 'Join Telegram Channel',
+                        ],
+                        [
+                            'href' => 'https://wa.link/1ei9gc',
+                            'label' => 'Call HireForex',
+                        ],
+                        [
+                            'href' => 'https://instagram.com/hireforex',
+                            'label' => 'Follow Instagram',
+                        ],
+                    ];
+                    @endphp
+    
+                    <div class="flex flex-col gap-3">
+                        @foreach ($communityLinks as $link)
+                            <a href="{{ $link['href'] }}" target="_blank" class="w-full p-3 font-semibold text-center text-slate-800 rounded-lg border bg-slate-50 hover:bg-slate-100 transition-colors">
+                                <span>{{ $link['label'] }}</span>
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="py-16 md:py-32 bg-white border-b">
         <div class="container px-4 mx-auto max-w-screen-xl">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900 md:text-4xl">Ready to Start Trading?</h2>
+                <h2 class="text-3xl font-bold text-gray-900 md:text-4xl">Ready to Hire?</h2>
                 <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-                    Join thousands of users who are already earning with HireForex
+                    Join other users who are already using HireForex
                 </p>
             </div>
 

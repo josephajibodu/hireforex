@@ -5,11 +5,18 @@
         <flux:heading size="xl" level="1">Welcome, {{ ucfirst(auth()->user()->first_name) }}</flux:heading>
 
         <flux:subheading size="lg" class="mb-6">Your HireForex Dashboard</flux:subheading>
-
+        <div class="mt-8">
+            <p class="text-sm text-gray-500 mb-3 text-center">Currently available in</p>
+            <div class="flex justify-center items-center gap-4">
+                <img class="h-6 rounded-md" src="https://flagcdn.com/ng.svg" alt="Nigeria flag" title="Nigeria">
+                <img class="h-6 rounded-md" src="https://flagcdn.com/za.svg" alt="South Africa flag" title="South Africa">
+                <img class="h-6 rounded-md" src="https://flagcdn.com/ke.svg" alt="Kenya flag" title="Kenya">
+                <img class="h-6 rounded-md" src="https://flagcdn.com/gh.svg" alt="Ghana flag" title="Ghana">
+            </div>
+        </div>
         <flux:separator variant="subtle" />
 
         <div class="grid auto-rows-min gap-4 md:grid-cols-2">
-            <!-- USDT Balance Card -->
             <div class="border overflow-hidden bg-white dark:bg-neutral-800 p-4 rounded-lg flex">
                 <div class="flex-1">
                     <h6 class="text-lg font-medium text-gray-800 dark:text-white">USDT Balance</h6>
@@ -23,7 +30,6 @@
                 </div>
             </div>
 
-            <!-- Active Trades Card -->
             <div class="border overflow-hidden bg-white dark:bg-neutral-800 p-4 rounded-lg flex">
                 <div class="flex-1">
                     <h6 class="text-lg font-medium text-gray-800 dark:text-white">Active Trades</h6>
@@ -40,7 +46,6 @@
 
         @include('pages.partials.quicklinks')
 
-        <!-- Available Traders -->
         <div class="relative flex-1 overflow-hidden rounded-xl md:border border-neutral-200 mt-8">
             <div class="md:px-4 pt-4 flex justify-between">
                 <flux:heading class="text-xl! md:text-2xl!">Available Traders</flux:heading>
@@ -56,7 +61,6 @@
             <livewire:traders.available-traders limit="10" />
         </div>
 
-        <!-- Active Trades -->
         <div class="relative flex-1 overflow-hidden rounded-xl md:border border-neutral-200 mt-8">
             <div class="md:px-4 pt-4 flex justify-between">
                 <flux:heading class="text-xl! md:text-2xl!">Active Trades</flux:heading>
@@ -72,7 +76,6 @@
             <livewire:trades.active-trades limit="4" />
         </div>
 
-        <!-- Latest Trade Orders -->
         <div class="relative flex-1 overflow-hidden rounded-xl md:border border-neutral-200 mt-8">
             <div class="md:px-4 pt-4 flex justify-between">
                 <flux:heading class="text-xl! md:text-2xl!">Latest Trade Orders</flux:heading>
