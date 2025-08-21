@@ -29,7 +29,7 @@ new class extends Component {
     <x-table class="bg-gray-50 rounded-none! border-0 hidden md:table">
         <x-table.columns>
             <x-table.column>Reference</x-table.column>
-            <x-table.column class="text-center">Amount (USD)</x-table.column>
+            <x-table.column class="text-center">Amount (USDT)</x-table.column>
             <x-table.column>Payment Method</x-table.column>
             <x-table.column>Status</x-table.column>
             <x-table.column class="text-center">Date</x-table.column>
@@ -43,8 +43,8 @@ new class extends Component {
                         <flux:heading>{{ to_money($topUp->amount, 1, '$') }}</flux:heading>
                     </x-table.cell>
                     <x-table.cell>
-                        <flux:badge color="{{ $topUp->payment_method->getFluxColor() }}">
-                            {{ $topUp->payment_method->getLabel() }}
+                        <flux:badge color="{{ $topUp->method->getFluxColor() }}">
+                            {{ $topUp->method->getLabel() }}
                         </flux:badge>
                     </x-table.cell>
                     <x-table.cell>
@@ -56,7 +56,7 @@ new class extends Component {
                 </x-table.row>
             @empty
                 <x-table.row>
-                    <x-table.cell colspan="5" class="text-center">No top-up history found</x-table.cell>
+                    <x-table.cell colspan="4" class="text-center">No top-up history found</x-table.cell>
                 </x-table.row>
             @endforelse
         </x-table.rows>
@@ -75,8 +75,8 @@ new class extends Component {
                 </div>
                 <div class="flex justify-between">
                     <flux:heading class="font-semibold">Payment Method:</flux:heading>
-                    <flux:badge color="{{ $topUp->payment_method->getFluxColor() }}">
-                        {{ $topUp->payment_method->getLabel() }}
+                    <flux:badge color="{{ $topUp->method->getFluxColor() }}">
+                        {{ $topUp->method->getLabel() }}
                     </flux:badge>
                 </div>
                 <div class="flex justify-between py-1">

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\TopupMethod;
+use App\Enums\TopupStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -36,6 +38,8 @@ class TopUp extends Model
 
     protected $casts = [
         'amount' => 'decimal:2',
+        'status' => TopupStatus::class,
+        'method' => TopupMethod::class,
     ];
 
     /**
@@ -64,7 +68,7 @@ class TopUp extends Model
      */
     public function isPending(): bool
     {
-        return $this->status === self::STATUS_PENDING;
+        return (string) $this->status === self::STATUS_PENDING;
     }
 
     /**
@@ -72,7 +76,7 @@ class TopUp extends Model
      */
     public function isConfirmed(): bool
     {
-        return $this->status === self::STATUS_CONFIRMED;
+        return (string) $this->status === self::STATUS_CONFIRMED;
     }
 
     /**
@@ -80,7 +84,7 @@ class TopUp extends Model
      */
     public function isCancelled(): bool
     {
-        return $this->status === self::STATUS_CANCELLED;
+        return (string) $this->status === self::STATUS_CANCELLED;
     }
 
     /**

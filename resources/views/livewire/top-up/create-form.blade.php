@@ -4,9 +4,7 @@ use Livewire\Volt\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
 use App\Models\TopUp;
-use App\Enums\TopupMethod;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use App\Settings\GeneralSetting;
 
 new class extends Component {
@@ -27,7 +25,7 @@ new class extends Component {
     #[Validate('required|image|max:2048')]
     public $screenshot = null;
 
-    public function mount($type = null, GeneralSetting $settings)
+    public function mount(GeneralSetting $settings, $type = null)
     {
         if (in_array($type, ['bybit', 'usdt'])) {
             $this->payment_method = $type;
@@ -56,10 +54,10 @@ new class extends Component {
                 'reference' => 'TOP-' . Str::random(10),
                 'user_id' => Auth::id(),
                 'amount' => $this->amount,
-                'payment_method' => $this->payment_method,
+                'method' => $this->payment_method,
                 'bybit_email' => $this->payment_method === 'bybit' ? $this->bybit_email : null,
-                'screenshot_path' => $path,
-                'status' => 'pending'
+                'screenshot' => $path,
+                'status' => TopUp::STATUS_PENDING,
             ]);
 
             $this->dispatch('flash-success',
@@ -68,7 +66,7 @@ new class extends Component {
             );
 
             $this->reset(['amount', 'payment_method', 'bybit_email', 'screenshot']);
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             report($ex);
             $this->dispatch('flash-error', message: $ex->getMessage() ?? 'Top-up request failed');
         }
@@ -138,9 +136,8 @@ new class extends Component {
             label="Payment Method"
             required
         >
-            @foreach(TopupMethod::cases() as $method)
-                <flux:select.option value="{{ $method->value }}">{{ $method->getLabel() }}</flux:select.option>
-            @endforeach
+            <flux:select.option value="bybit">Bybit Transfer</flux:select.option>
+            <flux:select.option value="usdt">USDT Transfer</flux:select.option>
         </flux:select>
         <flux:error name="payment_method" />
 
