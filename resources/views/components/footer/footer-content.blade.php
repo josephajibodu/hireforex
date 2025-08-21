@@ -34,7 +34,7 @@
                 <li><a class="text-gray-500 hover:text-brand-500" href="{{ route('faq') }}" wire:navigate>Frequently Asked Questions</a></li>
                 <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('terms-and-conditions') }}" wire:navigate>Terms of Use</a></li>
                 <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('privacy-policy') }}" wire:navigate>Privacy Policy</a></li>
-                <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('join-team') }}" wire:navigate>Join the HireForex Team</a></li>
+                <li class="mt-[0.35rem]"><a class="text-gray-500 hover:text-brand-500" href="{{ route('join-team') }}" wire:navigate.hover>Join the HireForex Team</a></li>
             </ul>
         </div>
         </div>
