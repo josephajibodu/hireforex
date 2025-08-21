@@ -13,6 +13,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\HtmlString;
 
 class TopUpResource extends Resource
 {
@@ -54,7 +56,7 @@ class TopUpResource extends Resource
                             ->email()
                             ->maxLength(255)
                             ->label('Bybit Email')
-                            ->visible(fn (Forms\Get $get) => $get('method') === 'bybit'),
+                            ->visible(fn (Forms\Get $get) => ($get('method') instanceof \BackedEnum ? $get('method')->value : $get('method')) === 'bybit'),
 
                         Forms\Components\Select::make('network')
                             ->options([
@@ -62,7 +64,7 @@ class TopUpResource extends Resource
                                 'BEP-20' => 'BEP-20',
                             ])
                             ->label('Network Type')
-                            ->visible(fn (Forms\Get $get) => $get('method') === 'usdt'),
+                            ->visible(fn (Forms\Get $get) => ($get('method') instanceof \BackedEnum ? $get('method')->value : $get('method')) === 'usdt'),
 
                         Forms\Components\FileUpload::make('screenshot')
                             ->label('Payment Screenshot')
@@ -106,7 +108,7 @@ class TopUpResource extends Resource
                 Tables\Columns\TextColumn::make('method')
                     ->label('Payment Method')
                     ->badge()
-                    ->color(fn($record) => match($record->method) {
+                    ->color(fn($record) => match($record->method instanceof \BackedEnum ? $record->method->value : $record->method) {
                         'bybit' => 'warning',
                         'usdt' => 'info',
                         default => 'gray',
@@ -116,24 +118,31 @@ class TopUpResource extends Resource
                     ->label('Bybit Email')
                     ->searchable()
                     ->formatStateUsing(function ($state, $record) {
-                        return ($record && $record->method === 'bybit') ? ($state ?: '-') : '-';
+                        $method = $record->method instanceof \BackedEnum ? $record->method->value : $record->method;
+                        return $method === 'bybit' ? ($state ?: '-') : '-';
                     }),
 
                 Tables\Columns\TextColumn::make('network')
                     ->label('Network')
                     ->badge()
                     ->formatStateUsing(function ($state, $record) {
-                        return ($record && $record->method === 'usdt') ? ($state ?: '-') : '-';
+                        $method = $record->method instanceof \BackedEnum ? $record->method->value : $record->method;
+                        return $method === 'usdt' ? ($state ?: '-') : '-';
                     }),
 
-                Tables\Columns\ImageColumn::make('screenshot')
+                Tables\Columns\TextColumn::make('screenshot')
                     ->label('Screenshot')
-                    ->square()
-                    ->size(60),
+                    ->getStateUsing(function (TopUp $record) {
+                        if (! $record->screenshot) return "-";
+
+                        $url = Storage::url($record->screenshot);
+
+                        return new HtmlString("<a class='text-sm underline' href='$url' target='_blank'>View Image</a>");
+                    }),
 
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
-                    ->color(fn($record) => match($record->status) {
+                    ->color(fn($record) => match($record->status instanceof \BackedEnum ? $record->status->value : $record->status) {
                         'pending' => 'warning',
                         'confirmed' => 'success',
                         'cancelled' => 'danger',
@@ -181,7 +190,7 @@ class TopUpResource extends Resource
                     ->label('CONFIRM')
                     ->color('success')
                     ->icon('heroicon-o-check')
-                    ->visible(fn($record) => $record->status === 'pending')
+                    ->visible(fn($record) => ($record->status instanceof \BackedEnum ? $record->status->value : $record->status) === 'pending')
                     ->requiresConfirmation()
                     ->modalHeading('Confirm Top-Up')
                     ->modalDescription('Are you sure you want to confirm this top-up request? This will credit the user\'s HireForex balance.')
@@ -203,7 +212,7 @@ class TopUpResource extends Resource
                     ->label('REJECT')
                     ->color('danger')
                     ->icon('heroicon-o-x-mark')
-                    ->visible(fn($record) => $record->status === 'pending')
+                    ->visible(fn($record) => ($record->status instanceof \BackedEnum ? $record->status->value : $record->status) === 'pending')
                     ->requiresConfirmation()
                     ->modalHeading('Reject Top-Up')
                     ->modalDescription('Are you sure you want to reject this top-up request?')
