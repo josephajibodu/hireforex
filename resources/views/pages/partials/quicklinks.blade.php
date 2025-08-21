@@ -71,8 +71,8 @@
                     'label' => 'Call HireForex',
                 ],
                 [
-                    'href' => 'https://instagram.com/hireforex',
-                    'label' => 'Follow Instagram',
+                    'href' => 'https://wa.link/1ei9gc',
+                    'label' => 'Contact Support',
                 ],
             ];
             @endphp

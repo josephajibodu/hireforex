@@ -44,4 +44,11 @@
             </p>
         </div>
     </div>
+    <div class="w-full flex-[0_0_auto] px-[15px] max-w-full mt-[30px]">
+        <div class="border-t border-gray-200/80 pt-6">
+            <p class="text-xs text-gray-500 leading-relaxed">
+                <strong>Ads Disclaimer:</strong> HireForex is an independent platform and is not endorsed by, directly affiliated with, maintained, authorized, or sponsored by Google LLC, Meta Platforms, Inc. (including Facebook and Instagram), or any of their subsidiaries or affiliates. All product names, logos, and brands are the property of their respective owners and are used only for identification purposes. Use of these names does not imply any affiliation or endorsement..
+            </p>
+        </div>
+    </div>
     </div>

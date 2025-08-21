@@ -10,7 +10,7 @@
                     <span class="block mt-3 text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-indigo-700">with Money-Back Guarantee</span>
                 </h1>
                 <p class="mx-auto mt-6 text-base text-gray-700 text-center md:mt-8 sm:text-lg md:max-w-xl md:text-xl">
-                    HireForex is the first marketplace where you can hire verified professional forex traders for short-term sessions, delivering competitive returns backed by  80%–100% money-back guarantee for maximum confidence.
+                    HireForex is the first marketplace where you can hire verified professional forex traders for short-term sessions, delivering competitive returns backed by  80%–100% money-back guarantee.
                 </p>
                 <div class="flex items-center justify-center mt-8 space-y-4 gap-4 md:space-y-0 md:space-x-4 md:flex-row">
                     <flux:button href="{{ route('register') }}" variant="primary" class="mb-0">
@@ -166,21 +166,22 @@
                     </button>
                     <div x-show="activeAccordion=='faq1'" x-collapse x-cloak>
                         <div class="p-4 pt-2">
-                            <flux:subheading size="lg">HireForex is the first forex trader marketplace that allows individuals to hire vetted forex traders for short-term trading sessions with money-back guarantees that protect your capital from significant loss.</flux:subheading>
+                            <flux:subheading size="lg">HireForex is the first forex trader marketplace that allows individuals to hire vetted forex traders for short-term trading sessions with money-back guarantees that protect your capital from significant loss. Whether you win or lose, you get an MBG. Its hands-free platform designed for everyday people who want results with minimal risk.</flux:subheading>
                         </div>
                     </div>
                 </div>
 
                 <div x-data="{ id: 'faq2' }" :class="{ 'text-neutral-900': activeAccordion=='faq2', 'text-neutral-600 hover:text-neutral-900': activeAccordion!='faq2' }" class="cursor-pointer group">
                     <button @click="setActiveAccordion('faq2')" class="flex items-center justify-between w-full p-4 pb-1 text-left select-none">
-                        <flux:heading size="lg">How does the Money-Back Guarantee work?</flux:heading>
+                        <flux:heading size="lg">How do I fund my account?</flux:heading>
                         <svg class="w-5 h-5 duration-300 ease-out" :class="{ '-rotate-[45deg]': activeAccordion=='faq2' }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
                         </svg>
                     </button>
                     <div x-show="activeAccordion=='faq2'" x-collapse x-cloak>
                         <div class="p-4 pt-2">
-                            <flux:subheading size="lg">If your trade fails, you still get back up to 100% of your capital depending on the trader's MBG offer. For example, with a 99% MBG, you get back $99 for every $100 invested even if the trade loses.</flux:subheading>
+                            <flux:subheading size="lg">You can top up your HireForex wallet using either a Bybit transfer or a USDT transfer via TRC-20 or BEP-20 networks.
+After transferring, submit the required details (amount, screenshot, and email if using Bybit) on the top-up page. Your account will be credited within 10 minutes after confirmation.</flux:subheading>
                         </div>
                     </div>
                 </div>
@@ -208,21 +209,47 @@
                     </button>
                     <div x-show="activeAccordion=='faq4'" x-collapse x-cloak>
                         <div class="p-4 pt-2">
-                            <flux:subheading size="lg">Trading sessions range from 5 to 14 days, depending on the trader you choose. This allows for quick returns and flexibility in your investment strategy.</flux:subheading>
+                            <flux:subheading size="lg">Trading sessions range from 3 to 14 days, depending on the trader you choose. This allows for quick returns and flexibility in your investment strategy.</flux:subheading>
                         </div>
                     </div>
                 </div>
 
                 <div x-data="{ id: 'faq5' }" :class="{ 'text-neutral-900': activeAccordion=='faq5', 'text-neutral-600 hover:text-neutral-900': activeAccordion!='faq5' }" class="cursor-pointer group">
                     <button @click="setActiveAccordion('faq5')" class="flex items-center justify-between w-full p-4 pb-1 text-left select-none">
-                        <flux:heading size="lg">What payment methods do you accept?</flux:heading>
+                        <flux:heading size="lg">How do I hire a trader</flux:heading>
                         <svg class="w-5 h-5 duration-300 ease-out" :class="{ '-rotate-[45deg]': activeAccordion=='faq5' }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
                         </svg>
                     </button>
                     <div x-show="activeAccordion=='faq5'" x-collapse x-cloak>
                         <div class="p-4 pt-2">
-                            <flux:subheading size="lg">We accept USDT deposits via Bybit transfer or direct USDT transfer using TRC-20 or BEP-20 networks. Withdrawals are processed within 1 hour with a 3% transaction fee.</flux:subheading>
+                            <flux:subheading size="lg">Log in to your account, click on "Hire Trader," and select a trader based on your preferred potential return, duration, MBG rate, and risk level.</flux:subheading>
+                        </div>
+                    </div>
+                </div>
+                <div x-data="{ id: 'faq6' }" :class="{ 'text-neutral-900': activeAccordion=='faq5', 'text-neutral-600 hover:text-neutral-900': activeAccordion!='faq6' }" class="cursor-pointer group">
+                    <button @click="setActiveAccordion('faq6')" class="flex items-center justify-between w-full p-4 pb-1 text-left select-none">
+                        <flux:heading size="lg">How does HireForex guarantee MBG?</flux:heading>
+                        <svg class="w-5 h-5 duration-300 ease-out" :class="{ '-rotate-[45deg]': activeAccordion=='faq6' }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                        </svg>
+                    </button>
+                    <div x-show="activeAccordion=='faq6'" x-collapse x-cloak>
+                        <div class="p-4 pt-2">
+                            <flux:subheading size="lg">HireForex hedges its risk by offering the best MBG rates only on its top-performing traders. Additionally, HireForex charges a 3% trading fee as an extra source of revenue for the platform..</flux:subheading>
+                        </div>
+                    </div>
+                </div>
+                <div x-data="{ id: 'faq7' }" :class="{ 'text-neutral-900': activeAccordion=='faq5', 'text-neutral-600 hover:text-neutral-900': activeAccordion!='faq7' }" class="cursor-pointer group">
+                    <button @click="setActiveAccordion('faq7')" class="flex items-center justify-between w-full p-4 pb-1 text-left select-none">
+                        <flux:heading size="lg">How do i withdraw from my account?</flux:heading>
+                        <svg class="w-5 h-5 duration-300 ease-out" :class="{ '-rotate-[45deg]': activeAccordion=='faq7' }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                        </svg>
+                    </button>
+                    <div x-show="activeAccordion=='faq7'" x-collapse x-cloak>
+                        <div class="p-4 pt-2">
+                            <flux:subheading size="lg">To withdraw from your HireForex account, log in, click on "Withdraw," and enter the amount you want to withdraw along with your USDT wallet address, Bybit UID, or Bybit email address.</flux:subheading>
                         </div>
                     </div>
                 </div>
@@ -261,8 +288,8 @@
                             'label' => 'Call HireForex',
                         ],
                         [
-                            'href' => 'https://instagram.com/hireforex',
-                            'label' => 'Follow Instagram',
+                            'href' => 'https://wa.link/1ei9gc',
+                            'label' => 'Contact Support',
                         ],
                     ];
                     @endphp

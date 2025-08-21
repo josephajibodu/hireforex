@@ -4,7 +4,7 @@
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
         <flux:heading size="xl" level="1">Active Trades</flux:heading>
 
-        <flux:subheading size="lg" class="mb-6">Your currently active forex trades</flux:subheading>
+        <flux:subheading size="lg" class="mb-6">Your currently active traders</flux:subheading>
 
         @if($trades->count() > 0)
             <div class="grid gap-4">
@@ -20,7 +20,7 @@
                                         Trade with {{ $trade->trader->name }}
                                     </h3>
                                     <p class="text-sm text-neutral-600 dark:text-neutral-400">
-                                        Started {{ $trade->start_date?->diffForHumans() ?? 'recently' }}
+                                        Hired {{ $trade->start_date?->diffForHumans() ?? 'recently' }}
                                     </p>
                                 </div>
                             </div>
@@ -28,7 +28,7 @@
                                 <div class="text-2xl font-bold text-green-600 dark:text-green-400">
                                     ${{ number_format($trade->amount, 2) }}
                                 </div>
-                                <div class="text-sm text-neutral-600 dark:text-neutral-400">Investment</div>
+                                <div class="text-sm text-neutral-600 dark:text-neutral-400">Capital</div>
                             </div>
                         </div>
 
