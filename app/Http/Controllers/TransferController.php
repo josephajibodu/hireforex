@@ -2,21 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Settings\GeneralSetting;
-
 class TransferController extends Controller
 {
-    public function index(GeneralSetting $generalSetting)
+    public function index()
     {
-        return view('pages.transfer.index', [
-            'rate' => getWithdrawalFeePercentage()
-        ]);
+        return view('pages.transfer.index');
     }
 
-    public function create(GeneralSetting $generalSetting)
+    public function create()
     {
-        return view('pages.transfer.create', [
-            'rate' => getWithdrawalFeePercentage()
-        ]);
+        return view('pages.transfer.create');
     }
 }

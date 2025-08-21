@@ -11,6 +11,11 @@
             'label' => 'Hire Trader'
         ],
         [
+            'route' => route('transfer.create'),
+            'icon' => 'send',
+            'label' => 'Transfer Funds'
+        ],
+        [
             'route' => route('withdrawal.create'),
             'icon' => 'arrow-down-circle',
             'label' => 'Withdraw'

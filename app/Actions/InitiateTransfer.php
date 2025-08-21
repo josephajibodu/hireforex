@@ -5,7 +5,6 @@ namespace App\Actions;
 use App\Enums\TransferStatus;
 use App\Models\Transfer;
 use App\Models\User;
-use App\Enums\WalletType;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -16,13 +15,9 @@ class InitiateTransfer
      *
      * @throws Exception
      */
-    public function execute(User $sender, float $amount, string $recipientUsername)
+    public function execute(User $sender, float $amount, string $recipientUsername, string $notes = '')
     {
-        if (! $sender->kyc?->isCompleted()) {
-            throw new Exception('Your identity must be verified before you can transfer to other accounts.');
-        }
-
-        return DB::transaction(function () use ($sender, $amount, $recipientUsername) {
+        return DB::transaction(function () use ($sender, $amount, $recipientUsername, $notes) {
             // Find the recipient
             $recipient = User::query()->where('username', $recipientUsername)->first();
 
@@ -37,32 +32,25 @@ class InitiateTransfer
             }
 
             // Check sender has sufficient balance
-            if (! $sender->hasSufficientBalance(WalletType::Main, $amount)) {
+            if (! $sender->hasSufficientBalance($amount)) {
                 throw new Exception('Insufficient balance.');
             }
 
             // Debit sender's main wallet
-            $sender->debit(WalletType::Main, $amount, "Transfer to {$recipientUsername}");
+            $sender->debit($amount, "Transfer to {$recipientUsername}");
 
             // Create transfer record
             $transfer = Transfer::query()->create([
                 'user_id' => $sender->id,
                 'recipient_id' => $recipient->id,
-                'amount' => (int)($amount * 100),
-                'status' => TransferStatus::Pending,
-            ]);
-
-            // Credit recipient's reserve wallet
-            $recipient->credit(
-                WalletType::Reserve,
-                $amount,
-                "Transfer from {$sender->username}"
-            );
-
-            // Update transfer status to completed
-            $transfer->update([
+                'amount' => (int) ($amount * 100),
                 'status' => TransferStatus::Completed,
+                'reference' => 'TRF-' . strtoupper(uniqid()),
+                'notes' => $notes,
             ]);
+
+            // Credit recipient's main wallet
+            $recipient->credit($amount, "Transfer from {$sender->username}");
 
             return $transfer;
         });

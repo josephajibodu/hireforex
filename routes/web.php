@@ -45,6 +45,7 @@ Route::view('/frequently-asked-questions', 'pages.faq')->name('faq');
 Route::view('/contact-us', 'pages.contact-us')->name('contact-us');
 Route::view('/terms-and-conditions', 'pages.terms')->name('terms-and-conditions');
 Route::view('/privacy-policy', 'pages.privacy')->name('privacy-policy');
+Route::view('/join-the-hireforex-team', 'pages.join-team')->name('join-team');
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -57,6 +58,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // HireForex Trade Routes
     Route::get('trades/active', [TradeController::class, 'active'])->name('trades.active');
     Route::get('trades/history', [TradeController::class, 'history'])->name('trades.history');
+
+    // Transfers
+    Route::get('transfer', [TransferController::class, 'index'])->name('transfer.index');
+    Route::get('transfer/create', [TransferController::class, 'create'])->name('transfer.create');
 
     Route::get('dispute', DisputeController::class)->name('dispute');
 });
