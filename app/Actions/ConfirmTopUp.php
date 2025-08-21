@@ -2,6 +2,7 @@
 
 namespace App\Actions;
 
+use App\Enums\TopupStatus;
 use App\Models\TopUp;
 use App\Models\User;
 use Exception;
@@ -32,14 +33,14 @@ class ConfirmTopUp
                 throw new Exception('User not found for this top-up.');
             }
 
-                                    // Ensure user has a wallet (trait methods will handle this)
+            // Ensure user has a wallet (trait methods will handle this)
 
             // Credit user's wallet
-                                    $user->credit($topUp->amount, 'Top-up confirmation');
+            $user->credit($topUp->amount, 'Top-up confirmation');
 
             // Update top-up status to confirmed
             $topUp->update([
-                'status' => TopUp::STATUS_CONFIRMED,
+                'status' => TopupStatus::Completed,
                 'admin_notes' => $adminNotes,
             ]);
 

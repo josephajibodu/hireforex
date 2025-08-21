@@ -2,6 +2,7 @@
 
 namespace App\Actions;
 
+use App\Enums\TopupStatus;
 use App\Models\TopUp;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +28,7 @@ class CancelTopUp
 
             // Update top-up status to cancelled
             $topUp->update([
-                'status' => TopUp::STATUS_CANCELLED,
+                'status' => TopupStatus::Cancelled,
                 'admin_notes' => $adminNotes,
             ]);
 

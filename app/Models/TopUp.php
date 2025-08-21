@@ -34,6 +34,7 @@ class TopUp extends Model
         'bybit_email',
         'network',
         'admin_notes',
+        'reference'
     ];
 
     protected $casts = [
@@ -76,7 +77,7 @@ class TopUp extends Model
      */
     public function isConfirmed(): bool
     {
-        return (string) $this->status === self::STATUS_CONFIRMED;
+        return $this->status === self::STATUS_CONFIRMED;
     }
 
     /**
@@ -84,7 +85,7 @@ class TopUp extends Model
      */
     public function isCancelled(): bool
     {
-        return (string) $this->status === self::STATUS_CANCELLED;
+        return $this->status === self::STATUS_CANCELLED;
     }
 
     /**
