@@ -34,7 +34,7 @@ new class extends Component {
         $user = Auth::user();
 
         $validated = $this->validate([
-            'phone_number' => ['nullable', 'string', 'max:11', 'regex:/^(0[789][01]\d{8})$/'],
+            'phone_number' => ['nullable', 'string', 'max:20'],
         ]);
 
         $user->fill($validated);
