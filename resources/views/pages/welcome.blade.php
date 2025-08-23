@@ -276,7 +276,7 @@ After transferring, submit the required details (amount, screenshot, and email i
                     // The 'icon' and 'color' keys have been removed from this array.
                     $communityLinks = [
                         [
-                            'href' => 'https://whatsapp.com/channel/0029Vb6aV9i6mYPK3LpKgz3Y',
+                            'href' => 'https://chat.whatsapp.com/Kg9fOLK5IHqC5j6HlHwpIQ?mode=ac_t',
                             'label' => 'Join WhatsApp Channel',
                         ],
                         [
