@@ -56,8 +56,8 @@ class TopUpResource extends Resource
                         Forms\Components\TextInput::make('bybit_email')
                             ->email()
                             ->maxLength(255)
-                            ->label('Bybit Email')
-                            ->visible(fn (Forms\Get $get) => ($get('method') instanceof \BackedEnum ? $get('method')->value : $get('method')) === 'bybit'),
+                            ->label('Email')
+                            ->visible(fn (Forms\Get $get) => in_array(($get('method') instanceof \BackedEnum ? $get('method')->value : $get('method')), ['bybit', 'binance'])),
 
                         Forms\Components\Select::make('network')
                             ->options([
@@ -117,11 +117,11 @@ class TopUpResource extends Resource
                     }),
 
                 Tables\Columns\TextColumn::make('bybit_email')
-                    ->label('Bybit Email')
+                    ->label('Email')
                     ->searchable()
                     ->formatStateUsing(function ($state, $record) {
                         $method = $record->method instanceof \BackedEnum ? $record->method->value : $record->method;
-                        return $method === 'bybit' ? ($state ?: '-') : '-';
+                        return in_array($method, ['bybit', 'binance']) ? ($state ?: '-') : '-';
                     }),
 
                 Tables\Columns\TextColumn::make('network')

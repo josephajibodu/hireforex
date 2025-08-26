@@ -44,7 +44,7 @@ new class extends Component {
             'payment_method' => 'required|string|in:bybit,usdt,binance',
             'screenshot' => 'required|image|max:2048',
         ];
-        if ($this->payment_method === 'bybit') {
+        if (in_array($this->payment_method, ['bybit', 'binance'])) {
             $rules['bybit_email'] = 'required|email|max:255';
         }
         $this->validate($rules);
@@ -57,7 +57,7 @@ new class extends Component {
                 'user_id' => Auth::id(),
                 'amount' => $this->amount,
                 'method' => $this->payment_method,
-                'bybit_email' => $this->payment_method === 'bybit' ? $this->bybit_email : null,
+                'bybit_email' => in_array($this->payment_method, ['bybit', 'binance']) ? $this->bybit_email : null,
                 'screenshot' => $path,
                 'status' => \App\Enums\TopupStatus::Pending,
             ]);
@@ -157,13 +157,13 @@ new class extends Component {
         </flux:select>
         <flux:error name="payment_method" />
 
-        @if($payment_method === 'bybit')
+        @if(in_array($payment_method, ['bybit', 'binance']))
             <flux:input
                 type="email"
                 name="bybit_email"
                 wire:model="bybit_email"
-                label="Bybit Email"
-                placeholder="Enter your Bybit email"
+                label="{{ $payment_method === 'bybit' ? 'Bybit Email' : 'Binance Email' }}"
+                placeholder="Enter your {{ $payment_method === 'bybit' ? 'Bybit' : 'Binance' }} email"
                 required
             />
             <flux:error name="bybit_email" />

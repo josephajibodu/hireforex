@@ -35,6 +35,12 @@ class ManageSettings extends SettingsPage
                     ->maxWidth('4xl')
                     ->required(),
 
+                Forms\Components\TextInput::make('binance_uid')
+                    ->label('Binance UID')
+                    ->inlineLabel()
+                    ->maxWidth('4xl')
+                    ->required(),
+
                 Forms\Components\TextInput::make('usdt_trc')
                     ->label('USDT TRC-20 Address')
                     ->inlineLabel()
