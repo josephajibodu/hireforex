@@ -37,6 +37,7 @@
         ],
     ];
     @endphp
+    
 
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
         @foreach ($quickLinks as $item)
@@ -61,26 +62,30 @@
             </p>
 
             @php
-            // The 'icon' and 'color' keys have been removed from this array.
-            $communityLinks = [
-                [
-                    'href' => 'https://chat.whatsapp.com/Kg9fOLK5IHqC5j6HlHwpIQ?mode=ac_t',
-                    'label' => 'Join WhatsApp Channel',
-                ],
-                [
-                    'href' => 'https://t.me/+-VVhyy8vgkFmODI0',
-                    'label' => 'Join Telegram Channel',
-                ],
-                [
-                    'href' => 'https://wa.link/1ei9gc',
-                    'label' => 'Call HireForex',
-                ],
-                [
-                    'href' => 'https://wa.link/1ei9gc',
-                    'label' => 'Contact Support',
-                ],
-            ];
-            @endphp
+    // The 'icon' and 'color' keys have been removed from this array.
+    $communityLinks = [
+        [
+            'href' => 'https://wa.link/5cx35w',
+            'label' => 'HireForex Guide',
+        ],
+        [
+            'href' => 'https://chat.whatsapp.com/Kg9fOLK5IHqC5j6HlHwpIQ?mode=ac_t',
+            'label' => 'Join WhatsApp Channel',
+        ],
+        [
+            'href' => 'https://t.me/+-VVhyy8vgkFmODI0',
+            'label' => 'Join Telegram Channel',
+        ],
+        [
+            'href' => 'https://wa.link/1ei9gc',
+            'label' => 'Call HireForex',
+        ],
+        [
+            'href' => 'https://wa.link/1ei9gc',
+            'label' => 'Contact Support',
+        ],
+    ];
+@endphp
 
             <div class="flex flex-col gap-3">
                 @foreach ($communityLinks as $link)

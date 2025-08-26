@@ -52,4 +52,11 @@
             </p>
         </div>
     </div>
+    <div class="w-full flex-[0_0_auto] px-[15px] max-w-full mt-[30px]">
+        <div class="border-t border-gray-200/80 pt-6">
+            <p class="text-xs text-gray-500 leading-relaxed">
+                This site is not part of the Facebook website or Meta Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of META, Inc. Facebook provides a platform to deliver advertising but the opinions and or views expressed from Nairaincome.com are not representative of Facebook or META, Inc. Complete details for Facebook’s legal terms are are available at: https://www.facebook.com/legal/terms. All Facebook policies are available at: https://www.facebook.com/policies/
+            </p>
+        </div>
+    </div>
     </div>

@@ -46,6 +46,7 @@ Route::view('/contact-us', 'pages.contact-us')->name('contact-us');
 Route::view('/terms-and-conditions', 'pages.terms')->name('terms-and-conditions');
 Route::view('/privacy-policy', 'pages.privacy')->name('privacy-policy');
 Route::view('/join-the-hireforex-team', 'pages.join-team')->name('join-team');
+Route::view('/news-and-updates', 'pages.news')->name('news-and-updates');
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
