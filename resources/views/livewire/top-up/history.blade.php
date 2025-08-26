@@ -48,7 +48,7 @@ new class extends Component {
                         </flux:badge>
                     </x-table.cell>
                     <x-table.cell>
-                        <x-flux::badge color="{{ $topUp->status === 'pending' ? 'amber' : ($topUp->status === 'completed' ? 'green' : 'red') }}">
+                        <x-flux::badge color="{{ $topUp->status->getFluxColor() }}">
                             {{ ucfirst($topUp->status->getLabel()) }}
                         </x-flux::badge>
                     </x-table.cell>

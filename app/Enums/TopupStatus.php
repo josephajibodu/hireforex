@@ -11,7 +11,7 @@ enum TopupStatus: string implements HasLabel, HasColor
     use HasValues;
 
     case Pending = 'pending';
-    case Completed = 'completed';
+    case Completed = 'confirmed';
     case Cancelled = 'cancelled';
 
 
