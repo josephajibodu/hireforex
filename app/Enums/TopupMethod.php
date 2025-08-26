@@ -12,12 +12,14 @@ enum TopupMethod: string implements HasLabel, HasColor
 
     case ByBit = 'bybit';
     case USDT = 'usdt';
+    case Binance = 'binance';
 
     public function getLabel(): ?string
     {
         return match ($this) {
             self::ByBit => 'ByBit',
             self::USDT => 'USDT',
+            self::Binance => 'Binance',
         };
     }
 
@@ -26,6 +28,7 @@ enum TopupMethod: string implements HasLabel, HasColor
         return match ($this) {
             self::ByBit => 'warning',
             self::USDT => 'success',
+            self::Binance => 'info',
         };
     }
 
@@ -34,6 +37,7 @@ enum TopupMethod: string implements HasLabel, HasColor
         return match ($this) {
             self::ByBit => 'amber',
             self::USDT => 'green',
+            self::Binance => 'blue',
         };
     }
 }

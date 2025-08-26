@@ -48,6 +48,7 @@ class TopUpResource extends Resource
                             ->options([
                                 'bybit' => 'Bybit Transfer',
                                 'usdt' => 'USDT Transfer',
+                                'binance' => 'Binance Transfer',
                             ])
                             ->required()
                             ->label('Payment Method'),
@@ -111,6 +112,7 @@ class TopUpResource extends Resource
                     ->color(fn($record) => match($record->method instanceof \BackedEnum ? $record->method->value : $record->method) {
                         'bybit' => 'warning',
                         'usdt' => 'info',
+                        'binance' => 'success',
                         default => 'gray',
                     }),
 
@@ -165,6 +167,7 @@ class TopUpResource extends Resource
                     ->options([
                         'bybit' => 'Bybit Transfer',
                         'usdt' => 'USDT Transfer',
+                        'binance' => 'Binance Transfer',
                     ]),
 
                 Tables\Filters\Filter::make('created_at')
