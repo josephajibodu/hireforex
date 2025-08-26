@@ -6,9 +6,6 @@ return new class extends SettingsMigration
 {
     public function up(): void
     {
-        $this->migrator->add('general.bybit_uid', 'cardbeta');
-        $this->migrator->add('general.usdt_trc', '-');
-        $this->migrator->add('general.usdt_bep', '-');
         $this->migrator->add('general.binance_uid', '-');
     }
 };

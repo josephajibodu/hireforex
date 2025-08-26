@@ -11,13 +11,14 @@ new class extends Component {
     use WithFileUploads;
 
     public $bybit_uid;
+    public $binance_uid;
     public $usdt_trc;
     public $usdt_bep;
 
     #[Validate('required|numeric|min:1')]
     public $amount = '';
 
-    #[Validate('required|string|in:bybit,usdt')]
+    #[Validate('required|string|in:bybit,usdt,binance')]
     public string $payment_method = 'bybit';
 
     public string $bybit_email = '';
@@ -27,10 +28,11 @@ new class extends Component {
 
     public function mount(GeneralSetting $settings, $type = null)
     {
-        if (in_array($type, ['bybit', 'usdt'])) {
+        if (in_array($type, ['bybit', 'usdt', 'binance'])) {
             $this->payment_method = $type;
         }
         $this->bybit_uid = $settings->bybit_uid;
+        $this->binance_uid = $settings->binance_uid;
         $this->usdt_trc = $settings->usdt_trc;
         $this->usdt_bep = $settings->usdt_bep;
     }
@@ -39,10 +41,10 @@ new class extends Component {
     {
         $rules = [
             'amount' => 'required|numeric|min:1',
-            'payment_method' => 'required|string|in:bybit,usdt',
+            'payment_method' => 'required|string|in:bybit,usdt,binance',
             'screenshot' => 'required|image|max:2048',
         ];
-        if ($this->payment_method === 'bybit') {
+        if (in_array($this->payment_method, ['bybit', 'binance'])) {
             $rules['bybit_email'] = 'required|email|max:255';
         }
         $this->validate($rules);
@@ -55,9 +57,9 @@ new class extends Component {
                 'user_id' => Auth::id(),
                 'amount' => $this->amount,
                 'method' => $this->payment_method,
-                'bybit_email' => $this->payment_method === 'bybit' ? $this->bybit_email : null,
+                'bybit_email' => in_array($this->payment_method, ['bybit', 'binance']) ? $this->bybit_email : null,
                 'screenshot' => $path,
-                'status' => TopUp::STATUS_PENDING,
+                'status' => \App\Enums\TopupStatus::Pending,
             ]);
 
             $this->dispatch('flash-success',
@@ -90,7 +92,7 @@ new class extends Component {
                         <flux:input icon="badge-dollar-sign" value="{{ $bybit_uid }}" readonly copyable />
                     </flux:input.group>
                 </div>
-            @else
+            @elseif($payment_method === 'usdt')
                 <ol class="list-decimal list-inside text-sm text-zinc-800 space-y-1 mb-2 px-4">
                     <li>You can fund your HireForex wallet using <b>USDT transfer</b> (TRC-20 or BEP-20).</li>
                     <li>After making the transfer, submit your amount and screenshot for confirmation.</li>
@@ -110,6 +112,19 @@ new class extends Component {
                             <flux:input value="{{ $usdt_bep }}" readonly copyable />
                         </flux:input.group>
                     </div>
+                </div>
+            @else
+                <ol class="list-decimal list-inside text-sm text-zinc-800 space-y-1 mb-2 px-4">
+                    <li>You can fund your HireForex wallet using <b>Binance transfer</b>.</li>
+                    <li>After making the transfer, submit your amount and screenshot for confirmation.</li>
+                    <li>Your HireForex wallet will be credited within 10 minutes after confirmation.</li>
+                    <li>If payment is not received or invalid, your top-up request will be rejected and you will be notified.</li>
+                </ol>
+                <div class="mt-4">
+                    <div class="font-semibold mb-1">HireForex Binance UID:</div>
+                    <flux:input.group class="inline-flex items-center">
+                        <flux:input icon="badge-dollar-sign" value="{{ $binance_uid }}" readonly copyable />
+                    </flux:input.group>
                 </div>
             @endif
         </div>
@@ -138,16 +153,17 @@ new class extends Component {
         >
             <flux:select.option value="bybit">Bybit Transfer</flux:select.option>
             <flux:select.option value="usdt">USDT Transfer</flux:select.option>
+            <flux:select.option value="binance">Binance Transfer</flux:select.option>
         </flux:select>
         <flux:error name="payment_method" />
 
-        @if($payment_method === 'bybit')
+        @if(in_array($payment_method, ['bybit', 'binance']))
             <flux:input
                 type="email"
                 name="bybit_email"
                 wire:model="bybit_email"
-                label="Bybit Email"
-                placeholder="Enter your Bybit email"
+                label="{{ $payment_method === 'bybit' ? 'Bybit Email' : 'Binance Email' }}"
+                placeholder="Enter your {{ $payment_method === 'bybit' ? 'Bybit' : 'Binance' }} email"
                 required
             />
             <flux:error name="bybit_email" />

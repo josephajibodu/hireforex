@@ -49,12 +49,6 @@ class TopUp extends Model
     public const METHOD_BYBIT = 'bybit';
     public const METHOD_USDT = 'usdt';
 
-    /**
-     * Top-up statuses
-     */
-    public const STATUS_PENDING = 'pending';
-    public const STATUS_CONFIRMED = 'confirmed';
-    public const STATUS_CANCELLED = 'cancelled';
 
     /**
      * Get the user who made this top-up request
@@ -69,7 +63,7 @@ class TopUp extends Model
      */
     public function isPending(): bool
     {
-        return (string) $this->status === self::STATUS_PENDING;
+        return $this->status === TopupStatus::Pending;
     }
 
     /**
@@ -77,7 +71,7 @@ class TopUp extends Model
      */
     public function isConfirmed(): bool
     {
-        return $this->status === self::STATUS_CONFIRMED;
+        return $this->status === TopupStatus::Completed;
     }
 
     /**
@@ -85,7 +79,7 @@ class TopUp extends Model
      */
     public function isCancelled(): bool
     {
-        return $this->status === self::STATUS_CANCELLED;
+        return $this->status === TopupStatus::Cancelled;
     }
 
     /**
@@ -109,7 +103,7 @@ class TopUp extends Model
      */
     public function scopePending($query)
     {
-        return $query->where('status', self::STATUS_PENDING);
+        return $query->where('status', TopupStatus::Pending);
     }
 
     /**
@@ -117,6 +111,6 @@ class TopUp extends Model
      */
     public function scopeConfirmed($query)
     {
-        return $query->where('status', self::STATUS_CONFIRMED);
+        return $query->where('status', TopupStatus::Completed);
     }
 }

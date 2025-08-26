@@ -48,7 +48,7 @@ new class extends Component {
                         </flux:badge>
                     </x-table.cell>
                     <x-table.cell>
-                        <x-flux::badge color="{{ $topUp->status === 'pending' ? 'amber' : ($topUp->status === 'completed' ? 'green' : 'red') }}">
+                        <x-flux::badge color="{{ $topUp->status->getFluxColor() }}">
                             {{ ucfirst($topUp->status->getLabel()) }}
                         </x-flux::badge>
                     </x-table.cell>
@@ -71,7 +71,7 @@ new class extends Component {
                 </div>
                 <div class="flex justify-between">
                     <flux:heading class="font-semibold">Amount:</flux:heading>
-                    <flux:subheading>{{ to_money($topUp->amount, 2, '$') }}</flux:subheading>
+                    <flux:subheading>{{ to_money($topUp->amount, 1, '$') }}</flux:subheading>
                 </div>
                 <div class="flex justify-between">
                     <flux:heading class="font-semibold">Payment Method:</flux:heading>

@@ -44,7 +44,10 @@ src="https://www.facebook.com/tr?id=336961884261891&ev=PageView&noscript=1"
 
                     <flux:navlist.item icon="chart-candlestick" :href="route('traders.index')" :current="request()->routeIs('traders.*')" wire:navigate>{{ __('Hire Traders') }}</flux:navlist.item>
 
-                    <flux:navlist.item icon="arrow-up-circle" :href="route('top-up.create', ['type' => 'bybit'])" :current="request()->routeIs('top-up.create') && request()->query('type') === 'bybit'" wire:navigate>{{ __('Top Up (Bybit)') }}</flux:navlist.item>
+                    <flux:navlist.item icon="arrow-up-right" :href="route('top-up.create', ['type' => 'bybit'])" :current="request()->routeIs('top-up.create') && request()->query('type') === 'bybit'" wire:navigate>{{ __('Top Up (Bybit)') }}</flux:navlist.item>
+
+                    <flux:navlist.item icon="arrow-right-left" :href="route('top-up.create', ['type' => 'binance'])" :current="request()->routeIs('top-up.create') && request()->query('type') === 'binance'" wire:navigate>{{ __('Top Up (Binance)') }}</flux:navlist.item>
+
                     <flux:navlist.item icon="arrow-up-circle" :href="route('top-up.create', ['type' => 'usdt'])" :current="request()->routeIs('top-up.create') && request()->query('type') === 'usdt'" wire:navigate>{{ __('Top Up (USDT)') }}</flux:navlist.item>
 
                     <flux:navlist.item icon="send" :href="route('transfer.create')" :current="request()->routeIs('transfer.*')" wire:navigate>{{ __('Transfer') }}</flux:navlist.item>
