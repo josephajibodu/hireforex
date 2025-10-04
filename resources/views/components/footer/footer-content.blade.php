@@ -16,12 +16,12 @@
                 <li class="mt-[0.35rem]"><a class="text-[#60697b] hover:text-[#60697b]" href="mailto:support@hireforex.com">support@hireforex.com</a></li>
                 <li class="mt-4">
                     <p class="text-sm text-gray-500 mb-2">HireForex is available in:</p>
-                    <div class="flex items-center gap-3">
-                        <img class="h-5 rounded-sm" src="https://flagcdn.com/ng.svg" alt="Nigeria flag" title="Nigeria">
-                        <img class="h-5 rounded-sm" src="https://flagcdn.com/za.svg" alt="South Africa flag" title="South Africa">
-                        <img class="h-5 rounded-sm" src="https://flagcdn.com/ke.svg" alt="Kenya flag" title="Kenya">
-                        <img class="h-5 rounded-sm" src="https://flagcdn.com/gh.svg" alt="Ghana flag" title="Ghana">
-                    </div>
+              <div class="flex items-center gap-3">
+    <img class="h-5 rounded-sm" src="https://flagcdn.com/ng.svg" alt="Nigeria flag" title="Nigeria">
+    <img class="h-5 rounded-sm" src="https://flagcdn.com/za.svg" alt="South Africa flag" title="South Africa">
+    <img class="h-5 rounded-sm" src="https://flagcdn.com/ke.svg" alt="Kenya flag" title="Kenya">
+    <img class="h-5 rounded-sm" src="https://flagcdn.com/gh.svg" alt="Ghana flag" title="Ghana">
+</div>
                 </li>
             </ul>
         </div>

@@ -1,32 +1,22 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '336961884261891');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=336961884261891&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
         <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17495667031">
-</script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17495667031"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-17495667031');
+        </script>
+        <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DY6EZGLLMV"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'AW-17495667031');
+  gtag('config', 'G-DY6EZGLLMV');
 </script>
         @include('partials.head')
     </head>
@@ -48,7 +38,6 @@ src="https://www.facebook.com/tr?id=336961884261891&ev=PageView&noscript=1"
                                 </span>
                             </a>
 
-                            <!-- ===== Conditional Links Added Here ===== -->
                             @guest
                                 <a href="{{ route('login') }}"
                                    wire:navigate
@@ -79,9 +68,8 @@ src="https://www.facebook.com/tr?id=336961884261891&ev=PageView&noscript=1"
                                     </span>
                                 </a>
                             @endauth
-                            <!-- ===== End of Conditional Links ===== -->
-
                         </div>
+
                         <div class="fixed top-0 left-0 z-40 items-center hidden w-full h-full p-3 text-sm bg-accent bg-opacity-50 md:w-auto md:bg-transparent md:p-0 md:relative md:flex" :class="{'flex': showMenu, 'hidden': !showMenu }">
                             <div class="flex-col items-center w-full h-full p-3 overflow-hidden bg-white bg-opacity-50 rounded-lg select-none md:p-0 backdrop-blur-lg md:h-auto md:bg-transparent md:rounded-none md:relative md:flex md:flex-row md:overflow-auto">
                                 <div class="flex flex-col items-center justify-end w-full h-full pt-2 md:w-full md:flex-row md:py-0">
@@ -96,6 +84,7 @@ src="https://www.facebook.com/tr?id=336961884261891&ev=PageView&noscript=1"
                                 </div>
                             </div>
                         </div>
+
                         <div @click="showMenu = !showMenu" class="absolute right-0 z-50 flex flex-col items-end translate-y-1.5 w-10 h-10 p-2 mr-4 rounded-full cursor-pointer md:hidden hover:bg-gray-200/10 hover:bg-opacity-10" :class="{ 'text-accent': showMenu, 'text-accent': !showMenu }">
                             <svg class="w-6 h-6" x-show="!showMenu" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" x-cloak>
                                 <path d="M4 6h16M4 12h16M4 18h16"></path>
