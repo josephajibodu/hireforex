@@ -31,6 +31,35 @@
                 </li>
             </ul>
         </div>
+        
+        <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
+            <flux:heading size="lg" class="text-blue-800 dark:text-blue-200 mb-3">HireForex Terms Explained:</flux:heading>
+            <ul class="text-blue-700 dark:text-blue-300 space-y-2 text-sm">
+                <li class="flex items-start gap-2">
+                    <span class="text-blue-500 font-semibold">•</span>
+                    <span><strong>MBG Rate</strong> – It means the percentage that is covered by HireForex Money-Back-Guarantee.
+                    <br>A higher MBG Rate = lower risk, because if a covered trade loses, your full capital is refunded.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="text-blue-500 font-semibold">•</span>
+                    <span><strong>Track Record</strong> –A quick summary of the trader’s past performance and consistency.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="text-blue-500 font-semibold">•</span>
+                    <span><strong>Favorite Pair</strong> – The currency pair(s) the trader is most skilled or comfortable trading.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="text-blue-500 font-semibold">•</span>
+                    <span><strong>Min Capital</strong> – The minimum amount of money you need to hire this trader for a session. 
+                    <br>Example: If Min Capital is $50, you must have at least $50 for that trade.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="text-blue-500 font-semibold">•</span>
+                    <span><strong>Available Volume</strong> – The total capital the trader can accept from all clients at that moment.
+                    <br>Example: If a trader's available volume = $2,500 it means the trader can still take up to $2,500 across all hires before their limit is reached.</span>
+                </li>
+            </ul>
+        </div>
 
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             @foreach($traders as $trader)

@@ -42,20 +42,20 @@
                <p>This completely changes the game. Instead of risking your money, you’re making a calculated move where losses are capped and your downside is protected.</p>
 
                <h2 class="text-xl font-semibold">Examples</h2>
-               <p><strong>Example (1)</strong>, if you hire a trader that offers 120% returns and a 100% MBG with $100:</p>
+               <p><strong>Example (1)</strong>, if you hire a trader that offers 120% returns and a 100% MBG with $100 (₦160,000):</p>
                <ul class="list-disc pl-6 space-y-1">
-                   <li>If the trade is a success, you get $120.</li>
-                   <li>If the trade is a loss, you get your $100 back.</li>
+                   <li>If the trade is a success, you get $120 (₦192,000).</li>
+                   <li>If the trade is a loss, you get your $100 (₦160,000) back.</li>
                </ul>
-               <p><strong>Example (2)</strong>, If you hire a trader on HireForex that offers 130% returns and a 99% MBG with $50:</p>
+               <p><strong>Example (2)</strong>, If you hire a trader on HireForex that offers 130% returns and a 99% MBG with $50 (₦80,000):</p>
                <ul class="list-disc pl-6 space-y-1">
-                   <li>If the trade is a success, you get $65.</li>
-                   <li>If the trade is a loss, you get back $49.50.</li>
+                   <li>If the trade is a success, you get $65 (₦104,000).</li>
+                   <li>If the trade is a loss, you get back $49.50 (₦79,200).</li>
                </ul>
-               <p><strong>Example (3)</strong>: If you hire a trader that offers 120% returns and a 100% MBG with $200:</p>
+               <p><strong>Example (3)</strong>: If you hire a trader that offers 120% returns and a 100% MBG with $200 (₦320,000). :</p>
                <ul class="list-disc pl-6 space-y-1">
-                   <li>If the trade is a success, you get $240.</li>
-                   <li>If the trade is a loss, you get your $200 back.</li>
+                   <li>If the trade is a success, you get $240 (₦384,000).</li>
+                   <li>If the trade is a loss, you get your $200 (₦320,000)  back.</li>
                </ul>
                <p>In all cases, you have protect your capital — and that’s the power of MBG.</p>
 
@@ -70,20 +70,19 @@
 
                <h2 class="text-xl font-semibold">The Method I Use to Always Remain Profitable (The best part)</h2>
                <p>To stay consistently profitable, always choose a trader on HireForex with a 100% Money-Back Guarantee (MBG). This way, if the trade is negative, you get back 100% of your capital, and if it wins, you earn a solid profit.</p>
-               <p>To get started, simply register a free HireForex account, fund your balance, and choose a trader based on performance, MBG rate, potential return, and trading duration. Once you confirm the amount, the trader handles everything. At the end of the session, your profit or refund is credited to your balance, and you can withdraw anytime with a small 3% fee.</p>
-               <p>In a time where risks are everywhere and people lose money chasing “quick wins,” the HireForex model offers something rare, which is a way to make more income while protecting your starting capital.</p>
+               <p>To get started, You need to know how to open a HireForex account, fund your balance, and choose a trader based on performance, MBG rate, potential return, and trading duration.</p>
                <p>It’s not magic. It’s not a get-rich-quick scheme, but it’s a smart system that puts you in control, with the best traders doing the work and MBG reducing your risk.</p>
-               <p>I have put together a short, free guide that shows you exactly how to start, choose traders wisely, and protect your capital while growing it.</p>
-               <p>If you would like the free guide or direct access to the HireForex website, simply click on the button below, and register to get the guide immediately.</p>
-               <p>After you have registered, click on HireForex Guide to get the the guide</p>
+               <p>I have put together a short, free online webinar that shows you exactly how to start, choose traders wisely, and protect your capital while growing it.</p>
+               <p>If you would like to join the free online webinar,  simply click on the button below, and join the WhatsApp Group</p>
+               <p>Once you have joined the group, I will share the webinar link with you, and you’ll be able to watch it live.</p>
 
                <div class="text-center">
-                   <a href="https://hireforex.com/register" class="inline-block px-6 py-3 text-lg font-bold text-black bg-blue-600 rounded-md hover:bg-blue-700 transition-colors duration-200">CLICK HERE TO REGISTER AND GET THE GUIDE</a>
+                   <a href="https://chat.whatsapp.com/Ba9Cs0LZEdmFgtbzU10GxK?mode=ems_copy_t" class="inline-block px-6 py-3 text-lg font-bold text-black bg-blue-600 rounded-md hover:bg-blue-700 transition-colors duration-200">CLICK HERE TO JOIN THE WEBINAR WHATSAPP GROUP</a>
                </div>
 
                <div class="bg-yellow-50 border border-yellow-200 text-yellow-800 p-4 rounded-md mt-6">
-                   ⚠️ <strong>P.S:</strong> Some people are currently charging a fee just to share this same website link that I’m giving you today for free. Don’t waste the opportunity.
-                   <p class="mt-2">Click the link above or send a WhatsApp message with the word “Guide,” and I will send it to you instantly—free of charge.</p>
+                   ⚠️ <strong>P.S:</strong> Some people are currently charging a fee just to share this same information that I’m giving you today for free. Don’t waste the opportunity.
+                   <p class="mt-2">Click the link above to register and I will send it to you instantly—free of charge.</p>
                </div>
            </div>
        </div>

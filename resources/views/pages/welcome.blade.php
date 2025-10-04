@@ -21,14 +21,14 @@
                     </flux:button>
                 </div>
                 <div class="mt-8">
-                <p class="text-sm text-gray-500 mb-3">Currently available in</p>
-                <div class="flex justify-center items-center gap-4">
-                    <img class="h-6 rounded-md" src="https://flagcdn.com/ng.svg" alt="Nigeria flag" title="Nigeria">
-                    <img class="h-6 rounded-md" src="https://flagcdn.com/za.svg" alt="South Africa flag" title="South Africa">
-                    <img class="h-6 rounded-md" src="https://flagcdn.com/ke.svg" alt="Kenya flag" title="Kenya">
-                    <img class="h-6 rounded-md" src="https://flagcdn.com/gh.svg" alt="Ghana flag" title="Ghana">
-                </div>
-            </div>
+    <p class="text-sm text-gray-500 mb-3">Currently available in</p>
+    <div class="flex justify-center items-center gap-4">
+    <img class="h-6 rounded-md" src="https://flagcdn.com/ng.svg" alt="Nigeria flag" title="Nigeria">
+    <img class="h-6 rounded-md" src="https://flagcdn.com/za.svg" alt="South Africa flag" title="South Africa">
+    <img class="h-6 rounded-md" src="https://flagcdn.com/ke.svg" alt="Kenya flag" title="Kenya">
+    <img class="h-6 rounded-md" src="https://flagcdn.com/gh.svg" alt="Ghana flag" title="Ghana">
+</div>
+</div>
             </div>
         </div>
     </section>
@@ -74,23 +74,23 @@
                     <h3 class="mb-3 text-xl font-bold">Our Active Regions</h3>
                     
                     <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-gray-600">
-                        <span class="inline-flex items-center gap-2">
-                            <img class="w-5 rounded-sm" src="https://flagcdn.com/ng.svg" alt="Nigeria flag">
-                            Nigeria
-                        </span>
-                        <span class="inline-flex items-center gap-2">
-                            <img class="w-5 rounded-sm" src="https://flagcdn.com/za.svg" alt="South Africa flag">
-                            South Africa
-                        </span>
-                        <span class="inline-flex items-center gap-2">
-                            <img class="w-5 rounded-sm" src="https://flagcdn.com/ke.svg" alt="Kenya flag">
-                            Kenya
-                        </span>
-                        <span class="inline-flex items-center gap-2">
-                            <img class="w-5 rounded-sm" src="https://flagcdn.com/gh.svg" alt="Ghana flag">
-                            Ghana
-                        </span>
-                    </div>
+    <span class="inline-flex items-center gap-2">
+        <img class="w-5 rounded-sm" src="https://flagcdn.com/ng.svg" alt="Nigeria flag">
+        Nigeria
+    </span>
+    <span class="inline-flex items-center gap-2">
+        <img class="w-5 rounded-sm" src="https://flagcdn.com/za.svg" alt="South Africa flag">
+        South Africa
+    </span>
+    <span class="inline-flex items-center gap-2">
+        <img class="w-5 rounded-sm" src="https://flagcdn.com/ke.svg" alt="Kenya flag">
+        Kenya
+    </span>
+    <span class="inline-flex items-center gap-2">
+        <img class="w-5 rounded-sm" src="https://flagcdn.com/gh.svg" alt="Ghana flag">
+        Ghana
+    </span>
+</div>
                 </div>
             </div>
         </div>
